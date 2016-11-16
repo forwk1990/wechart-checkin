@@ -1,0 +1,71 @@
+
+.cd-row{
+    display:block;
+    width:7rem;
+    margin:0 auto;
+    z-index:2;
+
+    .cd-column{
+        width:1.5rem;
+        display:block;
+        padding-left:0rem;
+        padding-right:0rem;
+        margin-left:0.125rem;
+        margin-right: 0.125rem;;
+        text-align: center;
+        font-weight: 500;
+        color:#ffffff;
+    }
+
+    .cd-column.cd-column-title{
+        font-size:0.4rem;
+        line-height: 0.6rem;
+        text-shadow:0rem 0rem 0.2rem #000000;
+    }
+    .cd-column.cd-column-value{
+        display:inline-block;
+        height:1.65rem;
+        line-height: 1.65rem;
+        background: url("../../assets/images/count-down-background.png") top center;
+        background-size: 1.65rem 1.65rem;
+        font-size:1.15rem;
+        box-sizing: border-box;
+        border-radius: 0.3rem;
+    }
+}
+
+.count-down{
+    display:block;;
+    width:7.5rem;
+    margin:0 auto;
+    z-index:2;
+}
+
+.count-down-title{
+    display: block;
+    text-align: center;
+    line-height: 0.6rem;
+    width:1.5rem;
+    font-weight: 500;
+    font-size:0.4rem;
+    color:#ffffff;
+    text-shadow:0rem 0rem 0.2rem #000000;
+}
+
+.count-down-value{
+    display:inline-block;
+    text-align: center;
+    /*font-family: "HelveticaLTStd BoldCond";*/
+    width:1.5rem;
+    height:1.5rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    background: url("../../assets/images/count-down-background.png") top center;
+    background-size: 1.5rem 1.5rem;
+    font-size:1.15rem;
+    color:#ffffff;
+    box-sizing: border-box;
+    border-radius: 0.3rem;
+    /*border:1px solid #000000;*/
+    /*box-shadow: 0 0 0.125rem rgba(0,0,0,0.6);*/
+}

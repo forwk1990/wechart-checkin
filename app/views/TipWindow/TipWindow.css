@@ -1,0 +1,91 @@
+.tip-modal {
+  display: block; }
+  .tip-modal .tip-modal-bg {
+    background: #000000;
+    background: black;
+    bottom: 0;
+    opacity: 0.5;
+    display: block;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1004;
+    left: 0; }
+  .tip-modal .tip-modal-content {
+    border-radius: 4px;
+    display: block;
+    position: fixed;
+    margin: auto auto;
+    padding: 0 !important;
+    top: calc(50% - 7.25rem);
+    top: -webkit-calc(50% - 7.25rem);
+    width: 12rem;
+    height: 14.5rem;
+    z-index: 1005;
+    left: calc(50% - 6rem);
+    left: -webkit-calc(50% - 6rem);
+    background: url("../../assets/images/dialog-background.png") top center no-repeat;
+    background-size: cover;
+    padding: 1.66667rem;
+    border: solid 1px #02f0ff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }
+    .tip-modal .tip-modal-content p.title, .tip-modal .tip-modal-content p.cut-price, .tip-modal .tip-modal-content p.product-name, .tip-modal .tip-modal-content p.product-origin-price, .tip-modal .tip-modal-content p.product-price {
+      margin-bottom: 0;
+      display: block;
+      width: 100%;
+      text-align: center; }
+    .tip-modal .tip-modal-content p.title {
+      color: #01d0ff;
+      font-size: 0.95rem;
+      line-height: 0.95rem;
+      height: 0.95rem;
+      margin-top: 2.5rem; }
+    .tip-modal .tip-modal-content p.cut-price {
+      color: #FFFFFF;
+      font-size: 2rem;
+      line-height: 2rem;
+      height: 2rem;
+      margin-top: 0.55rem; }
+    .tip-modal .tip-modal-content p.product-name {
+      color: rgba(2, 240, 255, 0.5);
+      font-size: 9px;
+      line-height: 9px;
+      height: 9px;
+      margin-top: 1.8rem; }
+    .tip-modal .tip-modal-content p.product-origin-price {
+      color: rgba(2, 240, 255, 0.5);
+      font-size: 12px;
+      line-height: 12px;
+      height: 12px;
+      margin-top: 0.2rem; }
+    .tip-modal .tip-modal-content p.product-price {
+      color: #4ef625;
+      font-size: 15px;
+      line-height: 15px;
+      height: 15px;
+      margin-top: 1rem; }
+    .tip-modal .tip-modal-content div.know {
+      margin-top: 1rem;
+      padding: 0 0.5rem 0 0.5rem; }
+
+.tip-content-appear {
+  opacity: 0.01; }
+
+.tip-content-appear-active {
+  opacity: 1;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-name: bounceInDown;
+  animation-name: bounceInDown; }
+
+.tip-content-leave {
+  opacity: 1; }
+
+.tip-content-leave-active {
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-name: zoomOut;
+  animation-name: zoomOut; }
+
+/*# sourceMappingURL=TipWindow.css.map */

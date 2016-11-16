@@ -1,0 +1,13 @@
+# if directories or files has been tracked by git, ignore file will not work.
+# we should tracked directories and files once again.
+# you can simply delete directories or files that which is already tracked by git,
+# and commit it to git repository to refresh the tracking state.
+
+# ignore node_modules,because it's too big.
+# everybody clone or pull this repository should run 'npm install'.
+
+node_modules/
+
+# it's a direcotry whitch contains files and directory to be deployed on server
+# we can generate it automatically by running 'npm run deploy' on the command line in current directory.
+dist/
