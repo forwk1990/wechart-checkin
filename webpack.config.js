@@ -3,8 +3,14 @@
  * on 2016-10-20.
  */
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 var path = require('path');
 var webpack = require('webpack');
+
+var rucksack =  require('rucksack-css');
+var autoprefixer = require('autoprefixer');
+
 //var WebpackDevServer = require("webpack-dev-server");
 
 // var CURRENT_PATH = path.resolve(__dirname); // 获取到当前目录
@@ -14,17 +20,27 @@ var webpack = require('webpack');
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+let theme = {
+    "@font-size-heading":"20px"
+};
+
 const px2rem = require('postcss-plugin-px2rem');
 const px2remOpts = {
     rootValue : 100,
     propWhiteList: []
 }
 
-//const host = "192.168.2.112"; // 家用
-const host = "192.168.31.208"; // 公司
+const host = "192.168.2.112"; // 家用
+//const host = "192.168.31.208"; // 公司
 
 module.exports = {
-    postcss:[px2rem(px2remOpts)],
+    devtool: 'source-map',
+    postcss:[
+        rucksack(),
+        autoprefixer({
+            browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
+        }),
+    ],
     // The base directory (absolute path!) for resolving the entry option
     context: __dirname,
     entry: {
@@ -59,7 +75,7 @@ module.exports = {
     //热部署相关配置
     devServer: {
         historyApiFallback: true,
-        contentBase: "./",   //服务器目录 
+        contentBase: "./",   //服务器目录
         quiet: false, //控制台中不输出打包的信息
         noInfo: false,
         hot: true,
@@ -103,7 +119,10 @@ module.exports = {
             showErrors: false
 
         }),
-
+        new ExtractTextPlugin("[name].cs", {
+            disable: false,
+            allChunks: true,
+        }),
         /*
          * The Webpack DefinePlugin allows you to create "Magic" global variables for your app
          * that Webpack will replace when it bundles your project.
@@ -129,6 +148,18 @@ module.exports = {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'url-loader?limit=184800&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
             },
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract(
+                    'css?sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!' +
+                    'postcss!' +
+                    `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+                ),
+            },
+            //{
+            //    test: /\.less$/,
+            //    loader: 'style!css!less?{"modifyVars":{"@font-size-heading":"20px"}}'
+            //},
             {
                 test: /\.css$/,
                 loader: 'style!css'

@@ -18,6 +18,13 @@
   overflow: hidden;
   padding:40px;
 
+
+  .topline{
+    background-color:#999999;
+    width:100px;
+    height:1px;
+  }
+
   .date{
     font-size:24px;
     font-family: "PingFang SC";
@@ -28,6 +35,8 @@
     font-family: "PingFang SC";
     color:#999999;
     font-size: 24px;
+    margin-bottom:36px;
+    margin-top:30px;
   }
 
   .address{
