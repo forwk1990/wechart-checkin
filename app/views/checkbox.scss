@@ -1,0 +1,66 @@
+
+%checkbox-base-font{
+  font-size: 28px;
+  font-family: "PingFang SC";
+  color:#333333;
+}
+
+.checkbox{
+
+  padding-bottom:30px;
+  border-bottom: 1PX solid #ddd;
+
+  &-label{
+    @extend %checkbox-base-font;
+    margin-top:38px;
+    margin-bottom: 30px;
+    display:block;
+  }
+
+  &-item{
+
+    display:flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items: center;
+    margin:15px 0px 15px 0px;
+
+    &-flag{
+      display:flex;
+      display: -webkit-flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width:32px;
+      height:32px;
+      margin-right:20px;
+      border-radius: 1px;
+      border:1px solid #999999;
+
+      &-inner{
+        width:24px;
+        height:24px;
+        border:1px solid #999999;
+      }
+
+      &-inner-selected{
+        background-color:#52D82E;
+        border:0px;
+      }
+
+    }
+
+    &-selected{
+      border:1px solid #52D82E;
+    }
+
+    &-label{
+      @extend %checkbox-base-font;
+    }
+
+  }
+
+
+
+}

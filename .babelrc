@@ -3,7 +3,7 @@
     [
       "import",
       {
-        "style": "less",
+        "style": true,
         "libraryName": "antd-mobile"
       }
     ]

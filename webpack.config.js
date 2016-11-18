@@ -21,8 +21,14 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let theme = {
-    "@font-size-heading":"20px"
+    "@font-size-heading":"20px",
+    "@font-size-input-label":"28px",
+    "@h-spacing-lg":"0px",
+    "@font-size-popup-title":"24px",
+    "@font-size-popup-selected":"36px",
 };
+
+const lessLoader = 'style!css!less?{"modifyVars":'+ JSON.stringify(theme)+'}';
 
 const px2rem = require('postcss-plugin-px2rem');
 const px2remOpts = {
@@ -30,8 +36,8 @@ const px2remOpts = {
     propWhiteList: []
 }
 
-const host = "192.168.2.112"; // 家用
-//const host = "192.168.31.208"; // 公司
+//const host = "192.168.2.112"; // 家用
+const host = "192.168.31.208"; // 公司
 
 module.exports = {
     devtool: 'source-map',
@@ -119,6 +125,7 @@ module.exports = {
             showErrors: false
 
         }),
+
         new ExtractTextPlugin("[name].cs", {
             disable: false,
             allChunks: true,
@@ -141,25 +148,25 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015','stage-0', 'react']
                 }
             },
             {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'url-loader?limit=184800&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
             },
-            {
-                test: /\.less$/,
-                loader: ExtractTextPlugin.extract(
-                    'css?sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!' +
-                    'postcss!' +
-                    `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
-                ),
-            },
             //{
             //    test: /\.less$/,
-            //    loader: 'style!css!less?{"modifyVars":{"@font-size-heading":"20px"}}'
+            //    loader: ExtractTextPlugin.extract(
+            //        'css?sourceMap' +
+            //        'postcss!' +
+            //        'less?{"sourceMap":true,"modifyVars":{"@font-size-heading":"20px"}}'
+            //    )
             //},
+            {
+                test: /\.less$/,
+                loader: lessLoader
+            },
             {
                 test: /\.css$/,
                 loader: 'style!css'

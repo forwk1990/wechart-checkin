@@ -1,0 +1,39 @@
+
+
+.edit{
+
+  overflow-x: hidden;
+
+  &-hello{
+    font-size:48px;
+    font-family: "PingFang SC";
+    font-weight: 500;
+    margin-bottom: 20px;
+    display:block;
+  }
+  
+  .desc{
+    font-size: 24px;
+    color:#999999;
+    font-family: "PingFang SC";
+    display: block;
+    margin-bottom: 40px;
+  }
+
+  &-submit{
+    height:100px;
+    text-decoration: none;
+    margin:0 auto;
+    display: block;
+    border:1px solid #333333;
+    color:#333333;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 50px;
+    margin-top:50px;
+    font-size:28px;
+    font-family: "PingFang SC";
+    font-weight: 500;
+  }
+
+}

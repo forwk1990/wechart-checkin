@@ -3,21 +3,21 @@
  */
 
 /*
-* 开发环境下，开启HttpRequestMock。
-* */
-if(__DEV__){
+ * 开发环境下，开启HttpRequestMock。
+ * */
+if (__DEV__) {
     require("../utils/HttpRequestMock.js");
 }
 
 let AppConfig = require("./AppConfig.js");
 
-function sendRequest(url,parameters){
+function sendRequest(url, parameters) {
 
-    return new Promise(function(resolve,reject){
+    return new Promise(function (resolve, reject) {
 
         // initialize the form data
         var formData = new FormData();
-        Object.assign(formData,parameters);
+        Object.assign(formData, parameters);
 
         /*
          * initialize the xml http request level2
@@ -27,51 +27,35 @@ function sendRequest(url,parameters){
          * 3、XmlHttpRequest level 2 is the newest version,it can send request across origin and build formData with new interface.
          * */
         var client = new XMLHttpRequest();
-        client.open('POST',url);
+        client.open('POST', url);
         client.onreadystatechange = handler;
         client.responseType = 'json';
-        client.setRequestHeader('Accept','application/json');
+        client.setRequestHeader('Accept', 'application/json');
         client.send(formData);
 
-        function handler(){
-            if(this.readyState !== 4){
+        function handler() {
+            if (this.readyState !== 4) {
                 return;
             }
-            if(this.status === 200){
+            if (this.status === 200) {
                 const responseObject = JSON.parse(this.response);
-                if(responseObject.status == 1){
+                console.info(responseObject);
+                if (responseObject.status == 1) {
                     resolve(responseObject.data);
-                }else{
+                } else {
                     reject("this must be server error!");
                 }
-            }else{
+            } else {
                 reject(new Error(this.statusText));
             }
         }
     });
 }
 
-module.exports = {
-    /*
-    * 获取商品砍价信息
-    * @param parameters:Object 请求参数
-    * */
-    getBargainInfo:function(parameters){
-        return sendRequest(AppConfig.ApiConfig.getBarginInfo,parameters);
-    },
-    /*
-     * 获取参与列表信息
-     * @param parameters:Object 请求参数
-     * */
-    getParticipationList:function(parameters){
-        return sendRequest(AppConfig.ApiConfig.getParticipationList,parameters);
-    },
-    /*
-     * 获取好友榜列表信息
-     * @param parameters:Object 请求参数
-     * */
-    getFriendList:function(parameters){
-        return sendRequest(AppConfig.ApiConfig.getFriendList,parameters);
+Object.keys(AppConfig.ApiConfig).map(key => Object.defineProperty(module.exports, key, {
+        enumerable: false,
+        get: () => parameters => sendRequest(AppConfig.ApiConfig[key], parameters)
     }
-};
+));
+
 
