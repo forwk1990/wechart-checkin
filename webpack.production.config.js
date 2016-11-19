@@ -2,9 +2,16 @@
  * Created by Rains
  * on 2016-10-20.
  */
- var path = require('path');
- var webpack = require('webpack');
- //var WebpackDevServer = require("webpack-dev-server");
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var path = require('path');
+var webpack = require('webpack');
+
+var rucksack =  require('rucksack-css');
+var autoprefixer = require('autoprefixer');
+
+//var WebpackDevServer = require("webpack-dev-server");
 
 // var CURRENT_PATH = path.resolve(__dirname); // 获取到当前目录
 // var ROOT_PATH = path.join(__dirname, '../'); // 项目根目录
@@ -13,23 +20,46 @@
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-//const host = "192.168.2.112:8787"; // 家用
-//const host = "192.168.31.208:8787"; // 公司
-const host = "www.bj-evetime.com";
+let theme = {
+    "@font-size-heading":"20px",
+    "@font-size-input-label":"28px",
+    "@h-spacing-lg":"0px",
+    "@font-size-popup-title":"24px",
+    "@font-size-popup-selected":"36px",
+};
+
+const lessLoader = 'css!less?{"modifyVars":'+ JSON.stringify(theme)+'}';
+
+const px2rem = require('postcss-plugin-px2rem');
+const px2remOpts = {
+    rootValue : 100,
+    propWhiteList: []
+}
+
+const host = "192.168.2.112"; // 家用
+//const host = "192.168.31.208"; // 公司
 
 module.exports = {
+    //devtool
+    // : 'source-map',
+    postcss:[
+        rucksack(),
+        autoprefixer({
+            browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
+        }),
+    ],
+    // The base directory (absolute path!) for resolving the entry option
     context: __dirname,
     entry: {
-        app: './app/entry.js',
-        app1:'./app/entry1.js'
-    },
+        app: './app/entry.js'
+    }, // we can also write path.resolve(__dirname,'app/entry.js') without context setting
     output: {
         /*
-        * the output.path directory as absolute path
-        * */
+         * the output.path directory as absolute path
+         * */
         path: path.join(__dirname, 'dist'),
-        filename: 'javascripts/[chunkhash].js',
-        publicPath: "http://"+host+"/"
+        filename: 'index.js',
+        publicPath: "http://" + host + ":8787/"
     },
 
     resolve: {
@@ -46,10 +76,13 @@ module.exports = {
          * */
         extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
     },
+
+    debug: true,
+
     //热部署相关配置
     devServer: {
         historyApiFallback: true,
-        contentBase: "./",   //服务器目录 
+        contentBase: "./",   //服务器目录
         quiet: false, //控制台中不输出打包的信息
         noInfo: false,
         hot: true,
@@ -81,37 +114,22 @@ module.exports = {
             jQuery: 'jquery',
             'window.jQuery': 'jquery'
         }),
-        //生成index.html页面
+
         new HtmlWebpackPlugin({
             title: '砍价',
             filename: 'index.html',
             template: 'template/index.template.html',      //按照此文件内容生成index.html
             inject: 'body',
-            chunks:['app1'],
             minify: false,
             hash: true,
             cache: false,
             showErrors: false
 
         }),
-        new HtmlWebpackPlugin({
-            title: '砍价1',
-            filename: 'index1.html',
-            template: 'template/index.template.html',      //按照此文件内容生成index.html
-            inject: 'body',
-            chunks:['app'],
-            minify: false,
-            hash: true,
-            cache: false,
-            showErrors: false
 
-        }),
-        // 代码压缩
-        new webpack.optimize.UglifyJsPlugin({
-            test: /(\.jsx|\.js)$/,
-            compress: {
-                warnings: false
-            },
+        new ExtractTextPlugin("[name].cs", {
+            disable: false,
+            allChunks: true,
         }),
         /*
          * The Webpack DefinePlugin allows you to create "Magic" global variables for your app
@@ -121,32 +139,44 @@ module.exports = {
          * conditionally included "development" JavaScript file
          * */
         new webpack.DefinePlugin({
-            __DEV__: 'false'
+            __DEV__: 'false',
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
         })
     ],
-
     module: {
-	loaders: [
-		{
-			  test: /\.jsx?$/,
-			  exclude: /node_modules/,
-			  loader: 'babel',
-			  query: {
-			    presets: ['es2015','react']
-			  }
-		},
-		{
-			   test: /\.(png|jpg|gif)$/,
-			   loader: 'url-loader?limit=20480&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
-		},
-		{
-			 test: /\.css$/,
-			 loader: 'style!css'
-		},
-        {
-            test: /\.scss$/,
-            loaders: ["style", "css", "sass"]
-        }
-	]
-  }
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                    presets: ['es2015','stage-0', 'react']
+                }
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url-loader?limit=184800&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
+            },
+            //{
+            //    test: /\.less$/,
+            //    loader: ExtractTextPlugin.extract(
+            //        'css?sourceMap' +
+            //        'postcss!' +
+            //        'less?{"sourceMap":true,"modifyVars":{"@font-size-heading":"20px"}}'
+            //    )
+            //},
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract(lessLoader)
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css'
+            },
+            {
+                test: /\.scss$/,
+                loaders: ["style", 'css', "sass"]
+            }
+        ]
+    }
 }

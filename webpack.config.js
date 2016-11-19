@@ -8,7 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
 
-var rucksack =  require('rucksack-css');
+var rucksack = require('rucksack-css');
 var autoprefixer = require('autoprefixer');
 
 //var WebpackDevServer = require("webpack-dev-server");
@@ -21,32 +21,27 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let theme = {
-    "@font-size-heading":"20px",
-    "@font-size-input-label":"28px",
-    "@h-spacing-lg":"0px",
-    "@font-size-popup-title":"24px",
-    "@font-size-popup-selected":"36px",
+    "@font-size-heading": "20px",
+    "@font-size-input-label": "28px",
+    "@h-spacing-lg": "0px",
+    "@font-size-popup-title": "24px",
+    "@font-size-popup-selected": "36px",
 };
 
-const lessLoader = 'style!css!less?{"modifyVars":'+ JSON.stringify(theme)+'}';
+const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';
 
-const px2rem = require('postcss-plugin-px2rem');
+const px2rem = require('postcss-pxtorem');
 const px2remOpts = {
-    rootValue : 100,
+    rootValue: 100,
     propWhiteList: []
 }
 
-//const host = "192.168.2.112"; // 家用
-const host = "192.168.31.208"; // 公司
+const host = "192.168.2.112"; // 家用
+//const host = "192.168.31.208"; // 公司
 
 module.exports = {
     devtool: 'source-map',
-    postcss:[
-        rucksack(),
-        autoprefixer({
-            browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
-        }),
-    ],
+    postcss: [px2rem(px2remOpts)],
     // The base directory (absolute path!) for resolving the entry option
     context: __dirname,
     entry: {
@@ -148,7 +143,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
-                    presets: ['es2015','stage-0', 'react']
+                    presets: ['es2015', 'stage-0', 'react']
                 }
             },
             {
@@ -173,7 +168,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loaders: ["style", 'css', "sass"]
+                loaders: ["style", 'css', 'postcss', "sass"]
             }
         ]
     }
