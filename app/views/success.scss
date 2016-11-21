@@ -1,0 +1,53 @@
+
+
+$prefixCls: success;
+
+.#{$prefixCls}-page{
+  display:block;
+  padding-left:40px;
+  padding-right:40px;
+
+
+  &-image{
+    display:block;
+    background-image: url(../assets/images/eidit_success.png);
+    background-size: 300px 300px;
+    width:300px;
+    height:300px;
+    margin:219px auto 0px auto;
+  }
+
+  &-title{
+    width:100%;
+    font-family: "PingFang SC";
+    font-size: 48px;
+    text-align: center;
+    margin-top:40px;
+    color:#333333;
+  }
+
+  &-thanks{
+    width:100%;
+    font-family: "PingFang SC";
+    font-size: 28px;
+    text-align: center;
+    margin-top:18px;
+    color:#999999;
+  }
+
+  &-link{
+    height:100px;
+    text-decoration: none;
+    display: block;
+    border:1px solid #333333;
+    color:#333333;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 50px;
+    margin:219px auto 0px auto;
+    font-size:28px;
+    font-family: "PingFang SC";
+    font-weight: 500;
+  }
+
+}

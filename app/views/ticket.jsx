@@ -1,6 +1,6 @@
 
 import React,{Component} from 'react';
-import ReactDOM from 'react-dom';
+
 import QRCode from 'qrcode.react';
 import {Link} from 'react-router'
 import '../assets/stylesheets/app.scss';

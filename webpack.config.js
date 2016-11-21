@@ -36,8 +36,8 @@ const px2remOpts = {
     propWhiteList: []
 }
 
-const host = "192.168.2.112"; // 家用
-//const host = "192.168.31.208"; // 公司
+// const host = "192.168.2.112"; // 家用
+const host = "192.168.31.208"; // 公司
 
 module.exports = {
     devtool: 'source-map',
@@ -150,14 +150,6 @@ module.exports = {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'url-loader?limit=184800&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
             },
-            //{
-            //    test: /\.less$/,
-            //    loader: ExtractTextPlugin.extract(
-            //        'css?sourceMap' +
-            //        'postcss!' +
-            //        'less?{"sourceMap":true,"modifyVars":{"@font-size-heading":"20px"}}'
-            //    )
-            //},
             {
                 test: /\.less$/,
                 loader: lessLoader

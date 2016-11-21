@@ -16,7 +16,7 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo,{
     'data':{
         'openId':'@string',
         'username':'@string',
-        'imageUrl':MockRandom.image('100x100','#ff0000'),
+        'imageUrl':MockRandom.image('100x100','#5839ff'),
         'activityName':'成都养生协会国学交流论坛',
         'address':'成都市武侯区香格里拉酒店2楼',
         'date':'@datetime("yyyy/MM/dd HH:mm")',

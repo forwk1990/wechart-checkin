@@ -27,7 +27,15 @@ var Config =  {
         * */
         getEdit:_getFullUrlFromRelative("getEdit"),
 
-    }
+    },
+    /*
+    * 百度地图API密钥
+    * */
+    ApiKey:"LyFtOF4ECbCVVMF2AUDa6ifLFe0ib1G6",
+    /*
+    * 百度地图Secret密钥
+    * */
+    SecretKey:"nRPymyj4BjWV64QAZyXhqQKCpdObk8Gm"
 };
 
 module.exports = Config;
