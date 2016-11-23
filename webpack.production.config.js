@@ -3,13 +3,9 @@
  * on 2016-10-20.
  */
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var path = require('path');
 var webpack = require('webpack');
-
-var rucksack =  require('rucksack-css');
-var autoprefixer = require('autoprefixer');
 
 //var WebpackDevServer = require("webpack-dev-server");
 
@@ -21,16 +17,16 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let theme = {
-    "@font-size-heading":"20px",
-    "@font-size-input-label":"28px",
-    "@h-spacing-lg":"0px",
-    "@font-size-popup-title":"24px",
-    "@font-size-popup-selected":"36px",
+    "@font-size-heading": "20px",
+    "@font-size-input-label": "28px",
+    "@h-spacing-lg": "0px",
+    "@font-size-popup-title": "24px",
+    "@font-size-popup-selected": "36px",
 };
 
-const lessLoader = 'css!less?{"modifyVars":'+ JSON.stringify(theme)+'}';
+const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';
 
-const px2rem = require('postcss-plugin-px2rem');
+const px2rem = require('postcss-pxtorem');
 const px2remOpts = {
     rootValue : 100,
     propWhiteList: []
@@ -40,14 +36,8 @@ const px2remOpts = {
 const host = "192.168.31.208"; // 公司
 
 module.exports = {
-    //devtool
-    // : 'source-map',
-    postcss:[
-        rucksack(),
-        autoprefixer({
-            browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
-        }),
-    ],
+    devtool: 'source-map',
+    postcss: [px2rem(px2remOpts)],
     // The base directory (absolute path!) for resolving the entry option
     context: __dirname,
     entry: {
@@ -76,8 +66,6 @@ module.exports = {
          * */
         extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
     },
-
-    debug: true,
 
     //热部署相关配置
     devServer: {
@@ -124,12 +112,13 @@ module.exports = {
             hash: true,
             cache: false,
             showErrors: false
-
         }),
-
-        new ExtractTextPlugin("[name].cs", {
-            disable: false,
-            allChunks: true,
+        // 代码压缩
+        new webpack.optimize.UglifyJsPlugin({
+            test: /(\.jsx|\.js)$/,
+            compress: {
+                warnings: false
+            },
         }),
         /*
          * The Webpack DefinePlugin allows you to create "Magic" global variables for your app
@@ -157,17 +146,9 @@ module.exports = {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'url-loader?limit=184800&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
             },
-            //{
-            //    test: /\.less$/,
-            //    loader: ExtractTextPlugin.extract(
-            //        'css?sourceMap' +
-            //        'postcss!' +
-            //        'less?{"sourceMap":true,"modifyVars":{"@font-size-heading":"20px"}}'
-            //    )
-            //},
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract(lessLoader)
+                loader: lessLoader
             },
             {
                 test: /\.css$/,
@@ -175,7 +156,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loaders: ["style", 'css', "sass"]
+                loaders: ["style", 'css', 'postcss', "sass"]
             }
         ]
     }

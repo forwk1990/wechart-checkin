@@ -8,8 +8,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
 
-var rucksack = require('rucksack-css');
-var autoprefixer = require('autoprefixer');
 
 //var WebpackDevServer = require("webpack-dev-server");
 

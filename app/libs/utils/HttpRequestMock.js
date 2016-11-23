@@ -15,9 +15,9 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo,{
     'status':1,
     'data':{
         'openId':'@string',
-        'username':'@string',
-        'imageUrl':MockRandom.image('100x100','#5839ff'),
-        'activityName':'成都养生协会国学交流论坛',
+        'title':'静心',
+        'imageUrl':'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+        'subTitle':'成都养生协会国学交流论坛',
         'address':'成都市武侯区香格里拉酒店2楼',
         'date':'@datetime("yyyy/MM/dd HH:mm")',
         'desc':'这是一场分享如何平复自己心灵，学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。'
@@ -29,6 +29,7 @@ Mock.mock(AppConfig.ApiConfig.getEdit,{
     'status':1,
     'data':[
         {
+            'id':'sex',
             "title":"性别",
             "type":"select",
             "options":[
@@ -43,19 +44,23 @@ Mock.mock(AppConfig.ApiConfig.getEdit,{
             ]
         },
         {
+            'id':'wx',
             "title":"微信号",
             "type":"text",
             "options":[]
         },
         {
+            'id':'gz',
             "title":"工作单位",
             "type":"text"
         },
         {
+            'id':'zw',
             "title":"职位",
             "type":"text"
         },
         {
+            'id':'xl',
             "title":"学历",
             "type":"select",
             "options":[
@@ -78,6 +83,7 @@ Mock.mock(AppConfig.ApiConfig.getEdit,{
             ]
         },
         {
+            'id':'jb',
             "title":"您是否患有以下疾病",
             "type":"checkbox",
             "options":[
@@ -116,6 +122,7 @@ Mock.mock(AppConfig.ApiConfig.getEdit,{
             ]
         },
         {
+            'id':'kc',
             "title":"您是否曾今参加过茶道课程",
             "type":"radiobox",
             "options":[
@@ -130,6 +137,7 @@ Mock.mock(AppConfig.ApiConfig.getEdit,{
             ]
         },
         {
+            'id':'hd',
             "title":"您是否参加过喜悦的任何活动",
             "type":"radiobox",
             "options":[
@@ -152,11 +160,9 @@ Mock.mock(AppConfig.ApiConfig.getEdit,{
 Mock.mock(AppConfig.ApiConfig.checkin,{
     'status':1,
     'data':{
-        key:'@string'
+        qrCode:'@string'
     }
 });
-
-
 
 //// 模拟首页请求数据
 //Mock.mock(AppConfig.ApiConfig.getBarginInfo,{

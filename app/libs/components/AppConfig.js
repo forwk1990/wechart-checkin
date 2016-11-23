@@ -3,7 +3,7 @@
  */
 
 const domain = "http://www.ldted.com/";
-const serverUrl = "wechat/services/checkinserver/";
+const serverUrl = "ldtedwechat/services/CheckinServer/";
 
 function _getFullUrlFromRelative(relativeUrl){
     return domain + serverUrl + relativeUrl;
@@ -17,16 +17,15 @@ var Config =  {
         /*
         * 获取活动信息
         * */
-        getActivityInfo:_getFullUrlFromRelative("getActivityInfo"),
+        getActivityInfo:_getFullUrlFromRelative("getActivity"),
         /*
         * 报名接口
         * */
-        checkin:_getFullUrlFromRelative("checkin"),
+        checkin:_getFullUrlFromRelative("postEnroll"),
         /*
         * 获取编辑数据接口
         * */
         getEdit:_getFullUrlFromRelative("getEdit"),
-
     },
     /*
     * 百度地图API密钥

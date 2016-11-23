@@ -20,10 +20,9 @@ $ticketPrefixCls: ticket;
   background-color:rgb(238,238,238);
   width:100%;
   height:100%;
-  display:flex;
-  flex-direction: column;
-  padding:40px;
-  padding-bottom:0;
+  box-sizing: border-box;
+  display:block;
+  padding:20px 40px 0px 40px;
 
   -webkit-touch-callout:none;  /*系统默认菜单被禁用*/
   -webkit-user-select:none; /*webkit浏览器*/
@@ -70,11 +69,11 @@ $ticketPrefixCls: ticket;
   }
 
   &-card{
-    margin-top:50px;
+    padding-top:50px;
     border-radius: 20px;
     width:100%;
-    height:calc(100% - 20px - 70px);
-    height:-webkit-calc(100% - 20px - 70px);
+    height:calc(100% - 50px - 70px);
+    height:-webkit-calc(100% - 50px - 70px);
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -88,15 +87,16 @@ $ticketPrefixCls: ticket;
       border-radius: 20px 20px 0px 0px;
 
       &>&-logo{
-        width:120px;
-        height:120px;
+        width:130px;
+        height:130px;
         display:block;
+        box-sizing: border-box;
         border:10px solid rgb(238,238,238);
         position:relative;
         left:calc(50% - 60px);
         left:-webkit-calc(50% - 60px);
         top:-60px;
-        border-radius: 60px;
+        border-radius: 65px;
         background-color:blue;
       }
 
