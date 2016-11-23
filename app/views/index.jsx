@@ -8,6 +8,7 @@ import FastClick from 'fastclick';
 import {createForm} from 'rc-form';
 import {Flex, NavBar, Icon, InputItem, Picker, List} from 'antd-mobile';
 import DataStore from 'DataStore'
+import QueryString from 'query-string'
 import {RouteTransition, presets} from 'react-router-transition';
 
 import './index.scss';
@@ -68,6 +69,8 @@ class Index extends React.Component {
         /*
          * 获取查询字符串
          * */
+        const queryParameters = QueryString.parse(location.search);
+        //console.log(queryParameters);
         // var queryString = QueryString.extract("http://www.ldted.com/checkin/index.html?code=003E8gop0XsQQq1wgNmp0aLcop0E8go3&state=activityId=111");
         // var queryItems = QueryString.parse(queryString);
         // const code = queryItems["code"];
@@ -75,10 +78,11 @@ class Index extends React.Component {
         // if (!code || !activityId)return;
         // const id = this.props.params.id;
         // if(!id) return;
+        if(!queryParameters.id) return;
         /*
          * 获取首页显示的信息
          * */
-        DataStore.getActivityInfo({id: '1'}).then(function (responseObject) {
+        DataStore.getActivityInfo({id: queryParameters.id}).then(function (responseObject) {
             self.setState({...responseObject, 'isReady': true});
         }, function (error) {
             console.info(error);
@@ -105,9 +109,8 @@ class Index extends React.Component {
                 phone:phone,
                 id:'1'
             }).then(function (responseObject) {
-                console.info(responseObject);
                 self.setState({checkin_status:0});
-                self.context.router.push(`/checkin/ticket/${responseObject.qrCode}`);
+                self.context.router.push(`ticket/${responseObject.qrCode}`);
             });
         }
     }

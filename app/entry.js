@@ -11,12 +11,12 @@ import Ticket from 'ticket'
 import Index from 'index'
 import Success from 'Success'
 import store from './store.js'
-import {Router, Route, browserHistory,IndexRoute} from 'react-router';
+import {Router, Route, hashHistory,IndexRoute} from 'react-router';
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path="/checkin" component={App}>
+        <Router history={hashHistory}>
+            <Route path="/" component={App}>
                 <IndexRoute component={Index}/>
                 <Route path="ticket/:code" component={Ticket}/>
                 <Route path="index" component={Index}/>

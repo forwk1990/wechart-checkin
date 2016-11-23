@@ -60,7 +60,7 @@ class Ticket extends Component {
                             <div className="ticket-sicircle-bottom-right"></div>
                         </div>
                         <div className="ticket-card-bottom">
-                            <Link to="/checkin/edit" className="ticket-card-bottom-link">完善个人资料 获专业服务</Link>
+                            <Link to="edit" className="ticket-card-bottom-link">完善个人资料 获专业服务</Link>
                         </div>
                     </div>
 

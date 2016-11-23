@@ -49,7 +49,7 @@ class Edit extends React.Component {
         DataStore.checkin({}).then(function (responseObject) {
             console.info(responseObject);
             self.setState({status:0});
-            self.context.router.push(`/checkin/success`);
+            self.context.router.push(`success`);
         });
     }
 
