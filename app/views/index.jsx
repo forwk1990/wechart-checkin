@@ -53,7 +53,8 @@ class Index extends React.Component {
             'address': '',
             'date': '',
             'desc': '',
-            'checkin_status': 0
+            'checkin_status': 0,
+            'activityId':''
         };
     }
 
@@ -79,6 +80,8 @@ class Index extends React.Component {
         // const id = this.props.params.id;
         // if(!id) return;
         if(!queryParameters.id) return;
+
+        self.setState({'activityId':queryParameters.id});
         /*
          * 获取首页显示的信息
          * */
@@ -174,7 +177,6 @@ class Index extends React.Component {
 }
 
 export default createForm()(Index);
-//
 // <span className="checkin-link" onClick={this.handleSubmit.bind(this)}>
 //                             {
 //                                 this.state.checkin_status == 0

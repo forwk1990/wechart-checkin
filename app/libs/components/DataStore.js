@@ -48,11 +48,7 @@ function sendRequest(url, parameters) {
                 }
                 console.info(responseObject);
                 if (responseObject.status == 0) {
-                    if (__DEV__){
-                        resolve(responseObject.data);
-                    }else{
-                        resolve(JSON.parse(responseObject.data));
-                    }
+                    resolve(responseObject.data);
                 } else {
                     reject(responseObject.message);
                 }
