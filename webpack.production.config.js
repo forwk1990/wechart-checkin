@@ -36,7 +36,7 @@ const px2remOpts = {
 const host = "192.168.31.208"; // 公司
 
 module.exports = {
-    devtool: 'source-map',
+    // devtool: 'source-map',
     postcss: [px2rem(px2remOpts)],
     // The base directory (absolute path!) for resolving the entry option
     context: __dirname,

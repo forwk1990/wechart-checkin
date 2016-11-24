@@ -97,15 +97,15 @@ class Index extends React.Component {
         const self = this;
         const name = this.state.inputValue_name;
         const phone = this.state.inputValue_phone;
-        const age = this.state.inputValue_ageGroup;
+        const ageGroup = this.state.inputValue_ageGroup;
 
-        if (!name || !age || phone.length < 1) {
+        if (!name || !ageGroup || phone.length < 1) {
 
         } else {
             this.setState({checkin_status:1});
             DataStore.checkin({
                 name:name,
-                ageGroup:age,
+                ageGroup:ageGroup[0],
                 phone:phone,
                 id:'1'
             }).then(function (responseObject) {

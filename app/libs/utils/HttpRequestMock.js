@@ -12,7 +12,7 @@ Mock.setup({timeout:'2000-3000'});
 
 // 模拟活动页数据
 Mock.mock(AppConfig.ApiConfig.getActivityInfo,{
-    'status':1,
+    'status':0,
     'data':{
         'openId':'@string',
         'title':'静心',
@@ -26,7 +26,7 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo,{
 
 // 模拟报名接口数据
 Mock.mock(AppConfig.ApiConfig.getEdit,{
-    'status':1,
+    'status':0,
     'data':[
         {
             'id':'sex',
@@ -158,7 +158,7 @@ Mock.mock(AppConfig.ApiConfig.getEdit,{
 * 模拟参加活动接口，返回密钥
 * */
 Mock.mock(AppConfig.ApiConfig.checkin,{
-    'status':1,
+    'status':0,
     'data':{
         qrCode:'@string'
     }

@@ -16,9 +16,11 @@ function sendRequest(url, parameters) {
     return new Promise(function (resolve, reject) {
 
         // initialize the form data
-        var formData = new FormData();
-        Object.assign(formData, parameters);
-
+        // var formData = new FormData();
+        // formData.append("key",JSON.stringify(parameters));
+        // Object.assign(formData, parameters);
+        var params = `key=${encodeURIComponent(JSON.stringify(parameters))}`;
+        params = params.replace(/%20/g, '+');
         /*
          * initialize the xml http request level2
          * @discussion :
@@ -30,20 +32,29 @@ function sendRequest(url, parameters) {
         client.open('POST', url);
         client.onreadystatechange = handler;
         client.responseType = 'json';
-        client.setRequestHeader('Accept', 'application/json');
-        client.send(formData);
+        client.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        client.send(params);
 
         function handler() {
             if (this.readyState !== 4) {
                 return;
             }
             if (this.status === 200) {
-                const responseObject = JSON.parse(this.response);
+                var responseObject;
+                if (__DEV__){
+                    responseObject = JSON.parse(this.response);
+                }else{
+                    responseObject = this.response;
+                }
                 console.info(responseObject);
-                if (responseObject.status == 1) {
-                    resolve(responseObject.data);
+                if (responseObject.status == 0) {
+                    if (__DEV__){
+                        resolve(responseObject.data);
+                    }else{
+                        resolve(JSON.parse(responseObject.data));
+                    }
                 } else {
-                    reject("this must be server error!");
+                    reject(responseObject.message);
                 }
             } else {
                 reject(new Error(this.statusText));

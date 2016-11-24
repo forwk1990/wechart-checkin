@@ -10,7 +10,6 @@ class LoadingButton extends React.Component {
     }
 
     handleClick(event){
-        console.info(this.state.onClick);
         this.state.onClick(event);
     }
 

@@ -3,7 +3,7 @@
  */
 
 const domain = "http://www.ldted.com/";
-const serverUrl = "services/CheckinServer/";
+const serverUrl = "services/CheckInServer/";
 
 function _getFullUrlFromRelative(relativeUrl){
     return domain + serverUrl + relativeUrl;
