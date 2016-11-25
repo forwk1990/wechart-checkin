@@ -4,15 +4,13 @@
 
 import loggerMiddleware from './libs/middleware/logger.js'
 import thunkMiddleware from 'redux-thunk'
-import delayMiddleware from './libs/middleware/delay.js'
 import rootReducer from './libs/reducers/rootReducer.js'
-import {createStore,applyMiddleware,compose} from 'redux'
+import {createStore,applyMiddleware} from 'redux'
 
 // 扩展createStore
 var enhancerCreateStore = applyMiddleware(
     loggerMiddleware,
-    thunkMiddleware,
-    delayMiddleware
+    thunkMiddleware
 )(createStore);
 
 const store = enhancerCreateStore(rootReducer);

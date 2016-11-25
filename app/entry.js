@@ -9,9 +9,12 @@ import App from './app.js'
 import Edit from 'edit'
 import Ticket from 'ticket'
 import Index from 'index'
-import Success from 'Success'
+import Success from 'success'
+import Map from 'map'
 import store from './store.js'
+import Validate from 'validate'
 import {Router, Route, hashHistory,IndexRoute} from 'react-router';
+
 
 ReactDOM.render(
     <Provider store={store}>
@@ -22,6 +25,8 @@ ReactDOM.render(
                 <Route path="index" component={Index}/>
                 <Route path="edit" component={Edit}/>
                 <Route path="success" component={Success}/>
+                <Route path="map" component={Map}/>
+                <Route path="validate/:code" component={Validate}/>
             </Route>
         </Router>
     </Provider>

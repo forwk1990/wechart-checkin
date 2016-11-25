@@ -1,47 +1,61 @@
 import React, {Component} from 'react';
 
 import QRCode from 'qrcode.react';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
+import QueryString from 'query-string'
 import '../assets/stylesheets/app.scss';
-import './ticket.scss'
-import {RouteTransition, presets} from 'react-router-transition';
+import './ticket.scss';
+import DataStore from 'DataStore'
+import ActionTypes from 'constants/ActionTypes';
+import {connect} from 'react-redux';
 
 class Ticket extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            address: "成都市武侯区香格里拉酒店2楼",
             size: 320
         };
     }
 
     componentDidMount() {
-        const self = this;
-        var middle_total_height = $(".ticket-card-middle").height();
-        var qrcodeHeight = middle_total_height - 38 - 88;
-        var qrcodeElement = document.getElementsByClassName("ticket-card-middle-qrcode")[0];
-        console.info(qrcodeElement);
-        $(qrcodeElement).height(qrcodeHeight);
-        $(qrcodeElement).width($(qrcodeElement).height());
-        console.info(qrcodeHeight);
-        self.setState({size: $(".qr-container").height()});
+        const qrCodeHeight = $(".ticket-card-middle").height() - 38 - 88;
+        $(".ticket-card-middle-qrcode").width(qrCodeHeight).height(qrCodeHeight);
+        this.setState({size: $(".qr-container").height()});
     }
 
     render() {
-        var self = this;
+        const self = this;
+        var {title, imageUrl, address, date,isReady} = self.props;
+        if (!title) {
+            title = "加载中...";
+            const queryParameters = QueryString.parse(location.search);
+            if (!queryParameters.id) return;
+            self.props.dispatch((dispatch) => {
+                dispatch({type: ActionTypes.getActivityBefore});
+                return DataStore.getActivityInfo({id: queryParameters.id});
+            }).then(function (responseObject) {
+                self.props.dispatch({type: ActionTypes.getActivity, responseObject});
+                self.props.dispatch({type: ActionTypes.getActivityAfter});
+            }, function (error) {
+                console.info(error);
+            });
+        }
+        console.info(window.location);
+        const parentPath = window.location.origin + window.location.pathname + window.location.search
         return (
             <div className="ticket">
                 <div className="ticket-card">
                     <div className="ticket-card-top">
-                        <div className="ticket-card-top-logo"></div>
-                        <div className="ticket-card-top-username">静心</div>
+                        <div className="ticket-card-top-logo" style={{backgroundImage: `url(${imageUrl})`}}></div>
+                        <div className="ticket-card-top-username">{title}</div>
+                        {isReady && (
                         <div className="ticket-card-top-address">
                             <img src={require("../assets/images/location_light.png")}/>
-                            <span>{self.state.address}</span>
+                            <span>{address}</span>
                             <img src={require("../assets/images/arrow_right.png")}/>
-                        </div>
-                        <div className="ticket-card-top-date">2016/12/12 09:30</div>
+                        </div>)}
+                        <div className="ticket-card-top-date">{date}</div>
                     </div>
                     <div className="ticket-card-middle">
                         <div className="ticket-sicircle-top-left"></div>
@@ -49,7 +63,7 @@ class Ticket extends Component {
                         <div className="ticket-card-middle-title">活动当日您可凭此券入场</div>
                         <div className="ticket-card-middle-qrcode">
                             <div className="qr-container">
-                                <QRCode level='H' value={this.props.params.code} size={self.state.size}/>
+                                <QRCode level='H' value={`${parentPath}#/validate/${this.props.params.code}`} size={self.state.size}/>
                             </div>
                         </div>
                         <div className="ticket-sicircle-bottom-left"></div>
@@ -69,4 +83,15 @@ class Ticket extends Component {
 
 }
 
-export default Ticket;
+const mapStateToProps = (state) => {
+    return {
+        isReady: state.getActivityReducer.isReady,
+        title: state.getActivityReducer.title,
+        imageUrl: state.getActivityReducer.imageUrl,
+        address: state.getActivityReducer.address,
+        date: state.getActivityReducer.date,
+        activityId: state.getActivityReducer.activityId
+    }
+}
+
+export default connect(mapStateToProps)(Ticket);

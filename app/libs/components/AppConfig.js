@@ -26,6 +26,10 @@ var Config =  {
         * 获取编辑数据接口
         * */
         getEdit:_getFullUrlFromRelative("getEdit"),
+        /*
+        * 验证票据
+        * */
+        validate:_getFullUrlFromRelative("checkTicket"),
     },
     /*
     * 百度地图API密钥

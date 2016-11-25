@@ -19,11 +19,11 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let theme = {
-    "@font-size-heading": "20px",
-    "@font-size-input-label": "28px",
+    "@font-size-heading": "24px",
+    "@font-size-input-label": "30px",
     "@h-spacing-lg": "0px",
-    "@font-size-popup-title": "24px",
-    "@font-size-popup-selected": "36px",
+    "@font-size-popup-title": "32px",
+    "@font-size-popup-selected": "40px"
 };
 
 const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';

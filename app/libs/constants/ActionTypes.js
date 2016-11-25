@@ -3,4 +3,12 @@
  */
 
 
-export const Action_Buy = 'Action_Buy'
+module.exports = {
+    INIT: '@@redux/INIT',
+    getActivityBefore:"@@redux/getActivityBefore",
+    getActivity:"@@redux/getActivity",
+    getActivityAfter:"@@redux/getActivityAfter",
+    checkInBefore:"@redux/checkinBefore",
+    checkIn:"@redux/checkin",
+    checkInAfter:"@redux/checkinAfter",
+}

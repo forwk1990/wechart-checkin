@@ -1,6 +1,5 @@
 import React from 'react';
-import {createForm} from 'rc-form';
-import {Flex, NavBar, Icon, InputItem, Picker, List} from 'antd-mobile';
+import {InputItem, Picker, List} from 'antd-mobile';
 import CheckBox from './checkbox.jsx';
 import RadioBox from './radiobox.jsx';
 import OptionType from 'constants/OptionType.js'
@@ -39,9 +38,7 @@ class Edit extends React.Component {
         name == "inputValue_ageGroup" && $(".am-list-extra").addClass("normal-input-font-style");
     }
 
-    static contextTypes = {
-        router: React.PropTypes.object
-    }
+
 
     handleSubmit() {
         var self = this;
@@ -54,8 +51,6 @@ class Edit extends React.Component {
     }
 
     render() {
-        var self = this;
-        const {getFieldProps} = this.props.form;
         return !this.state.isReady ? (<div className="loading"></div>)
             : (
             <RouteTransition
@@ -74,7 +69,6 @@ class Edit extends React.Component {
                                         return (
                                             <Picker key={index} style={{fontSize: "24px"}} cols={1}
                                                     data={option.options}
-                                                    {...getFieldProps('district')}
                                                     title={"请选择" + option.title}
                                                     extra="  ">
                                                 <List.Item style={{paddingLeft: "0px"}}
@@ -83,8 +77,7 @@ class Edit extends React.Component {
                                         );
                                     case OptionType.Text:
                                         return (
-                                            <InputItem key={index} style={{paddingLeft: "0px", textAlign: "right"}}
-                                                       {...getFieldProps('control')}>{option.title}</InputItem>
+                                            <InputItem key={index} style={{paddingLeft: "0px", textAlign: "right"}}>{option.title}</InputItem>
                                         );
                                     case OptionType.Checkbox:
                                         return (
@@ -106,4 +99,8 @@ class Edit extends React.Component {
 
 }
 
-export default createForm()(Edit);
+Edit.contextTypes = {
+    router: React.PropTypes.object
+}
+
+export default Edit;

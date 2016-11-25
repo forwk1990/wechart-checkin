@@ -47,11 +47,12 @@ span.checkin-link{
 .topline{
   background-color:#ddd;
   width:100px;
-  height:1px;
+  height:0px;
 }
 
 .date{
-  font-size:24px;
+  font-size:26px;
+  //margin-left:28px;
   font-family: "PingFang SC";
   color:#333333;
 }
@@ -59,8 +60,9 @@ span.checkin-link{
 p.content{
   font-family: "PingFang SC";
   color:#999999;
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom:36px;
+  line-height: 36px;
   margin-top:30px;
 }
 
@@ -77,7 +79,7 @@ p.content{
   }
 
   span{
-    font-size:24px;
+    font-size:26px;
     font-family: "PingFang SC";
     color:#333333;
     margin-left:10px;
@@ -101,7 +103,8 @@ p.content{
     @extend %flex-column-base;
 
     span:first-child{
-      font-size:48px;
+      display: block;
+      font-size:56px;
       color:#333333;
       font-family: "PingFang SC";
       font-weight: 500;
@@ -110,7 +113,9 @@ p.content{
     span:last-child{
       font-family: "PingFang SC";
       color:#999999;
-      font-size: 24px;
+      font-size: 28px;
+      line-height: 32px;
+      //margin-top:10px;
     }
 
   }

@@ -17,11 +17,11 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let theme = {
-    "@font-size-heading": "20px",
-    "@font-size-input-label": "28px",
+    "@font-size-heading": "24px",
+    "@font-size-input-label": "30px",
     "@h-spacing-lg": "0px",
-    "@font-size-popup-title": "24px",
-    "@font-size-popup-selected": "36px",
+    "@font-size-popup-title": "32px",
+    "@font-size-popup-selected": "40px"
 };
 
 const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';
@@ -33,7 +33,7 @@ const px2remOpts = {
 }
 
 // const host = "192.168.2.112"; // 家用
-const host = "192.168.31.208"; // 公司
+const host = "www.ldted.com"; // 公司
 
 module.exports = {
     // devtool: 'source-map',
@@ -49,7 +49,7 @@ module.exports = {
          * */
         path: path.join(__dirname, 'dist'),
         filename: 'index.js',
-        publicPath: "http://" + host + ":8787/"
+        publicPath: "http://" + host + "/wx"
     },
 
     resolve: {

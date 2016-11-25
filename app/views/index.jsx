@@ -5,11 +5,12 @@
 
 import React, {Component} from 'react';
 import FastClick from 'fastclick';
-import {createForm} from 'rc-form';
 import {Flex, NavBar, Icon, InputItem, Picker, List} from 'antd-mobile';
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
 import {RouteTransition, presets} from 'react-router-transition';
+import {connect} from 'react-redux';
+import ActionTypes from 'constants/ActionTypes';
 
 import './index.scss';
 import LoadingButton from 'loadingButton';
@@ -45,16 +46,6 @@ class Index extends React.Component {
             'inputValue_name': '',
             'inputValue_phone': '',
             'inputValue_ageGroup': [],
-            'isReady': false,
-            'openId': '',
-            'title': '',
-            'imageUrl': '',
-            'subTitle': '',
-            'address': '',
-            'date': '',
-            'desc': '',
-            'checkin_status': 0,
-            'activityId':''
         };
     }
 
@@ -71,29 +62,20 @@ class Index extends React.Component {
          * 获取查询字符串
          * */
         const queryParameters = QueryString.parse(location.search);
-        //console.log(queryParameters);
-        // var queryString = QueryString.extract("http://www.ldted.com/checkin/index.html?code=003E8gop0XsQQq1wgNmp0aLcop0E8go3&state=activityId=111");
-        // var queryItems = QueryString.parse(queryString);
-        // const code = queryItems["code"];
-        // const activityId = QueryString.parse(queryItems["state"])["activityId"];
-        // if (!code || !activityId)return;
-        // const id = this.props.params.id;
-        // if(!id) return;
-        if(!queryParameters.id) return;
+        if (!queryParameters.id) return;
 
-        self.setState({'activityId':queryParameters.id});
         /*
          * 获取首页显示的信息
          * */
-        DataStore.getActivityInfo({id: queryParameters.id}).then(function (responseObject) {
-            self.setState({...responseObject, 'isReady': true});
+        self.props.dispatch((dispatch) => {
+            dispatch({type: ActionTypes.getActivityBefore});
+            return DataStore.getActivityInfo({id: queryParameters.id});
+        }).then(function (responseObject) {
+            self.props.dispatch({type: ActionTypes.getActivity, responseObject});
+            self.props.dispatch({type: ActionTypes.getActivityAfter});
         }, function (error) {
             console.info(error);
         });
-    }
-
-    static contextTypes = {
-        router: React.PropTypes.object
     }
 
     handleSubmit() {
@@ -102,18 +84,26 @@ class Index extends React.Component {
         const phone = this.state.inputValue_phone;
         const ageGroup = this.state.inputValue_ageGroup;
 
+
         if (!name || !ageGroup || phone.length < 1) {
 
         } else {
-            this.setState({checkin_status:1});
-            DataStore.checkin({
-                name:name,
-                ageGroup:ageGroup[0],
-                phone:phone,
-                id:'1'
+            const queryParameters = QueryString.parse(location.search);
+            if (!queryParameters.id) return;
+            self.props.dispatch((dispatch) => {
+                dispatch({type: ActionTypes.checkInBefore});
+                return DataStore.checkin({
+                    id: queryParameters.id,
+                    name:name,
+                    ageGroup:ageGroup[0],
+                    phone:phone
+                });
             }).then(function (responseObject) {
-                self.setState({checkin_status:0});
+                console.info(responseObject);
                 self.context.router.push(`ticket/${responseObject.qrCode}`);
+                self.props.dispatch({type: ActionTypes.checkInAfter});
+            }, function (error) {
+                console.info(error);
             });
         }
     }
@@ -125,67 +115,82 @@ class Index extends React.Component {
         name == "inputValue_ageGroup" && $(".am-list-extra").addClass("normal-input-font-style");
     }
 
+    handleMap(){
+        window.location.href = window.location.origin + `/wx/map.html?lat=${this.props.lat}&lng=${this.props.lng}`;
+    }
+
     render() {
         var self = this;
-        const {getFieldProps} = this.props.form;
-        return !this.state.isReady ? (<div className="loading"></div>)
-                : (
-                <RouteTransition
-                    component={false}
-                    pathname={this.props.location.pathname}
-                    {...presets.fade}>
-                    <div className="index">
-                        <div className="header">
-                            <div className="desc">
-                                <span>{self.state.title}</span>
-                                <span>{self.state.subTitle}</span>
-                            </div>
-                            <div className="logo">
-                                <img src={self.state.imageUrl}/>
-                            </div>
+        const {isReady, title, subTitle, imageUrl, address, date, desc, loading} = this.props;
+        return !isReady ? (<div className="loading"></div>)
+            : (
+            <RouteTransition
+                component={false}
+                pathname={this.props.location.pathname}
+                {...presets.fade}>
+                <div className="index">
+                    <div className="header">
+                        <div className="desc">
+                            <span>{title}</span>
+                            <span>{subTitle}</span>
                         </div>
-                        <div className="address">
-                            <img src={require("../assets/images/location_back.png")}/>
-                            <span>{self.state.address}</span>
-                            <img src={require("../assets/images/arrow_right.png")}/>
+                        <div className="logo">
+                            <img src={imageUrl}/>
                         </div>
-                        <span className="date">{self.state.date}</span>
-                        <p className="content">
-                            {self.state.desc}
-                        </p>
-                        <div className="topline"></div>
-                        <List>
-                            <InputItem style={{paddingLeft: "0px", textAlign: "right"}} {...getFieldProps('name')}
-                                       value={this.state.inputValue_name} maxLength="10"
-                                       onChange={ (val) => self.handleChange('inputValue_name', val)}>姓名</InputItem>
-                            <Picker style={{fontSize: "24px"}} cols={1} extra="因条件限制，活动攒不接待60岁以上学员" data={AgeRange}
-                                    title="请选择年龄段" {...getFieldProps('age')}
-                                    value={this.state.inputValue_ageGroup}
-                                    onChange={ (val) => self.handleChange('inputValue_ageGroup', val)}>
-                                <List.Item style={{paddingLeft: "0px"}} arrow="horizontal">年龄</List.Item>
-                            </Picker>
-                            <InputItem style={{paddingLeft: "0px", textAlign: "right"}} type="number" maxLength={11}
-                                       {...getFieldProps('phone')} value={this.state.inputValue_phone}
-                                       onChange={ (val) => self.handleChange('inputValue_phone', val)}>手机号</InputItem>
-                        </List>
-                        <LoadingButton text="报名领取参与券" loadingText="领取中..." status={this.state.checkin_status} onClick={()=>this.handleSubmit()}/>
-                        <Flex/>
                     </div>
-                </RouteTransition>
-            );
+                    <div className="address" onClick={this.handleMap.bind(this)}>
+                        <img src={require("../assets/images/location_back.png")}/>
+                        <span>{address}</span>
+                        <img src={require("../assets/images/arrow_right.png")}/>
+                    </div>
+                    <span className="date">{date}</span>
+                    <p className="content">
+                        {desc}
+                    </p>
+                    <div className="topline"></div>
+                    <List>
+                        <InputItem style={{paddingLeft: "0px", textAlign: "right"}}
+                                   value={this.state.inputValue_name} maxLength="10"
+                                   onChange={ (val) => self.handleChange('inputValue_name', val)}>姓名</InputItem>
+                        <Picker style={{fontSize: "24px"}} cols={1} extra="活动暂不接待60岁以上学员" data={AgeRange}
+                                title="请选择年龄段"
+                                value={this.state.inputValue_ageGroup}
+                                onChange={ (val) => self.handleChange('inputValue_ageGroup', val)}>
+                            <List.Item style={{paddingLeft: "0px"}} arrow="horizontal">年龄</List.Item>
+                        </Picker>
+                        <InputItem style={{paddingLeft: "0px", textAlign: "right"}} type="number" maxLength={11}
+                                   value={this.state.inputValue_phone}
+                                   onChange={ (val) => self.handleChange('inputValue_phone', val)}>手机号</InputItem>
+                    </List>
+                    <LoadingButton text="报名领取参与券" loadingText="领取中..." status={loading}
+                                   onClick={() => this.handleSubmit()}/>
+                    <Flex/>
+                </div>
+            </RouteTransition>
+        );
     }
 }
 
-export default createForm()(Index);
-// <span className="checkin-link" onClick={this.handleSubmit.bind(this)}>
-//                             {
-//                                 this.state.checkin_status == 0
-//                                     ? "报名领取参与券"
-//                                     :(
-//                                     <div>
-//                                         <div className="link-loading"></div>
-//                                         <div className="link-text">领取中</div>
-//                                     </div>
-//                                 )
-//                             }
-//                         </span>
+Index.contextTypes = {
+    router: React.PropTypes.object
+}
+
+
+const mapStateToProps = (state) => {
+    return {
+        isReady: state.getActivityReducer.isReady,
+        title: state.getActivityReducer.title,
+        lng:state.getActivityReducer.lng,
+        lat:state.getActivityReducer.lat,
+        imageUrl: state.getActivityReducer.imageUrl,
+        subTitle: state.getActivityReducer.subTitle,
+        address: state.getActivityReducer.address,
+        date: state.getActivityReducer.date,
+        desc: state.getActivityReducer.desc,
+        activityId: state.getActivityReducer.activityId,
+        loading: state.checkInReducer.loading,
+        qrCode: state.checkInReducer.qrCode
+    }
+}
+
+export default connect(mapStateToProps)(Index);
