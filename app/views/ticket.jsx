@@ -22,18 +22,6 @@ class Ticket extends Component {
         const qrCodeHeight = $(".ticket-card-middle").height() - 38 - 88;
         $(".ticket-card-middle-qrcode").width(qrCodeHeight).height(qrCodeHeight);
         this.setState({size: $(".qr-container").height()});
-
-        wx.hideMenuItems({
-            menuList: [
-                "menuItem:copyUrl",
-                "menuItem:originPage",
-                "menuItem:openWithQQBrowser",
-                "menuItem:openWithSafari",
-                "menuItem:refresh",
-                "menuItem:exposeArticle",
-                "menuItem:setFont"
-            ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
-        });
     }
 
     handleMap() {
