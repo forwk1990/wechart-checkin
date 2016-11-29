@@ -25,11 +25,18 @@ var Config =  {
         /*
         * 获取编辑数据接口
         * */
-        getEdit:_getFullUrlFromRelative("getEdit"),
+        getEdit:_getFullUrlFromRelative("getUserInfoTableExt"),
         /*
         * 验证票据
         * */
         validate:_getFullUrlFromRelative("checkTicket"),
+
+        /**
+         * 完善资料
+         * */
+        fill:_getFullUrlFromRelative("putUserInfoExt"),
+
+        wxConfig:"http://www.ldted.com/wxpt/wxConfig.jsp"
     },
     /*
     * 百度地图API密钥

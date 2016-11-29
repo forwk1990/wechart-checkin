@@ -22,6 +22,7 @@ class RadioBox extends Component{
         this.setState({
             selectedIndex:index
         });
+        this.props.onChange([].push(this.props.items[index].value));
     }
 
     render(){

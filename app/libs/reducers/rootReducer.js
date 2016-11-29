@@ -43,12 +43,13 @@ function checkInReducer(state = initialState,action){
                 loading: true
             });
         }
-        case ActionTypes.checkInAfter: {
+        case ActionTypes.checkIn: {
             return Object.assign({},state,action.responseObject);
         }
-        case ActionTypes.getActivityAfter: {
+        case ActionTypes.checkInAfter: {
             return Object.assign({}, state, {
-                loading: false
+                loading: false,
+                phone:action.phone
             });
         }
         default:

@@ -9,6 +9,10 @@ class Success extends React.Component{
         super(props);
     }
 
+    handleClick(){
+        wx.closeWindow();
+    }
+
     render(){
         return (
             <RouteTransition
@@ -19,7 +23,7 @@ class Success extends React.Component{
                     <div className="success-page-image"></div>
                     <div className="success-page-title">您的资料已提交</div>
                     <div className="success-page-thanks">感谢您对我们的信任与支持</div>
-                    <Link to="/checkin/ticket" className="success-page-link">完成并关闭</Link>
+                    <a className="success-page-link" onClick={this.handleClick.bind(this)}>完成并关闭</a>
                 </div>
             </RouteTransition>
         )

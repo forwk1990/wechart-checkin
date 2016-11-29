@@ -1,0 +1,88 @@
+$prefixCls: sys-value;
+
+$outerBoxRadius:20px;
+$outerBoxCornerWidth: 2 * $outerBoxRadius;
+
+%outerBoxCornerBase{
+  position:absolute;
+  background-color:rgb(238,238,238);
+  width:$outerBoxCornerWidth;
+  height:$outerBoxCornerWidth;
+  border-radius: $outerBoxRadius;
+}
+
+.#{$prefixCls}{
+  width:100%;
+  height:100%;
+  background-color:rgb(238,238,238);
+  padding:40px;
+  box-sizing: border-box;
+
+  &-container{
+    width:100%;
+    height:100%;
+    background-color:#ffffff;
+    position:relative;
+    padding:22px;
+    box-sizing: border-box;
+
+    &-corner-top-left{
+      @extend %outerBoxCornerBase;
+      left:-$outerBoxRadius;
+      top:-$outerBoxRadius;
+    }
+    &-corner-top-right{
+      @extend %outerBoxCornerBase;
+      right:-$outerBoxRadius;
+      top:-$outerBoxRadius;
+    }
+    &-corner-bottom-left{
+      @extend %outerBoxCornerBase;
+      left:-$outerBoxRadius;
+      bottom:-$outerBoxRadius;
+    }
+    &-corner-bottom-right{
+      @extend %outerBoxCornerBase;
+      right:-$outerBoxRadius;
+      bottom:-$outerBoxRadius;
+    }
+  }
+}
+
+.sys-value-container-inner{
+  width:100%;
+  border:1px solid #cccccc;
+  height:100%;
+
+  &-top{
+    display:block;
+    width:100%;
+    height:50%;
+    background:url(../../assets/images/value-top-background.png) top center no-repeat;
+    background-size: 100% auto;
+  }
+
+  &-middle{
+    color:#333333;
+    font-size:200px;
+    line-height: 200px;
+    height:200px;
+    display:block;
+    width:100%;
+    text-align: center;
+    position:absolute;
+    top:calc(50% - 100px);
+    top:-webkit-calc(50% - 100px);
+    left:0;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC";
+  }
+
+  &-bottom{
+    display:block;
+    width:100%;
+    height:50%;
+    background:url(../../assets/images/value-background.png) bottom center no-repeat;
+    background-size: 100% auto;
+  }
+
+}

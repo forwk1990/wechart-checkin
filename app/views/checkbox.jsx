@@ -19,20 +19,24 @@ class CheckBox extends Component{
             }),
             selectedIndex:-1
         };
-        this.itemClick = this.itemClick.bind(this
-        );
+        this.itemClick = this.itemClick.bind(this);
     }
 
     itemClick(index){
+        const selectedItems = [];
         const newItems = this.state.items.map(function(item,itemIndex){
             if(itemIndex == index){
                 item.selected = !item.selected;
+            }
+            if(item.selected){
+                selectedItems.push(item.value);
             }
             return item;
         });
         this.setState({
             items:newItems
         });
+        this.props.onChange(selectedItems);
     }
 
     render(){

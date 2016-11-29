@@ -9,7 +9,6 @@ import {createStore,applyMiddleware} from 'redux'
 
 // 扩展createStore
 var enhancerCreateStore = applyMiddleware(
-    loggerMiddleware,
     thunkMiddleware
 )(createStore);
 

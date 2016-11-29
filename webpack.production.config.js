@@ -20,6 +20,7 @@ let theme = {
     "@font-size-heading": "24px",
     "@font-size-input-label": "30px",
     "@h-spacing-lg": "0px",
+    "@font-size-caption":"35px",
     "@font-size-popup-title": "32px",
     "@font-size-popup-selected": "40px"
 };
@@ -104,7 +105,7 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            title: '砍价',
+            title: '喜悦来了',
             filename: 'index.html',
             template: 'template/index.template.html',      //按照此文件内容生成index.html
             inject: 'body',

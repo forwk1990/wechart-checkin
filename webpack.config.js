@@ -22,6 +22,7 @@ let theme = {
     "@font-size-heading": "24px",
     "@font-size-input-label": "30px",
     "@h-spacing-lg": "0px",
+    "@font-size-caption":"35px",
     "@font-size-popup-title": "32px",
     "@font-size-popup-selected": "40px"
 };
@@ -108,7 +109,7 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            title: '砍价',
+            title: '喜悦来了',
             filename: 'index.html',
             template: 'template/index.template.html',      //按照此文件内容生成index.html
             inject: 'body',
@@ -146,7 +147,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                loader: 'url-loader?limit=184800&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
+                loader: 'url-loader?limit=8192&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
             },
             {
                 test: /\.less$/,

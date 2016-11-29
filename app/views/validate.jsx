@@ -14,8 +14,10 @@ class Validate extends React.Component {
     }
 
     componentDidMount(){
+
         const self = this;
         const ticketNo = this.props.params.code;
+
         DataStore.validate({ticketNo:ticketNo}).then(function (responseObject) {
             console.info(responseObject);
             self.setState({isReady:true,isSuccess:true});
@@ -29,14 +31,17 @@ class Validate extends React.Component {
     }
 
     handleContinue(){
-        this.handleClick();
-        // wx.scanQRCode({
-        //     needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-        //     scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-        //     success: function (res) {
-        //         var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-        //     }
-        // });
+        wx.scanQRCode({
+            needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+            success: function (res) {
+                var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                console.info(result);
+            },
+            fail:function(error){
+                console.info(error);
+            }
+        });
     }
 
     render() {

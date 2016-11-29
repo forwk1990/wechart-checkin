@@ -7,168 +7,116 @@ var MockRandom = Mock.Random;
 var AppConfig = require("./../components/AppConfig.js");
 
 // 配置请求的相应时间
-Mock.setup({timeout:'2000-3000'});
+Mock.setup({timeout: '2000-3000'});
 
 
 // 模拟活动页数据
-Mock.mock(AppConfig.ApiConfig.getActivityInfo,{
-    'status':0,
-    'data':{
-        'openId':'@string',
-        'title':'禅宗',
-        "lng":116.397428,
-        "lat":39.90923,
-        'imageUrl':'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-        'subTitle':'成都养生协会国学交流论坛',
-        'address':'成都市武侯区香格里拉酒店2楼',
-        'date':'@datetime("yyyy/MM/dd HH:mm")',
-        'desc':'这是一场分享如何平复自己心灵，学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。'
+Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
+    'status': 0,
+    'data': {
+        'openId': '@string',
+        'title': '禅宗',
+        "lng": 116.397428,
+        "lat": 39.90923,
+        'imageUrl': 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+        'subTitle': '成都养生协会国学交流论坛',
+        'address': '成都市武侯区香格里拉酒店2楼',
+        'date': '@datetime("yyyy/MM/dd HH:mm")',
+        'desc': '这是一场分享如何平复自己心灵，学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。'
     }
 });
 
 // 验证票据
-Mock.mock(AppConfig.ApiConfig.validate,{
-    'status|0-1':1,
-    'data':{}
+Mock.mock(AppConfig.ApiConfig.validate, {
+    'status|0-1': 1,
+    'data': {}
 });
 
 // 模拟报名接口数据
-Mock.mock(AppConfig.ApiConfig.getEdit,{
-    'status':0,
-    'data':[
+// Mock.mock(AppConfig.ApiConfig.getEdit, {
+//     "status": 0,
+//     "data": [{
+//         "id": 1,
+//         "title": "性别",
+//         "type": "select",
+//         "options": [
+//             {"label": "男", "value": "11"},
+//             {"label": "女", "value": "12"},
+//             {
+//                 "label": "是",
+//                 "value": "51"
+//             },
+//             {"label": "否", "value": "52"}]
+//     },
+//         {"id": 2, "title": "微信号", "type": "text"},
+//         {"id": 3, "title": "所在省市", "type": "text"},
+//         {
+//             "id": 4,
+//             "title": "您是否患有以下疾病",
+//             "type": "checkbox",
+//             "options": [{"label": "高血压", "value": "41"}, {"label": "心脏病", "value": "42"}]
+//         },
+//         {"id": 5, "title": "您是否参加过喜悦的任何活动", "type": "radiobox", "options": []}],
+//     "message": "ok"
+// });
+Mock.mock(AppConfig.ApiConfig.getEdit, {
+    "status": "0",
+    "data": [{
+        "id": "sex",
+        "title": "性别",
+        "type": "select",
+        "options": [{"label": "男", "value": "11"}, {"label": "女", "value": "12"}]
+    }, {"id": "wechatId", "title": "微信号", "type": "text"}, {
+        "id": "company",
+        "title": "工作单位",
+        "type": "text"
+    }, {"id": "job", "title": "职位", "type": "text"},
         {
-            'id':'sex',
-            "title":"性别",
-            "type":"select",
-            "options":[
-                {
-                    "label":"男",
-                    "value":"11" // 对应唯一标志
-                },
-                {
-                    "label":"女",
-                    "value":"22" // 对应唯一标志
-                }
-            ]
-        },
-        {
-            'id':'wx',
-            "title":"微信号",
-            "type":"text",
-            "options":[]
-        },
-        {
-            'id':'gz',
-            "title":"工作单位",
-            "type":"text"
-        },
-        {
-            'id':'zw',
-            "title":"职位",
-            "type":"text"
-        },
-        {
-            'id':'xl',
-            "title":"学历",
-            "type":"select",
-            "options":[
-                {
-                    "label":"高中",
-                    "value":"10" // 对应唯一标志
-                },
-                {
-                    "label":"本科",
-                    "value":"20" // 对应唯一标志
-                },
-                {
-                    "label":"硕士",
-                    "value":"30" // 对应唯一标志
-                },
-                {
-                    "label":"博士",
-                    "value":"40" // 对应唯一标志
-                }
-            ]
-        },
-        {
-            'id':'jb',
-            "title":"您是否患有以下疾病",
-            "type":"checkbox",
-            "options":[
-                {
-                    "label":"高血压",
-                    "value":"1" // 对应唯一标志
-                },
-                {
-                    "label":"心脏病",
-                    "value":"2" // 对应唯一标志
-                },
-                {
-                    "label":"肾脏疾病",
-                    "value":"3" // 对应唯一标志
-                },
-                {
-                    "label":"哮喘",
-                    "value":"4" // 对应唯一标志
-                },
-                {
-                    "label":"糖尿病",
-                    "value":"5" // 对应唯一标志
-                },
-                {
-                    "label":"癌症",
-                    "value":"6" // 对应唯一标志
-                },
-                {
-                    "label":"风湿性、类风湿性疾病",
-                    "value":"7" // 对应唯一标志
-                },
-                {
-                    "label":"无以上疾病",
-                    "value":"8" // 对应唯一标志
-                }
-            ]
-        },
-        {
-            'id':'kc',
-            "title":"您是否曾今参加过茶道课程",
-            "type":"radiobox",
-            "options":[
-                {
-                    "label":"是",
-                    "value":"1"
-                },
-                {
-                    "label":"否",
-                    "value":"0"
-                }
-            ]
-        },
-        {
-            'id':'hd',
-            "title":"您是否参加过喜悦的任何活动",
-            "type":"radiobox",
-            "options":[
-                {
-                    "label":"是",
-                    "value":"b0"
-                },
-                {
-                    "label":"否",
-                    "value":"b1"
-                }
-            ]
-        }
-    ]
+            "id": "educational",
+            "title": "学历",
+            "type": "select", "initialValue": ["aoxl2"],
+            "options": [{"label": "高中", "value": "aoxl1"}, {"label": "本科", "value": "aoxl2"}, {
+                "label": "硕士",
+                "value": "aoxl3"
+            }, {"label": "博士", "value": "aoxl4"}]
+        }, {
+            "id": "3",
+            "title": "所在省市",
+            "type": "select",
+            "options": [{"label": "北京市", "value": "3101"}, {"label": "浙江省", "value": "3111"}, {
+                "label": "湖北省",
+                "value": "3117"
+            }]
+        }, {
+            "id": "4",
+            "title": "您是否患有以下疾病",
+            "type": "checkbox",
+            "options": [{"label": "高血压", "value": "41"}, {"label": "心脏病", "value": "42"}, {
+                "label": "肾脏疾病",
+                "value": "43"
+            }, {"label": "哮喘", "value": "44"}, {"label": "糖尿病", "value": "45"}, {
+                "label": "癌症",
+                "value": "46"
+            }, {"label": "风湿性、类风湿性疾病", "value": "47"}, {"label": "无以上疾病", "value": "48"}]
+        }, {
+            "id": "5",
+            "title": "您是否参加过喜悦的任何活动",
+            "type": "radiobox",
+            "options": [{"label": "是", "value": "51"}, {"label": "否", "value": "52"}]
+        }],
+    "message": "ok"
 });
 
 /*
-* 模拟参加活动接口，返回密钥
-* */
-Mock.mock(AppConfig.ApiConfig.checkin,{
-    'status':0,
-    'data':{
-        qrCode:'@string'
+ * 模拟参加活动接口，返回密钥
+ * */
+Mock.mock(AppConfig.ApiConfig.checkin, {
+    'status': 0,
+    'data': {
+        qrCode: '@string',
+        uid: "@string",
+        isExt: 1,
+        shortUrl:"http://t.cn/Rf9Rb0I"
     }
 });
 
