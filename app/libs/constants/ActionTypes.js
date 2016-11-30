@@ -11,4 +11,5 @@ module.exports = {
     checkInBefore:"@redux/checkinBefore",
     checkIn:"@redux/checkin",
     checkInAfter:"@redux/checkinAfter",
+    getExplain:"@redux/getExplain"
 }

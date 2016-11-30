@@ -30,7 +30,7 @@ class Ticket extends Component {
 
     render() {
         const self = this;
-        var {title, address, date, isReady, shortUrl} = self.props;
+        var {title, address, date, isReady} = self.props;
         if (!title) {
             title = "加载中...";
             const queryParameters = QueryString.parse(location.search);
@@ -67,7 +67,7 @@ class Ticket extends Component {
                         <div className="ticket-card-middle-title">活动当日您可凭此券入场</div>
                         <div className="ticket-card-middle-qrcode">
                             <div className="qr-container">
-                                <QRCode level='H' value={`${shortUrl}#/validate/${this.props.params.code}`}
+                                <QRCode level='H' value={`http://t.cn/${this.props.params.shortCode}#/validate/${this.props.params.code}`}
                                         size={self.state.size}/>
                             </div>
                         </div>
@@ -75,7 +75,7 @@ class Ticket extends Component {
                         <div className="ticket-sicircle-bottom-right"></div>
                     </div>
                     <div className="ticket-card-bottom">
-                        {self.props.isExt ? (<div className="ticket-card-bottom-ok">完善个人资料 获专业服务</div>)
+                        { parseInt(self.props.params.isExt) ? (<div className="ticket-card-bottom-ok">完善个人资料 获专业服务</div>)
                             : (<Link to="edit" className="ticket-card-bottom-link">完善个人资料 获专业服务</Link>)}
                     </div>
                 </div>

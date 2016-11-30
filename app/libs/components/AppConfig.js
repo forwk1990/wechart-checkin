@@ -30,7 +30,10 @@ var Config =  {
         * 验证票据
         * */
         validate:_getFullUrlFromRelative("checkTicket"),
-
+        /*
+        * 算命
+        * */
+        getExplain:_getFullUrlFromRelative("getNumerologyByBirthday"),
         /**
          * 完善资料
          * */

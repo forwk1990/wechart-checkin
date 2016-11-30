@@ -113,7 +113,7 @@ class Index extends React.Component {
             });
         }).then(function (responseObject) {
             self.props.dispatch({type: ActionTypes.checkIn, responseObject});
-            self.context.router.push(`ticket/${responseObject.qrCode}`);
+            self.context.router.push(`ticket/${responseObject.qrCode}/${responseObject.shortCode}/${responseObject.isExt}`);
             self.props.dispatch({type: ActionTypes.checkInAfter,phone:phone});
         }, function (error) {
             console.info(error);

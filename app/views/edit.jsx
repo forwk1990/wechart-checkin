@@ -1,10 +1,10 @@
 import React from 'react';
-import {InputItem, Picker, Toast,List} from 'antd-mobile';
+import {InputItem, Picker, Toast, List} from 'antd-mobile';
 import CheckBox from './checkbox.jsx';
 import RadioBox from './radiobox.jsx';
 import OptionType from 'constants/OptionType.js'
 import DataStore from 'DataStore';
-import { createForm } from 'rc-form';
+import {createForm} from 'rc-form';
 import './edit.scss';
 import {MessageBox} from 'Utils';
 import {connect} from 'react-redux';
@@ -18,7 +18,7 @@ class Edit extends React.Component {
         super(props);
         this.state = {
             'isReady': false,
-            'status':0,
+            'status': 0,
             options: []
         };
     }
@@ -29,7 +29,7 @@ class Edit extends React.Component {
         if (!queryParameters.id) return;
 
         DataStore.getEdit({id: queryParameters.id}).then(function (responseObject) {
-            self.setState({options: responseObject,"isReady":true});
+            self.setState({options: responseObject, "isReady": true});
             $(".am-list-extra").addClass("normal-input-font-style");
         }, function (error) {
             console.info(error);
@@ -47,40 +47,48 @@ class Edit extends React.Component {
 
     handleSubmit() {
         var self = this;
-        const names = self.state.options.map(function(option){
+        const names = self.state.options.map(function (option) {
             return option.id;
         });
         const values = this.props.form.getFieldsValue(names);
         var validated = true;
-        for(var propertyName in values){
+        for (var propertyName in values) {
             const value = values[propertyName];
-            if(!value || value.length < 1){
+            if (!value || value.length < 1) {
                 validated = false;
             }
         }
 
-        if(!validated){
+        if (!validated) {
             MessageBox.show('您的资料未填写完全，请检查');
             return;
         }
 
-        this.setState({status:1});
-        DataStore.fill({...values,uid:self.props.uid}).then(function (responseObject) {
+        this.setState({status: 1});
+        DataStore.fill({...values, uid: self.props.uid}).then(function (responseObject) {
             console.info(responseObject);
-            self.setState({status:0});
+            self.setState({status: 0});
             self.context.router.push(`success`);
         });
     }
 
-    handleBoxChange(name,value){
+    handleBoxChange(name, value) {
         const fieldObject = {};
         fieldObject[name] = value;
         this.props.form.setFieldsValue(fieldObject);
     }
 
+    getMaxColumns(option, columns) {
+        if (!option) return 0;
+        if (option.children && option.children.length > 0) {
+            columns = this.getMaxColumns(option.children[0], ++columns);
+        }
+        return columns;
+    }
+
     render() {
         var self = this;
-        const { getFieldProps } = this.props.form;
+        const {getFieldProps} = this.props.form;
         console.info(this.props.uid);
         return !this.state.isReady ? (<div className="loading"></div>)
             : (
@@ -97,8 +105,10 @@ class Edit extends React.Component {
                             this.state.options.map(function (option, index) {
                                 switch (option.type) {
                                     case OptionType.Select:
+                                        console.info(option);
+                                        const columns = self.getMaxColumns(option.options[0], 1);
                                         return (
-                                            <Picker key={index} style={{fontSize: "24px"}} cols={1}
+                                            <Picker key={index} style={{fontSize: "24px"}} cols={columns}
                                                     data={option.options}
                                                     title={"请选择" + option.title}
                                                     extra="  "
@@ -115,18 +125,21 @@ class Edit extends React.Component {
                                     case OptionType.Checkbox:
                                         return (
                                             <CheckBox key={index} title={option.title} items={option.options}
-                                                      {...getFieldProps(option.id)} onChange={(value) => self.handleBoxChange(option.id,value)}/>
+                                                      {...getFieldProps(option.id)}
+                                                      onChange={(value) => self.handleBoxChange(option.id, value)}/>
                                         );
                                     case OptionType.Radiobox:
                                         return (
                                             <RadioBox key={index} title={option.title} items={option.options}
-                                                      {...getFieldProps(option.id)} onChange={(value) => self.handleBoxChange(option.id,value)}/>
+                                                      {...getFieldProps(option.id)}
+                                                      onChange={(value) => self.handleBoxChange(option.id, value)}/>
                                         );
                                 }
                             })
                         }
                     </List>
-                    <LoadingButton text="提交资料" loadingText="正在为您提交..." status={this.state.status} onClick={()=>this.handleSubmit()}/>
+                    <LoadingButton text="提交资料" loadingText="正在为您提交..." status={this.state.status}
+                                   onClick={() => this.handleSubmit()}/>
                 </div>
             </RouteTransition>
         );
@@ -139,7 +152,7 @@ Edit.contextTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        uid:state.checkInReducer.uid
+        uid: state.checkInReducer.uid
     }
 }
 

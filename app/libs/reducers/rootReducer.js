@@ -57,9 +57,20 @@ function checkInReducer(state = initialState,action){
     }
 }
 
+function explainReducer(state = {},action){
+    switch(action.type){
+        case ActionTypes.getExplain: {
+            return Object.assign({}, state, {data:action.responseObject});
+        }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     getActivityReducer,
-    checkInReducer
+    checkInReducer,
+    explainReducer
 });
 
 export default rootReducer;

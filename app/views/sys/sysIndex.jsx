@@ -1,7 +1,10 @@
 import React from 'react';
 import {Flex, InputItem, Picker, List} from 'antd-mobile';
 import LoadingButton from '../loadingButton'
+import {connect} from 'react-redux';
 import './sysIndex.scss';
+import DataStore from 'DataStore'
+import ActionTypes from 'constants/ActionTypes';
 
 const AgeRange = [
     {
@@ -67,7 +70,18 @@ class SysIndex extends React.Component {
     }
 
     handleSubmit() {
-
+        const self = this;
+        /*
+         * 获取首页显示的信息
+         * */
+        self.props.dispatch(() => {
+            return DataStore.getExplain({monthDate: ''});
+        }).then(function (responseObject) {
+            self.props.dispatch({type: ActionTypes.getExplain, responseObject});
+            self.context.router.push('sysValue');
+        }, function (error) {
+            console.info(error);
+        });
     }
 
     render() {
@@ -97,4 +111,8 @@ class SysIndex extends React.Component {
 
 }
 
-export default SysIndex;
+SysIndex.contextTypes = {
+    router: React.PropTypes.object
+}
+
+export default connect()(SysIndex);
