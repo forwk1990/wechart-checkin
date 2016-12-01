@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import FastClick from 'fastclick';
 import {Flex, InputItem, Picker, List} from 'antd-mobile';
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
@@ -53,12 +52,6 @@ class Index extends React.Component {
     // 组件加载到DOM中之后调用
     componentDidMount() {
         let self = this;
-        /*
-         * @reason:
-         *  mobile browsers will wait approximately 300ms from the time that you tap the button to fire the click event
-         * */
-        FastClick.attach(document.body);
-
         /*
          * 获取查询字符串
          * */

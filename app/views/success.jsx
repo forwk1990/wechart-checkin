@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router'
 import './success.scss'
 import {RouteTransition, presets} from 'react-router-transition';
 

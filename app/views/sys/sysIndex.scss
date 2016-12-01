@@ -55,11 +55,18 @@ $prefixCls: sys-index;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom:20px;
     border-bottom: 1px solid rgb(227, 227, 227);
     span {
       margin-right: 20px;
-      font-size: 28px;
+      font-size: 33px;
       color: #333333;
+      letter-spacing: 3px;
+    }
+
+    img{
+      width:18px;
+      height:33px;
     }
   }
 }

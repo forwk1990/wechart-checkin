@@ -17,6 +17,8 @@ import SysIndex from 'sys/sysIndex'
 import SysValue from 'sys/sysValue'
 import {Router, Route, hashHistory,IndexRoute} from 'react-router';
 import DataStore from 'DataStore'
+import QueryString from 'query-string'
+import FastClick from 'fastclick';
 
 /*
 *
@@ -38,12 +40,14 @@ DataStore.wxConfig({currentUrl:window.location.href}).then(function(configObject
             'onMenuShareQZone'
         ]
     });
+
     wx.ready(function () {
-        console.log("wx配置成功");
+        const queryParameters = QueryString.parse(location.search);
+        if (!queryParameters.id) return;
         var shareData = {
             title: '喜悦来了',
             desc: '报名啦',
-            link: 'http://www.bj-evetime.com/',
+            link: window.location.origin + `/wx/index.html?id=${queryParameters.id}`,
             imgUrl: "",
             trigger: function (res) {
                 console.info('分享我的点单');
@@ -84,16 +88,20 @@ ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={App}>
                 <IndexRoute component={Index}/>
-                <Route path="ticket/:code/:shortCode/:isExt" component={Ticket}/>
+                <Route path="t/:code/:shortCode/:isExt" component={Ticket}/>
                 <Route path="index" component={Index}/>
                 <Route path="edit" component={Edit}/>
                 <Route path="success" component={Success}/>
                 <Route path="map" component={Map}/>
-                <Route path="validate/:code" component={Validate}/>
-                <Route path="sysIndex" component={SysIndex}/>
+                <Route path="v/:code" component={Validate}/>
+                <Route path="sys" component={SysIndex}/>
                 <Route path="sysValue" component={SysValue}/>
             </Route>
         </Router>
     </Provider>
     , document.getElementById("container")
 )
+
+window.onload = function(){
+    FastClick.attach(document.body);
+}

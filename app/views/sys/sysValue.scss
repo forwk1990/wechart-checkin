@@ -4,11 +4,34 @@ $carouselPrefixCls:sys-carousel-container;
 $rate : 928 / 560;
 
 
+.tf-epl-dialog{
+  width:100%;
+  height:100%;
+
+
+  &-cover{
+    position:fixed;
+    width:100%;
+    height: 100%;
+    background-color:rgba(0, 0, 0, 0.1);
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+  }
+}
+
 .tf-epl{
   width:100%;
   background-color:#ffffff;
+  position:relative;
+  left:0;
+  bottom:0;
+  right:0;
   display:block;
   height:720px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   padding:40px;
   box-sizing: border-box;
 
@@ -48,15 +71,27 @@ $rate : 928 / 560;
     width:100%;
     line-height:50px;
     color:#999999;
-    display:inline-block;
-    text-align:justify;
-    text-align-last:justify;
-
-    span:first-child{
+    clear:both;
+    margin-bottom:5px;
+    span.key{
+      display:inline-block;
+      text-align:justify;
+      text-align-last:justify;
       width:140px;
+      line-height:50px;
+      height:50px;
       display:inline-block;
       color:#999999;
       font-size:28px;
+      float:left;
+    }
+
+    span.key:after{
+      content:".";
+      display: inline-block;
+      width:100%;
+      overflow:hidden;
+      height:0;
     }
 
     span:nth-child(2){
@@ -68,6 +103,7 @@ $rate : 928 / 560;
       font-size:28px;
       color:#333333;
       letter-spacing:7px;
+      clear:both;
     }
   }
 }
@@ -78,16 +114,17 @@ $rate : 928 / 560;
   display:block;
   width:100%;
   height:100%;
+  margin:0 auto;
 }
 
 .#{$carouselPrefixCls}{
-  width:100%;
   display:flex;
   align-items: center;
   box-sizing: border-box;
-  padding:40px;
   position:relative;
   background:url(../../assets/images/mysk.png) center center no-repeat;
+  background-size:contain;
+  margin:0 auto;
 
   span{
     display:block;
@@ -95,7 +132,14 @@ $rate : 928 / 560;
     height:200px;
     text-align: center;
     font-size:200px;
-    font-family:"simsun","San Francisco"
+    font-family:"simsun","San Francisco";
+
+    span{
+      font-size:30px;
+      line-height: 30px;
+      height:30px;
+      color:#999999;
+    }
   }
 
   &-event-proxy{

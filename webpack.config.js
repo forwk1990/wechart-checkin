@@ -24,7 +24,8 @@ let theme = {
     "@h-spacing-lg": "0px",
     "@font-size-caption":"35px",
     "@font-size-popup-title": "32px",
-    "@font-size-popup-selected": "40px"
+    "@font-size-popup-selected": "40px",
+    "@input-color-icon":"#fff"
 };
 
 const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';

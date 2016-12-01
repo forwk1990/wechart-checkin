@@ -1,40 +1,21 @@
 import React from 'react';
-import {Flex, InputItem, Picker, List} from 'antd-mobile';
+import {Popup, InputItem, Picker, List} from 'antd-mobile';
 import LoadingButton from '../loadingButton'
 import {connect} from 'react-redux';
 import './sysIndex.scss';
 import DataStore from 'DataStore'
+import {MessageBox} from 'Utils';
 import ActionTypes from 'constants/ActionTypes';
-
-const AgeRange = [
-    {
-        value: "1",
-        label: "20岁以下"
-    },
-    {
-        value: "2",
-        label: "21-30岁"
-    },
-    {
-        value: "3",
-        label: "31-40岁"
-    },
-    {
-        value: "4",
-        label: "41-50岁"
-    },
-    {
-        value: "5",
-        label: "51-60岁"
-    }
-];
 
 class SysIndex extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            yearMonthDadyData: this._getYearMonthDayData()
+            yearMonthDadyData: this._getYearMonthDayData(),
+            loading: 0,
+            monthDate: [new Date().getFullYear() - 30, 1, 1],
+            selected: false
         }
     }
 
@@ -71,20 +52,37 @@ class SysIndex extends React.Component {
 
     handleSubmit() {
         const self = this;
+        const monthDate = this.state.monthDate;
+        if (monthDate.length < 1) {
+            MessageBox.show("请选择您的出生日期");
+            return;
+        }
         /*
          * 获取首页显示的信息
          * */
         self.props.dispatch(() => {
-            return DataStore.getExplain({monthDate: ''});
+            self.setState({loading: 1});
+            return DataStore.getExplain({birthday: monthDate.join('')});
         }).then(function (responseObject) {
+            self.setState({loading: 0});
             self.props.dispatch({type: ActionTypes.getExplain, responseObject});
             self.context.router.push('sysValue');
         }, function (error) {
+            self.setState({loading: 0});
             console.info(error);
         });
     }
 
+    handleChange(val) {
+        this.setState({monthDate: val, selected: true});
+    }
+
+    formatValueWithZero(value) {
+        return value < 10 ? `0${value}` : `${value}`;
+    }
+
     render() {
+        console.info(Popup);
         return (
             <div className="sys-index">
                 <div className="sys-index-top">
@@ -93,15 +91,21 @@ class SysIndex extends React.Component {
                         <div className="sys-index-top-container-sy"></div>
                     </div>
                 </div>
-                <Picker style={{fontSize: "24px"}} cols={3} data={this.state.yearMonthDadyData}
-                        title="出生日期">
+                <Picker style={{fontSize: "24px"}} cols={3}
+                        data={this.state.yearMonthDadyData}
+                        title="出生日期" value={this.state.monthDate}
+                        onChange={ (val) => this.handleChange(val)}>
                     <div className="sys-index-picker-item">
-                        <span>选择您的出生日期</span>
+                        {
+                            !this.state.selected ? (<span>选择您的出生日期</span>)
+                                : (
+                                <span>{`${this.state.monthDate[0]}-${this.formatValueWithZero(this.state.monthDate[1])}-${this.formatValueWithZero(this.state.monthDate[2])}`}</span>)
+                        }
                         <img src={require("../../assets/images/arrow_right.png")}/>
                     </div>
                 </Picker>
                 <div className="sys-index-bottom">
-                    <LoadingButton text="开始计算生命数" loadingText="计算中..." status={0}
+                    <LoadingButton text="开始计算生命数" loadingText="计算中..." status={this.state.loading}
                                    onClick={() => this.handleSubmit()}/>
                 </div>
 

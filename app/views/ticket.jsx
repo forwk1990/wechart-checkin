@@ -67,7 +67,7 @@ class Ticket extends Component {
                         <div className="ticket-card-middle-title">活动当日您可凭此券入场</div>
                         <div className="ticket-card-middle-qrcode">
                             <div className="qr-container">
-                                <QRCode level='H' value={`http://t.cn/${this.props.params.shortCode}#/validate/${this.props.params.code}`}
+                                <QRCode level='H' value={`http://t.cn/${this.props.params.shortCode}#/v/${this.props.params.code}`}
                                         size={self.state.size}/>
                             </div>
                         </div>

@@ -22,7 +22,8 @@ let theme = {
     "@h-spacing-lg": "0px",
     "@font-size-caption":"35px",
     "@font-size-popup-title": "32px",
-    "@font-size-popup-selected": "40px"
+    "@font-size-popup-selected": "40px",
+    "@input-color-icon":"#fff"
 };
 
 const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';
@@ -109,6 +110,7 @@ module.exports = {
             filename: 'index.html',
             template: 'template/index.template.html',      //按照此文件内容生成index.html
             inject: 'body',
+
             minify: false,
             hash: true,
             cache: false,
