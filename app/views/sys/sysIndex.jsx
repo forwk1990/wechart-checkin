@@ -14,7 +14,7 @@ class SysIndex extends React.Component {
         this.state = {
             yearMonthDadyData: this._getYearMonthDayData(),
             loading: 0,
-            monthDate: [new Date().getFullYear() - 30, 1, 1],
+            monthDate: [1980, 1, 1],
             selected: false
         }
     }
