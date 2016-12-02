@@ -1,5 +1,9 @@
 $prefixCls: sys-index;
 
+.am-picker{
+  padding:12px 50px !important;
+}
+
 .#{$prefixCls} {
   display: block;
 

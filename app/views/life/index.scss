@@ -1,0 +1,134 @@
+@mixin color-gradient-top-bottom($startColor,$endColor) {
+  background-image: -moz-linear-gradient(top, $startColor, $endColor);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, $startColor), to($endColor));
+  background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+  background-image: -o-linear-gradient(top, $startColor, $endColor);
+  background-image: linear-gradient(to bottom, $startColor 0, $endColor 100%);
+  background-repeat: repeat-y;
+}
+
+@mixin color-gradient-bottom-top($startColor,$endColor) {
+  background-image: -moz-linear-gradient(bottom, $startColor, $endColor);
+  background-image: -webkit-gradient(linear, right bottom, right top, color-stop(0, $startColor), to($endColor));
+  background-image: -webkit-linear-gradient(bottom, $startColor, $endColor);
+  background-image: -o-linear-gradient(bottom, $startColor, $endColor);
+  background-image: linear-gradient(to top, $startColor 0, $endColor 100%);
+  background-repeat: repeat-y;
+}
+
+%cover-icon{
+  display:block;
+  width:100%;
+  height:100%;
+  position:absolute;
+  background-size: 76px 76px;
+}
+
+%semi-circle{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 100% * 0.5;
+  position: absolute;
+}
+
+@mixin block-semi-circle-percent($width){
+  width: $width;
+  height: $width;
+  box-sizing: border-box;
+  border-radius: $width * 0.5;
+  position: absolute;
+}
+
+@mixin block-semi-circle-fixed($width){
+  width: $width;
+  height: $width;
+  box-sizing: border-box;
+  border-radius: $width * 0.5;
+  position: absolute;
+}
+
+.life-index {
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  padding-top: 100px;
+
+  &-pie-container {
+    display: block;
+    width: 520px;
+    height: 520px;
+    background-color: #171717;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 260px;
+
+    &-music-flag{
+      @extend %cover-icon;
+      z-index:9;
+      border-radius: 260px;
+
+      .music{
+        position:relative;
+        border-radius: 36px;
+        width:80px;
+        height:80px;
+        background-size: contain;
+        margin:0 auto;
+        top:0;
+        background:url("../../assets/images/music-flag.png") top center no-repeat;
+      }
+    }
+
+    &-alarm-flag{
+      @extend %cover-icon;
+      z-index:8;
+      background:url("../../assets/images/alarm-flag.png") top center no-repeat;
+      border-radius: 260px;
+    }
+
+    &-progress-left{
+      @include block-semi-circle-percent(100%);
+      background-color:#171717;
+      z-index: 5;
+      clip: rect(0px, 260px, 520px, 0px);
+    }
+
+    &-progress-right{
+      @include block-semi-circle-percent(100%);
+      background-color:#171717;
+      z-index: 7;
+      display:none;
+      clip: rect(0px, 520px, 520px, 260px);
+    }
+
+    &-left{
+      @include color-gradient-bottom-top(#ffbd00,#ffc200);
+      @include block-semi-circle-percent(100%);
+      border:1px solid #171717;
+      clip: rect(0px, 260px, 520px, 0px);
+      z-index: 6;
+    }
+
+    &-right {
+      @include color-gradient-top-bottom(#ffa000,#ffbd00);
+      @include block-semi-circle-percent(100%);
+      border:1px solid #171717;
+      clip: rect(0px, 520px, 520px, 260px);
+      z-index: 4;
+    }
+
+    &-lock {
+      position: absolute;
+      z-index: 10;
+      display: block;
+      width: 360px;
+      height: 360px;
+      background: url("../../assets/images/time-scale.png") #000 center center no-repeat;
+      background-size: contain;
+      border-radius: 180px;
+      left: 80px;
+      top: 80px;
+    }
+  }
+}

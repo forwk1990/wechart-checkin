@@ -53,7 +53,7 @@ class SysIndex extends React.Component {
     handleSubmit() {
         const self = this;
         const monthDate = this.state.monthDate;
-        if (monthDate.length < 1) {
+        if (!this.state.selected) {
             MessageBox.show("请选择您的出生日期");
             return;
         }

@@ -70,6 +70,8 @@ class Index extends React.Component {
         }, function (error) {
             console.info(error);
         });
+
+
     }
 
     handleSubmit() {
@@ -107,7 +109,7 @@ class Index extends React.Component {
         }).then(function (responseObject) {
             self.props.dispatch({type: ActionTypes.checkIn, responseObject});
             self.context.router.push(`ticket/${responseObject.qrCode}/${responseObject.shortCode}/${responseObject.isExt}`);
-            self.props.dispatch({type: ActionTypes.checkInAfter,phone:phone});
+            self.props.dispatch({type: ActionTypes.checkInAfter, phone: phone});
         }, function (error) {
             console.info(error);
         });
@@ -134,7 +136,7 @@ class Index extends React.Component {
                 pathname={this.props.location.pathname}
                 {...presets.fade}>
                 <div className="index">
-                    <div className="index-img"></div>
+                    <div className="index-img" style={{background:`url(${imageUrl}) left center`}}></div>
                     <div className="content">
                         <div className="address" onClick={this.handleMap.bind(this)}>
                             <img src={require("../assets/images/location_back.png")}/>
@@ -143,7 +145,7 @@ class Index extends React.Component {
                         </div>
                         <span className="date">{date}</span>
                         <div className="topline"></div>
-                        <List style={{marginTop:"10px"}}>
+                        <List style={{marginTop: "10px"}}>
                             <InputItem style={{paddingLeft: "0px", textAlign: "right"}}
                                        value={this.state.inputValue_name} maxLength="10"
                                        onChange={ (val) => self.handleChange('inputValue_name', val)}>姓名</InputItem>
@@ -186,7 +188,7 @@ const mapStateToProps = (state) => {
         activityId: state.getActivityReducer.activityId,
         loading: state.checkInReducer.loading,
         qrCode: state.checkInReducer.qrCode,
-        isExt:state.checkInReducer.checkInReducer
+        isExt: state.checkInReducer.checkInReducer
     }
 }
 
