@@ -19,7 +19,6 @@ import SysValue from 'sys/sysValue'
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
-import FastClick from 'fastclick';
 
 /*
  *
@@ -87,6 +86,4 @@ ReactDOM.render(
     , document.getElementById("container")
 )
 
-window.onload = function () {
-    FastClick.attach(document.body);
-}
+
