@@ -6,8 +6,9 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeInterval: 15 * 60 * 1000,
-            isStart: false
+            timeInterval: 0.5 * 60 * 1000,
+            isStart: false,
+            isShowMessage: false
         };
         this.isTimerStart = false;
     }
@@ -41,6 +42,7 @@ class Index extends React.Component {
                 if (musicDegTotal >= 360) {
                     $(".life-index-pie-container-progress-left").css("z-index", 7);
                     clearInterval(interval);
+                    self.setState({isShowMessage: true});
                     self.reset();
                 }
             }
@@ -54,10 +56,10 @@ class Index extends React.Component {
     }
 
     /*
-    * 将给定选择器对应的DOM元素转动指定角度
-    * @param selector jquery选择字符串
-    * @param degree 转动的角度
-    * */
+     * 将给定选择器对应的DOM元素转动指定角度
+     * @param selector jquery选择字符串
+     * @param degree 转动的角度
+     * */
     rotate(selector, degree) {
         $(selector).css("-o-transform", "rotate(" + degree + "deg)");
         $(selector).css("-moz-transform", "rotate(" + degree + "deg)");
@@ -108,12 +110,20 @@ class Index extends React.Component {
                     <div className="life-index-pie-container-progress-right"></div>
                     <div className="life-index-pie-container-progress-left"></div>
                 </div>
-                <div className="life-index-start-pause" onClick={ () => this.handleClick()}>
+                {do{
+                    if(!this.state.isShowMessage){
+                    (<div className="life-index-start-pause" onClick={ () => this.handleClick()}>
                     {
                         this.state.isStart ? (<div className="pause"></div>)
                             : (<div className="start"></div>)
                     }
-                </div>
+                    </div>)
+                }else{
+                    (<div className="life-index-message">本次正念活动结束</div>)
+                }
+                }
+                }
+
             </div>
         );
     }

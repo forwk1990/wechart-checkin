@@ -54,6 +54,14 @@
   background-color: #000000;
   padding-top: 100px;
 
+  &-message{
+    color:#ffffff;
+    font-size:48px;
+    text-align: center;
+    width:100%;
+    margin-top:100px;
+  }
+
   &-pie-container {
     display: block;
     width: 520px;
