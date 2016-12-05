@@ -35,7 +35,7 @@ const px2remOpts = {
 }
 
 // const host = "192.168.2.112"; // 家用
-const host = "www.ldted.com"; // 公司
+const host = "192.168.2.112/~itachi"; // 公司
 
 module.exports = {
     // devtool: 'source-map',
@@ -43,7 +43,8 @@ module.exports = {
     // The base directory (absolute path!) for resolving the entry option
     context: __dirname,
     entry: {
-        app: './app/entry.js'
+        app: './app/entry.js',
+        vendors: ['query-string','react', 'redux-thunk', 'react-dom', 'react-redux', 'react-router', 'react-router-transition', 'redux','qrcode.react'],
     }, // we can also write path.resolve(__dirname,'app/entry.js') without context setting
     output: {
         /*
@@ -51,7 +52,7 @@ module.exports = {
          * */
         path: path.join(__dirname, 'dist'),
         filename: 'index.js',
-        publicPath: "http://" + host + "/wx"
+        publicPath: "http://" + host + "/wx/"
     },
 
     resolve: {
@@ -88,21 +89,14 @@ module.exports = {
 
     plugins: [
         //new webpack.HotModuleReplacementPlugin(),
-        //提取公共部分资源
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     // 与 entry 中的 vendors 对应
-        //     name: 'vendors',
-        //     // 输出的公共资源名称
-        //     filename: 'common.bundle.js',
-        //     // 对所有entry实行这个规则
-        //     minChunks: Infinity
-        // }),
-        // 把jquery作为全局变量插入到所有的代码中
-        // 然后就可以直接在页面中使用jQuery了
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery'
+        // 提取公共部分资源
+        new webpack.optimize.CommonsChunkPlugin({
+            // 与 entry 中的 vendors 对应
+            name: ['vendors'],
+            // 输出的公共资源名称
+            filename: '[id].[hash].js',
+            // 对所有entry实行这个规则
+            minChunks: Infinity
         }),
 
         new HtmlWebpackPlugin({
@@ -131,7 +125,7 @@ module.exports = {
          * conditionally included "development" JavaScript file
          * */
         new webpack.DefinePlugin({
-            __DEV__: 'false',
+            __DEV__: 'true',
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
         })
     ],
@@ -140,14 +134,11 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015','stage-0', 'react']
-                }
+                loader: 'babel'
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                loader: 'url-loader?limit=184800&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
+                loader: 'url-loader?limit=4048&name=images/[hash].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
             },
             {
                 test: /\.less$/,

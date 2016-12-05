@@ -22,37 +22,37 @@ let theme = {
     "@font-size-heading": "24px",
     "@font-size-input-label": "30px",
     "@h-spacing-lg": "0px",
-    "@font-size-caption":"35px",
+    "@font-size-caption": "35px",
     "@font-size-popup-title": "32px",
     "@font-size-popup-selected": "40px",
-    "@input-color-icon":"#fff"
+    "@input-color-icon": "#fff"
 };
 
 const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';
-
 const px2rem = require('postcss-pxtorem');
 const px2remOpts = {
     rootValue: 100,
     propWhiteList: []
 }
 
-// const host = "192.168.2.112"; // 家用
-const host = "192.168.31.208"; // 公司
+const host = "192.168.2.112"; // 家用
+// const host = "192.168.31.208"; // 公司
 
 module.exports = {
-    devtool: 'source-map',
     postcss: [px2rem(px2remOpts)],
     // The base directory (absolute path!) for resolving the entry option
     context: __dirname,
     entry: {
-        app: './app/entry.js'
+        app: './app/entry.js',
+        react: ['redux-thunk', 'react-redux', 'react-router','react-router-transition', 'redux','qrcode.react'],
+        libs: ['query-string']
     }, // we can also write path.resolve(__dirname,'app/entry.js') without context setting
     output: {
         /*
          * the output.path directory as absolute path
          * */
         path: path.join(__dirname, 'dist'),
-        filename: 'index.js',
+        filename: 'index.[hash].js',
         publicPath: "http://" + host + ":8787/"
     },
 
@@ -92,21 +92,14 @@ module.exports = {
 
     plugins: [
         //new webpack.HotModuleReplacementPlugin(),
-        //提取公共部分资源
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     // 与 entry 中的 vendors 对应
-        //     name: 'vendors',
-        //     // 输出的公共资源名称
-        //     filename: 'common.bundle.js',
-        //     // 对所有entry实行这个规则
-        //     minChunks: Infinity
-        // }),
-        // 把jquery作为全局变量插入到所有的代码中
-        // 然后就可以直接在页面中使用jQuery了
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery'
+        // 提取公共部分资源
+        new webpack.optimize.CommonsChunkPlugin({
+            // 与 entry 中的 vendors 对应
+            name: ['react','libs'],
+            // 输出的公共资源名称
+            filename: '[id].[hash].js',
+            // 对所有entry实行这个规则
+            minChunks: Infinity
         }),
 
         new HtmlWebpackPlugin({
@@ -119,11 +112,6 @@ module.exports = {
             cache: false,
             showErrors: false
 
-        }),
-
-        new ExtractTextPlugin("[name].cs", {
-            disable: false,
-            allChunks: true,
         }),
         /*
          * The Webpack DefinePlugin allows you to create "Magic" global variables for your app
@@ -141,14 +129,11 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'stage-0', 'react']
-                }
+                loader: 'babel'
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                loader: 'url-loader?limit=8192&name=images/[name].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
+                loader: 'url-loader?limit=4048&name=images/[hash].[ext]' // 这里的 limit=8192 表示用 base64 编码 <= ８K 的图像 大于这个尺寸的图片会拷贝到build目录下
             },
             {
                 test: /\.less$/,
