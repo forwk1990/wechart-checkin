@@ -24,7 +24,7 @@ function getActivityReducer(state = initialState, action) {
             });
         }
         case ActionTypes.getActivity: {
-            return Object.assign({},state,action.responseObject);
+            return Object.assign({}, state, action.responseObject);
         }
         case ActionTypes.getActivityAfter: {
             return Object.assign({}, state, {
@@ -36,7 +36,7 @@ function getActivityReducer(state = initialState, action) {
     }
 }
 
-function checkInReducer(state = initialState,action){
+function checkInReducer(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.checkInBefore: {
             return Object.assign({}, state, {
@@ -44,12 +44,12 @@ function checkInReducer(state = initialState,action){
             });
         }
         case ActionTypes.checkIn: {
-            return Object.assign({},state,action.responseObject);
+            return Object.assign({}, state, action.responseObject);
         }
         case ActionTypes.checkInAfter: {
             return Object.assign({}, state, {
                 loading: false,
-                phone:action.phone
+                phone: action.phone
             });
         }
         default:
@@ -57,10 +57,23 @@ function checkInReducer(state = initialState,action){
     }
 }
 
-function explainReducer(state = {},action){
-    switch(action.type){
+function explainReducer(state = {}, action) {
+    switch (action.type) {
         case ActionTypes.getExplain: {
-            return Object.assign({}, state, {data:action.responseObject});
+            return Object.assign({}, state, {data: action.responseObject});
+        }
+        default:
+            return state;
+    }
+}
+
+/*
+* 用户信息
+* */
+function userInfoReducer(state = {}, action) {
+    switch (action.type) {
+        case ActionTypes.login: {
+            return Object.assign({}, state, {data: action.responseObject});
         }
         default:
             return state;
