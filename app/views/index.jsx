@@ -3,10 +3,9 @@
  * on 2016-10-20.
  */
 
-import React, {Component} from 'react';
-import {Flex, InputItem, Picker, List} from 'antd-mobile';
+import React from 'react';
+import {InputItem, Picker, List} from 'antd-mobile';
 import DataStore from 'DataStore'
-import QueryString from 'query-string'
 import {RouteTransition, presets} from 'react-router-transition';
 import {connect} from 'react-redux';
 import {MessageBox} from 'Utils';

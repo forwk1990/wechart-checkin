@@ -39,6 +39,24 @@ var Config =  {
          * */
         fill:_getFullUrlFromRelative("putUserInfoExt"),
 
+        /*
+        * 喜悦生活
+        * */
+        getLife:_getFullUrlFromRelative("getLife"),
+
+        /*
+        * 获取我的活动
+        * */
+        getMyActivity:_getFullUrlFromRelative("getMyActivity"),
+
+        /*
+        * 获取积分排名
+        * */
+        getIntegralOrder:_getFullUrlFromRelative("getIntegralOrder"),
+
+        /*
+        * 配置微信
+        * */
         wxConfig:"http://www.ldted.com/wxpt/wxConfig.jsp"
     },
     /*

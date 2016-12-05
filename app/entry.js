@@ -16,6 +16,8 @@ import store from './store.js'
 import Validate from 'validate'
 import SysIndex from 'sys/sysIndex'
 import SysValue from 'sys/sysValue'
+import MyActivity from 'comming/myActivity';
+import MyIntegral from 'comming/myIntegral';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
@@ -79,7 +81,9 @@ ReactDOM.render(
                 <Route path="validate/:code" component={Validate}/>
                 <Route path="sys" component={SysIndex}/>
                 <Route path="sysValue" component={SysValue}/>
-                <Route path="life" component={LifeIndex}/>
+                <Route path="life/:type" component={LifeIndex}/>
+                <Route path="mine/activity" component={MyActivity}/>
+                <Route path="mine/integral" component={MyIntegral}/>
             </Route>
         </Router>
     </Provider>
