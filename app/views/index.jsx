@@ -136,7 +136,7 @@ class Index extends React.Component {
                 pathname={this.props.location.pathname}
                 {...presets.fade}>
                 <div className="index">
-                    <div className="index-img" style={{background:`url(${imageUrl}) left center`}}></div>
+                    <div className="index-img" style={{background:`url(${imageUrl}) center center`}}></div>
                     <div className="content">
                         <div className="address" onClick={this.handleMap.bind(this)}>
                             <img src={require("../assets/images/location_back.png")}/>
