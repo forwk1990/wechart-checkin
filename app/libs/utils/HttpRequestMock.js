@@ -7,7 +7,7 @@ var MockRandom = Mock.Random;
 var AppConfig = require("./../components/AppConfig.js");
 
 // 配置请求的相应时间
-Mock.setup({timeout: '2000-3000'});
+Mock.setup({timeout: '600-1000'});
 
 
 // 模拟活动页数据
@@ -27,77 +27,111 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
 });
 
 /*
-* 获取积分排名
+* 获取积分详情
 * */
-Mock.mock(AppConfig.ApiConfig.getIntegralOrder,{
-    'status':0,
-    'data':[
+Mock.mock(AppConfig.ApiConfig.getIntegralDetail,{
+    'status': 0,
+    'data|10-15':[
         {
-            imageUrl:'http://tse1.mm.bing.net/th?id=OIP.M8b1c1fbeb0742c5e561d00e24b107593o0&pid=15.1',
-            name:'Zhu Zhenxiang',
-            score:12800
-        },
-        {
-            imageUrl:'http://file.youboy.com/a/142/32/24/8/931358.jpg',
-            name:'Wan Dewu',
-            score:12600
-        },
-        {
-            imageUrl:'http://www.cndog.net/tpb/2012-12/20/2012218-4592.jpg',
-            name:'Gao Xing',
-            score:12400
-        },
-        {
-            imageUrl:'http://img4.goumin.com/attachments/photo/0/0/57/14829/3796245o2.jpg',
-            name:'Ren Jinlong',
-            score:12200
-        },
-        {
-            imageUrl:'http://img.boqiicdn.com/Data/BK/A/1311/25/img26701385362659_y.jpg',
-            name:'Yin Pan',
-            score:12000
+            "title|1":["[扶老奶奶过马路] 活动报名","正念行走","捐款1000元","吃麻花比赛","正念用餐","生命数字","正念静坐"],
+            "score|1":[20,18,30,50,80,15],
+            "date|1":['2016/11/08 08:30','2016/11/09 10:30','2016/11/10 20:00']
         }
     ]
 });
 
 /*
-* 获取我的活动
-* */
-Mock.mock(AppConfig.ApiConfig.getMyActivity,{
-    'status':0,
-    'data':[
+ * 获取积分排名
+ * */
+Mock.mock(AppConfig.ApiConfig.getIntegralOrder, {
+    'status': 0,
+    'data': [
         {
-            id:'1',
-            title:'纪念逝去的杀马特',
-            imageUrl:'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-            date:'2016/11/08 00:00:00',
-            address:'张之洞路窑洞之王'
+            imageUrl: 'http://tse1.mm.bing.net/th?id=OIP.M8b1c1fbeb0742c5e561d00e24b107593o0&pid=15.1',
+            name: 'Zhu Zhenxiang',
+            score: 12800
         },
         {
-            id:'2',
-            title:'活在我们心中的雷锋哥哥',
-            imageUrl:'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-            date:'2016/11/08 00:00:00',
-            address:'汉阳大道雾里吞'
+            imageUrl: 'http://file.youboy.com/a/142/32/24/8/931358.jpg',
+            name: 'Wan Dewu',
+            score: 12600
         },
         {
-            id:'3',
-            title:'咱们屯里的人纪念发布会',
-            imageUrl:'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-            date:'2016/11/08 00:00:00',
-            address:'光谷大道中山公园'
+            imageUrl: 'http://www.cndog.net/tpb/2012-12/20/2012218-4592.jpg',
+            name: 'Gao Xing',
+            score: 12400
+        },
+        {
+            imageUrl: 'http://img4.goumin.com/attachments/photo/0/0/57/14829/3796245o2.jpg',
+            name: 'Ren Jinlong',
+            score: 12200
+        },
+        {
+            imageUrl: 'http://img.boqiicdn.com/Data/BK/A/1311/25/img26701385362659_y.jpg',
+            name: 'Yin Pan',
+            score: 12000
+        },
+        {
+            imageUrl: 'http://www.cndog.net/tpb/2012-12/20/2012218-4592.jpg',
+            name: 'Gao Xing',
+            score: 12400
+        },
+        {
+            imageUrl: 'http://img4.goumin.com/attachments/photo/0/0/57/14829/3796245o2.jpg',
+            name: 'Ren Jinlong',
+            score: 12200
+        },
+        {
+            imageUrl: 'http://www.cndog.net/tpb/2012-12/20/2012218-4592.jpg',
+            name: 'Gao Xing',
+            score: 12400
+        },
+        {
+            imageUrl: 'http://img4.goumin.com/attachments/photo/0/0/57/14829/3796245o2.jpg',
+            name: 'Ren Jinlong',
+            score: 12200
+        }
+    ]
+});
+
+/*
+ * 获取我的活动
+ * */
+Mock.mock(AppConfig.ApiConfig.getMyActivity, {
+    'status': 0,
+    'data': [
+        {
+            id: '1',
+            title: '纪念逝去的杀马特',
+            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            date: '2016/11/08 00:00:00',
+            address: '张之洞路窑洞之王'
+        },
+        {
+            id: '2',
+            title: '活在我们心中的雷锋哥哥',
+            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            date: '2016/11/08 00:00:00',
+            address: '汉阳大道雾里吞'
+        },
+        {
+            id: '3',
+            title: '咱们屯里的人纪念发布会',
+            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            date: '2016/11/08 00:00:00',
+            address: '光谷大道中山公园'
         }
     ]
 });
 
 // 获取喜悦生活
-Mock.mock(AppConfig.ApiConfig.getLife,{
-    'status':0,
-    'data':{
-        title:"十五分钟静坐",
-        text:"观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。<br/>舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。<br/>舍利子，是诸法空相，不生不灭，不垢不净，不增不减。<br/>是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。<br/>无苦集灭道，无智亦无得。<br/>以无所得故。菩提萨埵，依般若波罗蜜多故，心无挂碍。<br/>无挂碍故，无有恐怖，远离颠倒梦想，究竟涅盘。<br/>三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。<br/>故知般若波罗蜜多，是大神咒，是大明咒，是无上咒，是无等等咒，能除一切苦，真实不虚。<br/>故说般若波罗蜜多咒，即说咒曰：揭谛揭谛，波罗揭谛，波罗僧揭谛，菩提萨婆诃<br/>",
-        integral:120,
-        audios:[
+Mock.mock(AppConfig.ApiConfig.getLife, {
+    'status': 0,
+    'data': {
+        title: "十五分钟静坐",
+        text: "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。<br/>舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。<br/>舍利子，是诸法空相，不生不灭，不垢不净，不增不减。<br/>是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。<br/>无苦集灭道，无智亦无得。<br/>以无所得故。菩提萨埵，依般若波罗蜜多故，心无挂碍。<br/>无挂碍故，无有恐怖，远离颠倒梦想，究竟涅盘。<br/>三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。<br/>故知般若波罗蜜多，是大神咒，是大明咒，是无上咒，是无等等咒，能除一切苦，真实不虚。<br/>故说般若波罗蜜多咒，即说咒曰：揭谛揭谛，波罗揭谛，波罗僧揭谛，菩提萨婆诃<br/>",
+        integral: 120,
+        audios: [
             "http://mp3.haoduoge.com/s/2016-12-04/1480865949.mp3",
             "http://mp3.haoduoge.com/s/2016-09-29/1475120524.mp3"
         ]
@@ -110,33 +144,6 @@ Mock.mock(AppConfig.ApiConfig.validate, {
     'data': {}
 });
 
-// 模拟报名接口数据
-// Mock.mock(AppConfig.ApiConfig.getEdit, {
-//     "status": 0,
-//     "data": [{
-//         "id": 1,
-//         "title": "性别",
-//         "type": "select",
-//         "options": [
-//             {"label": "男", "value": "11"},
-//             {"label": "女", "value": "12"},
-//             {
-//                 "label": "是",
-//                 "value": "51"
-//             },
-//             {"label": "否", "value": "52"}]
-//     },
-//         {"id": 2, "title": "微信号", "type": "text"},
-//         {"id": 3, "title": "所在省市", "type": "text"},
-//         {
-//             "id": 4,
-//             "title": "您是否患有以下疾病",
-//             "type": "checkbox",
-//             "options": [{"label": "高血压", "value": "41"}, {"label": "心脏病", "value": "42"}]
-//         },
-//         {"id": 5, "title": "您是否参加过喜悦的任何活动", "type": "radiobox", "options": []}],
-//     "message": "ok"
-// });
 Mock.mock(AppConfig.ApiConfig.getEdit, {
     "status": "0",
     "data": [{

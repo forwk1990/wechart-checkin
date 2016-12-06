@@ -228,6 +228,7 @@
     .integral-order-cell:last-child>.integral-order-cell-content{
       border-bottom:0px;
     }
+
   }
 
   &-more-container{
@@ -239,3 +240,147 @@
   }
 
 }
+
+.more-integral{
+  width:100%;
+  box-sizing: border-box;
+  background-color:#f8f8f8;
+
+  .integral-order-common-cell{
+    width:100%;
+    height:120px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    &-index{
+      display:inline-block;
+      width:100px;
+      height:120px;
+      line-height: 120px;
+      text-align: center;
+      color:#999999;
+    }
+
+    &-gold{
+      display:inline-block;
+      width:100px;
+      height:120px;
+      background:url(../../assets/images/gold.png) center center no-repeat;
+      background-size: auto;
+    }
+    &-silver{
+      display:inline-block;
+      width:100px;
+      height:120px;
+      background:url(../../assets/images/silver.png) center center no-repeat;
+      background-size: auto;
+    }
+    &-copper{
+      display:inline-block;
+      width:100px;
+      height:120px;
+      background:url(../../assets/images/copper.png) center center no-repeat;
+      background-size: auto;
+    }
+
+    &-image{
+      width:80px;
+      height:80px;
+
+      img{
+        width:100%;
+        height:100%;
+        border-radius: 40px;
+      }
+
+    }
+
+    &-content{
+      flex:1;
+      display:flex;
+      height:120px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-right:40px;
+      border-bottom:1px solid #e5e5e5;
+
+      &-text{
+        color:#010101;
+        font-size:28px;
+        margin-left:20px;
+      }
+
+      &-score{
+        font-size:28px;
+        color:#010101;
+        text-align: right;
+      }
+    }
+
+  }
+
+  .integral-order-common-cell:last-child>.integral-order-common-cell-content{
+    border-bottom:0px;
+  }
+}
+
+.integral-detail{
+
+  width:100%;
+  box-sizing: border-box;
+  background-color:#fff;
+
+  .integral-detail-cell{
+    width:100%;
+    height:100px;
+    padding:0px 0px 0px 40px;
+    box-sizing: border-box;
+    position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-title{
+      font-size:28px;
+      color:#000000;
+    }
+
+    &-score{
+      font-size:28px;
+      color:#000000;
+      padding-right:40px;
+    }
+
+    &-bottom{
+      position:absolute;
+      width:100%;
+      box-sizing: border-box;
+      padding-left:40px;
+      left:0px;
+      bottom:-12px;
+      display:flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      &-date{
+        font-size:24px;
+        color:#999999;
+        padding-right:14px;
+      }
+
+      &-line{
+        flex:1;
+        background-color:#e5e5e5;
+        height:1px;
+      }
+
+    }
+
+  }
+
+}
+

@@ -42,7 +42,7 @@ var Config =  {
         /*
         * 喜悦生活
         * */
-        getLife:_getFullUrlFromRelative("getLife"),
+        getLife:_getFullUrlFromRelative("getJoyLifeByType"),
 
         /*
         * 获取我的活动
@@ -53,6 +53,11 @@ var Config =  {
         * 获取积分排名
         * */
         getIntegralOrder:_getFullUrlFromRelative("getIntegralOrder"),
+
+        /*
+        * 获取积分详情
+        * */
+        getIntegralDetail:_getFullUrlFromRelative("getIntegralDetail"),
 
         /*
         * 配置微信

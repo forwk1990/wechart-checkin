@@ -9,13 +9,14 @@ import persistState from 'redux-localstorage'
 import {compose,createStore,applyMiddleware} from 'redux'
 
 const persistedReducers = [
-    ''
+    'userInfoReducer'
 ];
 
 // 扩展createStore
 var enhancerCreateStore = compose(
     persistState(persistedReducers)
 )(applyMiddleware(
+    loggerMiddleware,
     thunkMiddleware
 )(createStore));
 

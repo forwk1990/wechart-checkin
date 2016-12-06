@@ -17,7 +17,7 @@ import Validate from 'validate'
 import SysIndex from 'sys/sysIndex'
 import SysValue from 'sys/sysValue'
 import MyActivity from 'comming/myActivity';
-import MyIntegral from 'comming/myIntegral';
+import {MoreIntegral, MyIntegral, IntegralDetail} from 'comming/myIntegral';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
@@ -84,6 +84,8 @@ ReactDOM.render(
                 <Route path="life/:type" component={LifeIndex}/>
                 <Route path="mine/activity" component={MyActivity}/>
                 <Route path="mine/integral" component={MyIntegral}/>
+                <Route path="mine/moreIntegral" component={MoreIntegral}/>
+                <Route path="mine/integralDetail" component={IntegralDetail}/>
             </Route>
         </Router>
     </Provider>

@@ -83,7 +83,8 @@ function userInfoReducer(state = {}, action) {
 const rootReducer = combineReducers({
     getActivityReducer,
     checkInReducer,
-    explainReducer
+    explainReducer,
+    userInfoReducer
 });
 
 export default rootReducer;
