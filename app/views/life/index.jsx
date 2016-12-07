@@ -9,7 +9,7 @@ class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeInterval: 15 * 60 * 1000,
+            timeInterval: 0.5 * 60 * 1000,
             isStart: false,
             isShowMessage: false
         };

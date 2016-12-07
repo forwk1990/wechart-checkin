@@ -8,9 +8,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
 
+const fs = require('fs');
+const imagesDirectoryPath = path.resolve('app/assets/images/');
+var imagePathAlias = {};
+const imagesFiles = fs.readdirSync(imagesDirectoryPath);
+imagesFiles.forEach(function(file){
+    const filename = file.replace(path.extname(file),"");
+    imagePathAlias[filename] = path.resolve('app/assets/images/', file);
+});
+
+
 
 //var WebpackDevServer = require("webpack-dev-server");
-
 // var CURRENT_PATH = path.resolve(__dirname); // 获取到当前目录
 // var ROOT_PATH = path.join(__dirname, '../'); // 项目根目录
 // var MODULES_PATH = path.join(ROOT_PATH, './node_modules'); // node包目录
@@ -44,7 +53,7 @@ module.exports = {
     context: __dirname,
     entry: {
         app: './app/entry.js',
-        react: ['redux-thunk', 'react-redux', 'react-router','react-router-transition', 'redux','qrcode.react'],
+        react: ['redux-thunk', 'react-redux', 'react-router', 'react-router-transition', 'redux', 'qrcode.react'],
         libs: ['query-string']
     }, // we can also write path.resolve(__dirname,'app/entry.js') without context setting
     output: {
@@ -57,8 +66,10 @@ module.exports = {
     },
 
     resolve: {
+        alias: Object.assign({},imagePathAlias),
         root: [ // the root directory for searching modules
             path.resolve('app/views/'),
+            path.resolve('app/views/common'),
             path.resolve('app/libs/')
         ],
         fallback: [// webpack will find modules with the fallback directories when searching failed.
@@ -95,7 +106,7 @@ module.exports = {
         // 提取公共部分资源
         new webpack.optimize.CommonsChunkPlugin({
             // 与 entry 中的 vendors 对应
-            name: ['react','libs'],
+            name: ['react', 'libs'],
             // 输出的公共资源名称
             filename: '[id].[hash].js',
             // 对所有entry实行这个规则

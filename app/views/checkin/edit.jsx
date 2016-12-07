@@ -1,16 +1,16 @@
 import React from 'react';
 import {InputItem, Picker, Toast, List} from 'antd-mobile';
-import CheckBox from './checkbox.jsx';
-import RadioBox from './radiobox.jsx';
+import CheckBox from 'common/checkbox.jsx';
+import RadioBox from 'common/radiobox.jsx';
 import OptionType from 'constants/OptionType.js'
 import DataStore from 'DataStore';
-import {createForm} from 'rc-form';
-import './edit.scss';
 import {MessageBox} from 'Utils';
+import LoadingButton from 'common/loadingButton';
+import QueryString from 'query-string';
+import {createForm} from 'rc-form';
 import {connect} from 'react-redux';
-import LoadingButton from 'loadingButton';
-import QueryString from 'query-string'
 import {RouteTransition, presets} from 'react-router-transition';
+import './edit.scss';
 
 class Edit extends React.Component {
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import 'validate.scss';
+import './validate.scss';
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
 

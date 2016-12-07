@@ -1,6 +1,6 @@
 import React from 'react';
 import {Popup, InputItem, Picker, List} from 'antd-mobile';
-import LoadingButton from '../loadingButton'
+import LoadingButton from '../common/loadingButton'
 import {connect} from 'react-redux';
 import './sysIndex.scss';
 import DataStore from 'DataStore'

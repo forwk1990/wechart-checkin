@@ -102,7 +102,7 @@
         height:80px;
         margin:0 auto;
         top:0;
-        background:url("../../assets/images/music-flag.png") top center no-repeat;
+        background:url("../../assets/images/music_flag.png") top center no-repeat;
         background-size: 80px 80px;
       }
     }
@@ -110,7 +110,7 @@
     &-alarm-flag{
       @extend %cover-icon;
       z-index:8;
-      background:url("../../assets/images/alarm-flag.png") top center no-repeat;
+      background:url("../../assets/images/alarm_flag.png") top center no-repeat;
       border-radius: 260px;
       background-size: 80px 80px;
     }
@@ -152,7 +152,7 @@
       display: block;
       width: 360px;
       height: 360px;
-      background: url("../../assets/images/time-scale.png") #000 center center no-repeat;
+      background: url("../../assets/images/time_scale.png") #000 center center no-repeat;
       background-size: contain;
       border-radius: 180px;
       left: 80px;

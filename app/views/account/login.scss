@@ -1,0 +1,123 @@
+
+
+.login-page{
+  background-color:#fff;
+  width:100%;
+  height:100%;
+  box-sizing: border-box;
+  position:relative;
+
+  &-title{
+    width:100%;
+    text-align: center;
+    font-size:48px;
+    color:#333;
+    line-height: 180px;
+    font-weight: 700;
+  }
+
+  &-edit-row{
+    height:100px;
+    width:100%;
+    font-size:30px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom:1px solid #e5e5e5;
+
+    .left-label{
+      color:#999;
+      width:150px;
+      height:30px;
+      line-height:30px;
+      display:inline-block;
+      text-align:justify;
+      text-align-last:justify;
+    }
+
+    .left-label:after{
+      content:".";
+      display: inline-block;
+      width:100%;
+      overflow:hidden;
+      height:0;
+    }
+
+    .count-down{
+      display:inline-block;
+      width:230px;
+      color:#333;
+      text-align: right;
+    }
+
+    input{
+      height:80%;
+      border:0px solid #ccc;
+    }
+
+    input[name='phone']{
+      flex:1;
+    }
+
+    input[name='code']{
+      max-width: 30%;
+      flex:1;
+    }
+  }
+
+  &-login-type{
+    display:block;
+    color:#333;
+    font-size:30px;
+    position:absolute;
+    text-align: center;
+    width:200px;
+    height:150px;
+    bottom:0;
+    line-height: 150px;
+    left:calc(50% - 100px);
+    left:-webkit-calc(50% - 100px);
+  }
+
+  %page-base{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:block;
+    box-sizing: border-box;
+    padding:0px 40px 0px 40px;
+    background-color:#fff;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    left:0;
+    top:0;
+  }
+
+  &-v{
+    @extend %page-base;
+    z-index:2;
+    transform: rotateY(0deg);
+  }
+
+  &-p{
+    @extend %page-base;
+    transform: rotateY(-180deg);
+  }
+}
+
+.turn-left{
+  transform: rotateY(180deg);
+  -o-transform:rotateY(180deg);
+  -moz-transform:rotateY(180deg);
+  -webkit-transform:rotateY(180deg);
+}
+
+.turn-right{
+  transform: rotateY(0deg);
+  -o-transform:rotateY(0deg);
+  -moz-transform:rotateY(0deg);
+  -webkit-transform:rotateY(0deg);
+}

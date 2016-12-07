@@ -6,14 +6,16 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import App from './app.js'
-import Edit from 'edit'
-import Ticket from 'ticket'
-import Index from 'index'
+
+import Edit from 'checkin/edit'
+import Ticket from 'checkin/ticket'
+import Index from 'checkin/index'
+import Success from 'checkin/success'
+
+// import Map from 'map'
 import LifeIndex from 'life/index'
-import Success from 'success'
-import Map from 'map'
 import store from './store.js'
-import Validate from 'validate'
+import Validate from 'checkin/validate'
 import SysIndex from 'sys/sysIndex'
 import SysValue from 'sys/sysValue'
 import MyActivity from 'comming/myActivity';
@@ -21,6 +23,8 @@ import {MoreIntegral, MyIntegral, IntegralDetail} from 'comming/myIntegral';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
+
+import Login from 'account/login'
 
 /*
  *
@@ -86,6 +90,7 @@ ReactDOM.render(
                 <Route path="mine/integral" component={MyIntegral}/>
                 <Route path="mine/moreIntegral" component={MoreIntegral}/>
                 <Route path="mine/integralDetail" component={IntegralDetail}/>
+                <Route path="login" component={Login}/>
             </Route>
         </Router>
     </Provider>

@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import QRCode from 'qrcode.react';
 import {Link} from 'react-router';
 import QueryString from 'query-string'
-import '../assets/stylesheets/app.scss';
+import '../../assets/stylesheets/app.scss';
 import './ticket.scss';
 import DataStore from 'DataStore'
 import ActionTypes from 'constants/ActionTypes';
@@ -45,7 +45,7 @@ class Ticket extends Component {
                 console.info(error);
             });
         }
-        const imgUrl = require("../assets/images/logo.png");
+        const imgUrl = require("logo");
         console.log(imgUrl);
         return (
             <div className="ticket">
@@ -55,9 +55,9 @@ class Ticket extends Component {
                         <div className="ticket-card-top-username">{title}</div>
                         {isReady && (
                             <div className="ticket-card-top-address" onClick={this.handleMap.bind(this)}>
-                                <img src={require("../assets/images/location_light.png")}/>
+                                <img src={require("location_light")}/>
                                 <span>{address}</span>
-                                <img src={require("../assets/images/arrow_right.png")}/>
+                                <img src={require("arrow_right")}/>
                             </div>)}
                         <div className="ticket-card-top-date">{date}</div>
                     </div>

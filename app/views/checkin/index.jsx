@@ -9,10 +9,11 @@ import DataStore from 'DataStore'
 import {RouteTransition, presets} from 'react-router-transition';
 import {connect} from 'react-redux';
 import {MessageBox} from 'Utils';
+import QueryString from 'query-string'
 import ActionTypes from 'constants/ActionTypes';
 
 import './index.scss';
-import LoadingButton from 'loadingButton';
+import LoadingButton from 'common/loadingButton';
 
 const AgeRange = [
     {
@@ -138,9 +139,9 @@ class Index extends React.Component {
                     <div className="index-img" style={{background:`url(${imageUrl}) center center`}}></div>
                     <div className="content">
                         <div className="address" onClick={this.handleMap.bind(this)}>
-                            <img src={require("../assets/images/location_back.png")}/>
+                            <img src={require("location_back")}/>
                             <span>{address}</span>
-                            <img src={require("../assets/images/arrow_right.png")}/>
+                            <img src={require("arrow_right")}/>
                         </div>
                         <span className="date">{date}</span>
                         <div className="topline"></div>
@@ -161,7 +162,6 @@ class Index extends React.Component {
                         <LoadingButton text="报名领取参与券" loadingText="领取中..." status={loading}
                                        onClick={() => this.handleSubmit()}/>
                     </div>
-                    <Flex/>
                 </div>
             </RouteTransition>
         );

@@ -2,6 +2,7 @@ import React from 'react';
 import DataStore from 'DataStore';
 import './myIntegral.scss';
 import LoadingButton from 'loadingButton';
+import LoadMoreButton from 'common/loadMoreButton';
 
 const IntegralOrderCell = (props) => {
     return (
@@ -40,9 +41,10 @@ const IntegralOrderCommonCell = (props) => {
                 </div>)
             }
             {
-                props.index !== 1 && props.index !== 2 && props.index !== 3&& (<div className="integral-order-common-cell-index">
-                    {props.index}
-                </div>)
+                props.index !== 1 && props.index !== 2 && props.index !== 3 && (
+                    <div className="integral-order-common-cell-index">
+                        {props.index}
+                    </div>)
             }
             <div className="integral-order-common-cell-image">
                 <img src={props.model.imageUrl}/>
@@ -72,11 +74,11 @@ const IntegralDetailCell = (props) => {
     );
 }
 
-class IntegralDetail extends React.Component{
+class IntegralDetail extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state = {integralDetails:[]};
+        this.state = {integralDetails: []};
     }
 
     componentDidMount() {
@@ -87,7 +89,11 @@ class IntegralDetail extends React.Component{
         });
     }
 
-    render(){
+    handleMore() {
+
+    }
+
+    render() {
         return (
             <div className="integral-detail">
                 {
@@ -95,7 +101,8 @@ class IntegralDetail extends React.Component{
                         return (<IntegralDetailCell model={integralDetail} key={index}/>)
                     })
                 }
-
+                <LoadMoreButton text="加载更多" loadingText="数据查询中..." status={0}
+                                onClick={() => this.handleMore()}/>
             </div>
         );
     }
@@ -208,4 +215,4 @@ MyIntegral.contextTypes = {
     router: React.PropTypes.object
 }
 
-export {MoreIntegral, MyIntegral,IntegralDetail};
+export {MoreIntegral, MyIntegral, IntegralDetail};
