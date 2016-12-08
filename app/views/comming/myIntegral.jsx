@@ -166,14 +166,25 @@ class MyIntegralInner extends React.Component {
         const numberScore = this.props.numberScore;
         const lifeScore = this.props.lifeScore;
         const totalScore = activityScore + numberScore + lifeScore;
-        console.info(totalScore);
-        this.drawArc(0,2,'#555');
+        if(totalScore == 0){
+            console.info("xxx");
+            this.drawArc(0,2,'#555');
+        }else{
+
+            const activityScoreRatio = activityScore / totalScore;
+            const numberScoreRatio = numberScore / totalScore;
+            const lifeScoreRatio = lifeScore / totalScore;
+            console.log(activityScoreRatio,numberScoreRatio,lifeScoreRatio);
+            this.drawArc(0,2*activityScoreRatio,"#8C7F6B");
+            this.drawArc(2*activityScoreRatio,2*(activityScoreRatio+numberScoreRatio),"#B3A188");
+            this.drawArc(2*(activityScoreRatio+numberScoreRatio),2,"#D9C3A4");
+        }
     }
 
     drawArc(from,to,color){
         var canvas = document.getElementById('myCanvas');
         var context = canvas.getContext('2d');
-        var x = 0.5 * canvas.width ;
+        var x = 0.5 * canvas.width;
         var y = 0.5 * canvas.height;
         var radius = x - 2.5;
         var startAngle = from * Math.PI;
@@ -183,6 +194,7 @@ class MyIntegralInner extends React.Component {
         context.beginPath();
         context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
         context.lineWidth = 5;
+        context.lineCap="round"
         context.strokeStyle = color;
         context.stroke();
     }
@@ -197,7 +209,7 @@ class MyIntegralInner extends React.Component {
                 <div className="m-i-h">
                     <div className="m-i-h-p-c">
                         <div className="m-i-h-p-c-arc">
-                            <canvas id="myCanvas" width="380" height="380"></canvas>
+                            <canvas id="myCanvas" width={380 *window.devicePixelRatio / 2 } height={380 *window.devicePixelRatio / 2 }></canvas>
                         </div>
                         <div className="m-i-h-p-c-value">
                             <div className="flag">喜悦积分</div>
@@ -221,7 +233,9 @@ class MyIntegralInner extends React.Component {
                     </div>
                 </div>
                 <div className="m-i-banner">
-                    <div className="m-i-banner-logo"></div>
+                    <div className="m-i-banner-logo">
+                        <img src={this.props.imageUrl}/>
+                    </div>
                     <div className="m-i-banner-desc">
                         您当前排名<span>128</span>名
                     </div>

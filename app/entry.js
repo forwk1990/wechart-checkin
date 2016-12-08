@@ -5,6 +5,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+import {Router, Route, hashHistory, IndexRoute} from 'react-router';
+import store from './store.js'
 import App from './app.js'
 
 import Edit from 'checkin/edit'
@@ -12,18 +14,15 @@ import Ticket from 'checkin/ticket'
 import Index from 'checkin/index'
 import Success from 'checkin/success'
 
-// import Map from 'map'
 import LifeIndex from 'life/index'
-import store from './store.js'
 import Validate from 'checkin/validate'
 import SysIndex from 'sys/sysIndex'
 import SysValue from 'sys/sysValue'
 import MyActivity from 'comming/myActivity';
 import {MoreIntegral, MyIntegral, IntegralDetail} from 'comming/myIntegral';
-import {Router, Route, hashHistory, IndexRoute} from 'react-router';
+
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
-
 import Login from 'account/login'
 
 /*
@@ -81,7 +80,6 @@ ReactDOM.render(
                 <Route path="index" component={Index}/>
                 <Route path="edit" component={Edit}/>
                 <Route path="success" component={Success}/>
-                <Route path="map" component={Map}/>
                 <Route path="validate/:code" component={Validate}/>
                 <Route path="sys" component={SysIndex}/>
                 <Route path="sysValue" component={SysValue}/>

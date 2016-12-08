@@ -16,15 +16,15 @@
   background-repeat: repeat-y;
 }
 
-%cover-icon{
-  display:block;
-  width:100%;
-  height:100%;
-  position:absolute;
+%cover-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   background-size: 76px 76px;
 }
 
-%semi-circle{
+%semi-circle {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -32,7 +32,7 @@
   position: absolute;
 }
 
-@mixin block-semi-circle-percent($width){
+@mixin block-semi-circle-percent($width) {
   width: $width;
   height: $width;
   box-sizing: border-box;
@@ -40,7 +40,7 @@
   position: absolute;
 }
 
-@mixin block-semi-circle-fixed($width){
+@mixin block-semi-circle-fixed($width) {
   width: $width;
   height: $width;
   box-sizing: border-box;
@@ -48,37 +48,37 @@
   position: absolute;
 }
 
-.life-lyrics{
-  overflow: scroll;
+.life-lyrics {
+  overflow-y: paged-y;
+  //overflow-style: ;
   -webkit-overflow-scrolling: touch;
-  &-content{
+  &-content {
     text-align: center;
-    padding:80px 20px 20px 20px;
-    height:auto;
-    color:#999999;
-    font-size:38px;
-    line-height:60px;
+    padding: 80px 20px 20px 20px;
+    height: auto;
+    color: #999999;
+    font-size: 38px;
+    line-height: 60px;
   }
 
 }
 
 .life-clock {
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
   background-color: #0d0d0d;
-  padding-top: 160px;
-  padding-bottom:100px;
 
-  &-audio{
+  &-audio {
     //display:none;
   }
 
-  &-message{
-    color:#ffffff;
-    font-size:48px;
+  &-message {
+    color: #ffffff;
+    font-size: 48px;
     text-align: center;
-    width:100%;
-    margin-top:100px;
+    width: 100%;
+    margin-top: 100px;
   }
 
   &-pie-container {
@@ -88,60 +88,61 @@
     background-color: #171717;
     margin: 0 auto;
     position: relative;
+    top: 160px;
     border-radius: 260px;
 
-    &-music-flag{
+    &-music-flag {
       @extend %cover-icon;
-      z-index:9;
+      z-index: 9;
       border-radius: 260px;
 
-      .music{
-        position:relative;
+      .music {
+        position: relative;
         border-radius: 36px;
-        width:80px;
-        height:80px;
-        margin:0 auto;
-        top:0;
-        background:url("../../assets/images/music_flag.png") top center no-repeat;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        top: 0;
+        background: url("../../assets/images/music_flag.png") top center no-repeat;
         background-size: 80px 80px;
       }
     }
 
-    &-alarm-flag{
+    &-alarm-flag {
       @extend %cover-icon;
-      z-index:8;
-      background:url("../../assets/images/alarm_flag.png") top center no-repeat;
+      z-index: 8;
+      background: url("../../assets/images/alarm_flag.png") top center no-repeat;
       border-radius: 260px;
       background-size: 80px 80px;
     }
 
-    &-progress-left{
+    &-progress-left {
       @include block-semi-circle-percent(100%);
-      background-color:#171717;
+      background-color: #171717;
       z-index: 5;
       clip: rect(0px, 260px, 520px, 0px);
     }
 
-    &-progress-right{
+    &-progress-right {
       @include block-semi-circle-percent(100%);
-      background-color:#171717;
+      background-color: #171717;
       z-index: 7;
-      display:none;
+      display: none;
       clip: rect(0px, 520px, 520px, 260px);
     }
 
-    &-left{
-      @include color-gradient-bottom-top(#ffbd00,#ffc200);
+    &-left {
+      @include color-gradient-bottom-top(#ffbd00, #ffc200);
       @include block-semi-circle-percent(100%);
-      border:1px solid #171717;
+      border: 1px solid #171717;
       clip: rect(0px, 260px, 520px, 0px);
       z-index: 6;
     }
 
     &-right {
-      @include color-gradient-top-bottom(#ffa000,#ffbd00);
+      @include color-gradient-top-bottom(#ffa000, #ffbd00);
       @include block-semi-circle-percent(100%);
-      border:1px solid #171717;
+      border: 1px solid #171717;
       clip: rect(0px, 520px, 520px, 260px);
       z-index: 4;
     }
@@ -157,68 +158,69 @@
       border-radius: 180px;
       left: 80px;
       top: 80px;
-      color:#ffffff;
+      color: #ffffff;
       text-align: center;
       line-height: 360px;
-      font-size:65px;
+      font-size: 65px;
     }
   }
 
-  &-start-pause{
-    width:100%;
-    height:120px;
-    margin-top:100px;
+  &-start-pause {
+    width: 100%;
+    height: 120px;
+    position: relative;
+    top: 260px;
 
-    .start{
-      width:120px;
-      height:120px;
-      margin:0 auto;
+    .start {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
       background: url(../../assets/images/start.png) center center no-repeat;
       background-size: cover;
     }
 
-    .pause{
-      width:120px;
-      height:120px;
-      margin:0 auto;
+    .pause {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
       background: url(../../assets/images/pause.png) center center no-repeat;
       background-size: cover;
     }
   }
 }
 
-.life-index{
-  width:100%;
-  height:100%;
-  background-color:#0d0d0d;
+.life-index {
+  width: 100%;
+  height: 100%;
+  background-color: #0d0d0d;
 
-  &-announce{
-    height:60px;
-    width:100%;
-    display:flex;
-    position:fixed;
-    z-index:9999;
-    background-color:#171717;
+  &-announce {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    z-index: 9999;
+    background-color: #171717;
     align-items: center;
-    padding:0px 20px 0px 20px;
+    padding: 0px 20px 0px 20px;
 
-    &-img{
-      width:22px;
-      height:20px;
-      background:url(../../assets/images/announce.png) center center no-repeat;
-      background-size:cover;
+    &-img {
+      width: 22px;
+      height: 20px;
+      background: url(../../assets/images/announce.png) center center no-repeat;
+      background-size: cover;
     }
 
-    &-text{
-      color:#666666;
-      font-size:24px;
+    &-text {
+      color: #666666;
+      font-size: 24px;
       text-align: center;
-      flex:1;
-      padding-right:22px;
+      flex: 1;
+      padding-right: 22px;
       letter-spacing: 2px;
-      span{
-        color:#ffffff;
-        padding:0px 8px 0px 8px;
+      span {
+        color: #ffffff;
+        padding: 0px 8px 0px 8px;
       }
     }
 

@@ -51,9 +51,9 @@ Mock.mock(AppConfig.ApiConfig.login, {
         isSetPayPassword: false /*是否设置支付密码*/,
         wx: 'w1915655273', /*微信号码*/
         imageUrl: 'http://img.boqiicdn.com/Data/BK/A/1311/25/img26701385362659_y.jpg', /*用户头像*/
-        activityScore: 0, /*活动积分*/
-        numberScore: 0, /*生命数字积分*/
-        lifeScore: 0, /*正念生活积分*/
+        activityScore: 280, /*活动积分*/
+        numberScore: 30, /*生命数字积分*/
+        lifeScore: 600, /*正念生活积分*/
         range: 128 /*积分排名*/
     }
 });
@@ -164,7 +164,7 @@ Mock.mock(AppConfig.ApiConfig.getLife, {
         text: "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。<br/>舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。<br/>舍利子，是诸法空相，不生不灭，不垢不净，不增不减。<br/>是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。<br/>无苦集灭道，无智亦无得。<br/>以无所得故。菩提萨埵，依般若波罗蜜多故，心无挂碍。<br/>无挂碍故，无有恐怖，远离颠倒梦想，究竟涅盘。<br/>三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。<br/>",
         integral: 120,
         audios: [
-            "http://mp3.haoduoge.com/s/2016-12-04/1480865949.mp3",
+            "http://96.f.1ting.com/584955f6/fca36059a2b7eb31b81249bedfe0ca94/zzzzzmp3/2008Hapr/01/02i_FanYin/2.mp3",
             "http://mp3.haoduoge.com/s/2016-09-29/1475120524.mp3"
         ]
     }

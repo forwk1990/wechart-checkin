@@ -17,7 +17,8 @@ class Clock extends React.Component {
     }
 
     componentDidMount() {
-        const height = $(document).height() - 260 * 2 / window.devicePixelRatio;
+        const height = $(document).height();
+        // console.log("clock height:",$(document).height());
         $(".life-clock").height(height);
     }
 
@@ -161,6 +162,7 @@ class Lyrics extends React.Component {
 
     componentDidMount() {
         const height = $(document).height();
+        console.log("lyrics height:",height);
         $(".life-lyrics").height(height);
     }
 
