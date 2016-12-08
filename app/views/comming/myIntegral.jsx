@@ -3,6 +3,7 @@ import DataStore from 'DataStore';
 import './myIntegral.scss';
 import LoadingButton from 'loadingButton';
 import LoadMoreButton from 'common/loadMoreButton';
+import {connect} from 'react-redux';
 
 const IntegralOrderCell = (props) => {
     return (
@@ -138,7 +139,7 @@ class MoreIntegral extends React.Component {
 
 }
 
-class MyIntegral extends React.Component {
+class MyIntegralInner extends React.Component {
 
     constructor(props) {
         super(props);
@@ -149,10 +150,41 @@ class MyIntegral extends React.Component {
 
     componentDidMount() {
         const self = this;
-        DataStore.getIntegralOrder({pageIndex: 0, pageSize: 5}).then(function (responseObject) {
-            console.info(responseObject);
-            self.setState({integrals: responseObject});
-        });
+        if (!this.props.id) {
+            this.context.router.push(`login/${"integral"}`);
+        }else{
+            DataStore.getIntegralOrder({pageIndex: 0, pageSize: 5}).then(function (responseObject) {
+                console.info(responseObject);
+                self.setState({integrals: responseObject});
+                self.drawPie();
+            });
+        }
+    }
+
+    drawPie(){
+        const activityScore = this.props.activityScore;
+        const numberScore = this.props.numberScore;
+        const lifeScore = this.props.lifeScore;
+        const totalScore = activityScore + numberScore + lifeScore;
+        console.info(totalScore);
+        this.drawArc(0,2,'#555');
+    }
+
+    drawArc(from,to,color){
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        var x = 0.5 * canvas.width ;
+        var y = 0.5 * canvas.height;
+        var radius = x - 2.5;
+        var startAngle = from * Math.PI;
+        var endAngle = to * Math.PI;
+        var counterClockwise = false;
+
+        context.beginPath();
+        context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+        context.lineWidth = 5;
+        context.strokeStyle = color;
+        context.stroke();
     }
 
     handleMore() {
@@ -164,9 +196,9 @@ class MyIntegral extends React.Component {
             <div className="m-i">
                 <div className="m-i-h">
                     <div className="m-i-h-p-c">
-                        <div className="m-i-h-p-c-activity"></div>
-                        <div className="m-i-h-p-c-number"></div>
-                        <div className="m-i-h-p-c-life"></div>
+                        <div className="m-i-h-p-c-arc">
+                            <canvas id="myCanvas" width="380" height="380"></canvas>
+                        </div>
                         <div className="m-i-h-p-c-value">
                             <div className="flag">喜悦积分</div>
                             <div className="value">2880</div>
@@ -211,8 +243,21 @@ class MyIntegral extends React.Component {
     }
 }
 
-MyIntegral.contextTypes = {
+MyIntegralInner.contextTypes = {
     router: React.PropTypes.object
 }
+
+const mapStateToProps = (state) => {
+    return {
+        imageUrl: state.userInfoReducer.imageUrl,
+        activityScore: state.userInfoReducer.activityScore,
+        numberScore: state.userInfoReducer.numberScore,
+        lifeScore: state.userInfoReducer.lifeScore,
+        range: state.userInfoReducer.range,
+        id:state.userInfoReducer.id
+    }
+}
+
+const MyIntegral = connect(mapStateToProps)(MyIntegralInner)
 
 export {MoreIntegral, MyIntegral, IntegralDetail};

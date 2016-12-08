@@ -27,15 +27,47 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
 });
 
 /*
-* 获取积分详情
-* */
-Mock.mock(AppConfig.ApiConfig.getIntegralDetail,{
+ * 登陆
+ * 1:密码登陆时的参数
+ * @param phone:String
+ * @param password:String
+ *
+ * 2:验证码登陆时的参数
+ * @param phone:String
+ * @param code:String
+ * */
+Mock.mock(AppConfig.ApiConfig.login, {
     'status': 0,
-    'data|10-15':[
+    'data': {
+        id: '72cf0b3c-6db0-4c09-99bc-7d99afed961b',/*用户Id*/
+        nickname: '甜甜圈', /*用户昵称*/
+        phone: '134****6543', /*手机号码*/
+        email: '13476116543#163.com', /*邮箱*/
+        birthday: '1990-05-20', /*生日*/
+        address: '光谷资本大厦', /*联系地址*/
+        name: 'itachi', /*真实姓名*/
+        IDNumber: '420114199005202345', /*身份正好*/
+        password: 'afed961', /*md5格式,做自动登陆*/
+        isSetPayPassword: false /*是否设置支付密码*/,
+        wx: 'w1915655273', /*微信号码*/
+        imageUrl: 'http://img.boqiicdn.com/Data/BK/A/1311/25/img26701385362659_y.jpg', /*用户头像*/
+        activityScore: 0, /*活动积分*/
+        numberScore: 0, /*生命数字积分*/
+        lifeScore: 0, /*正念生活积分*/
+        range: 128 /*积分排名*/
+    }
+});
+
+/*
+ * 获取积分详情
+ * */
+Mock.mock(AppConfig.ApiConfig.getIntegralDetail, {
+    'status': 0,
+    'data|10-15': [
         {
-            "title|1":["[扶老奶奶过马路] 活动报名","正念行走","捐款1000元","吃麻花比赛","正念用餐","生命数字","正念静坐"],
-            "score|1":[20,18,30,50,80,15],
-            "date|1":['2016/11/08 08:30','2016/11/09 10:30','2016/11/10 20:00']
+            "title|1": ["[扶老奶奶过马路] 活动报名", "正念行走", "捐款1000元", "吃麻花比赛", "正念用餐", "生命数字", "正念静坐"],
+            "score|1": [20, 18, 30, 50, 80, 15],
+            "date|1": ['2016/11/08 08:30', '2016/11/09 10:30', '2016/11/10 20:00']
         }
     ]
 });

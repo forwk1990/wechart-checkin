@@ -73,7 +73,7 @@ function explainReducer(state = {}, action) {
 function userInfoReducer(state = {}, action) {
     switch (action.type) {
         case ActionTypes.login: {
-            return Object.assign({}, state, {data: action.responseObject});
+            return Object.assign({}, state, action.responseObject);
         }
         default:
             return state;

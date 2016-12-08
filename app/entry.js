@@ -90,7 +90,7 @@ ReactDOM.render(
                 <Route path="mine/integral" component={MyIntegral}/>
                 <Route path="mine/moreIntegral" component={MoreIntegral}/>
                 <Route path="mine/integralDetail" component={IntegralDetail}/>
-                <Route path="login" component={Login}/>
+                <Route path="login/:returnPage" component={Login}/>
             </Route>
         </Router>
     </Provider>

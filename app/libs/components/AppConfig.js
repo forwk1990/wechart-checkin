@@ -60,6 +60,11 @@ var Config =  {
         getIntegralDetail:_getFullUrlFromRelative("getIntegralDetail"),
 
         /*
+        * 登陆
+        * */
+        login:_getFullUrlFromRelative("login"),
+
+        /*
         * 配置微信
         * */
         wxConfig:"http://www.ldted.com/wxpt/wxConfig.jsp"

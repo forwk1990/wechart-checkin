@@ -1,15 +1,15 @@
+
 import React from 'react';
 import './index.scss'
 import {Carousel} from 'antd-mobile';
 import DataStore from 'DataStore'
-import QueryString from 'query-string'
 
 class Clock extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            timeInterval: 0.5 * 60 * 1000,
+            timeInterval: 15 * 60 * 1000,
             isStart: false,
             isShowMessage: false
         };
@@ -190,6 +190,7 @@ class Index extends React.Component {
 
         const type = self.props.params.type;
         if(type == 1 || type == 2 || type == 3){
+
             // 获取生命吃走睡
             DataStore.getLife({type: type}).then(function (responseObject) {
                 document.title = responseObject.title;
@@ -197,6 +198,7 @@ class Index extends React.Component {
             }, function () {
 
             });
+
         }else{
 
         }
