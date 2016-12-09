@@ -3,6 +3,13 @@
   width: 100%;
   height: 100%;
 
+  &-loading{
+    width:100%;
+    height:350px;
+    background:url(../../assets/images/xiyueloading.gif) center center no-repeat;
+    background-size: 120px 120px;
+  }
+
   &-h {
     width: 100%;
     height: 60px + 10px + 360px + 10px + 28px + 24px + 28px;
@@ -118,7 +125,7 @@
       &-activity {
         @extend %banner-a-n-l-base;
         .dot {
-          background-color: #BC7F6B;
+          background-color: #8C7F6B;
         }
       }
 
@@ -262,8 +269,63 @@
 
 .more-integral{
   width:100%;
+  height:100%;
   box-sizing: border-box;
-  background-color:#f8f8f8;
+  background-color:#fff;
+
+  &-cell{
+    width:100%;
+    height:120px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow:10px 0px 4px 6px rgba(1,1,1,0.05);
+
+    &-index{
+      display:inline-block;
+      width:100px;
+      height:120px;
+      line-height: 120px;
+      text-align: center;
+      color:#000;
+    }
+
+    &-image{
+      width:80px;
+      height:80px;
+
+      img{
+        width:100%;
+        height:100%;
+        border-radius: 40px;
+      }
+
+    }
+
+    &-content{
+      flex:1;
+      display:flex;
+      height:120px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-right:40px;
+
+      &-text{
+        color:#010101;
+        font-size:28px;
+        margin-left:20px;
+      }
+
+      &-score{
+        font-size:28px;
+        color:#010101;
+        text-align: right;
+      }
+    }
+
+  }
 
   .integral-order-common-cell{
     width:100%;
@@ -341,9 +403,6 @@
 
   }
 
-  .integral-order-common-cell:last-child>.integral-order-common-cell-content{
-    border-bottom:0px;
-  }
 }
 
 .integral-detail{

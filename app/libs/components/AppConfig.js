@@ -67,7 +67,57 @@ var Config =  {
         /*
         * 配置微信
         * */
-        wxConfig:"http://www.ldted.com/wxpt/wxConfig.jsp"
+        wxConfig:"http://www.ldted.com/wxpt/wxConfig.jsp",
+
+        /*
+        * 修改昵称
+        * */
+        modifyNickname:_getFullUrlFromRelative("modifyNickname"),
+
+        /*
+        * 修改手机号
+        * */
+        modifyPhone:_getFullUrlFromRelative("modifyPhone"),
+
+        /*
+         * 修改邮箱
+         * */
+        modifyEmail:_getFullUrlFromRelative("modifyEmail"),
+
+        /*
+         * 修改微信号
+         * */
+        modifyWx:_getFullUrlFromRelative("modifyWx"),
+
+        /*
+         * 修改出生日期
+         * */
+        modifyBirthday:_getFullUrlFromRelative("modifyBirthday"),
+
+        /*
+         * 修改地址
+         * */
+        modifyAddress:_getFullUrlFromRelative("modifyAddress"),
+
+        /*
+         * 修改密码
+         * */
+        modifyPassword:_getFullUrlFromRelative("modifyPassword"),
+
+        /*
+         * 修改支付密码
+         * */
+        modifyPayPassword:_getFullUrlFromRelative("modifyPayPassword"),
+
+        /*
+         * 修改身份证号
+         * */
+        modifyIDNumber:_getFullUrlFromRelative("modifyIDNumber"),
+
+        /*
+        * 获取省市区
+        * */
+        getProvince:_getFullUrlFromRelative("getProvince")
     },
     /*
     * 百度地图API密钥

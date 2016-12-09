@@ -108,17 +108,3 @@
     transform: rotateY(-180deg);
   }
 }
-
-.turn-left{
-  transform: rotateY(180deg);
-  -o-transform:rotateY(180deg);
-  -moz-transform:rotateY(180deg);
-  -webkit-transform:rotateY(180deg);
-}
-
-.turn-right{
-  transform: rotateY(0deg);
-  -o-transform:rotateY(0deg);
-  -moz-transform:rotateY(0deg);
-  -webkit-transform:rotateY(0deg);
-}

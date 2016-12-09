@@ -12,5 +12,14 @@ module.exports = {
     checkIn:"@redux/checkin",
     checkInAfter:"@redux/checkinAfter",
     getExplain:"@redux/getExplain",
-    login:"@redux/login"
+    login:"@redux/login",
+    modifyNickname:"@redux/modifyNickname",
+    modifyEmail:"@redux/modifyEmail",
+    modifyAddress:"@redux/modifyEmail",
+    modifyBirthday:"@redux/modifyBirthday",
+    modifyPhone:"@redux/modifyPhone",
+    modifyWx:"@redux/modifyWx",
+    modifyPassword:"@redux/modifyPassword",
+    modifyPayPassword:"@redux/modifyPayPassword",
+    modifyIDNumber:"@redux/modifyIDNumber"
 }

@@ -14,57 +14,67 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.turnLeft = true;
+        this.state = {
+            isLanding: false
+        };
     }
 
     handleLogin() {
         const self = this;
         let parameters = {};
-        if(this.turnLeft){
+        if (this.turnLeft) {
             let phone = this.refs['v-phone'].value;
             let code = this.refs['v-code'].value;
-            if(!phone){
+            if (!phone) {
                 MessageBox.show("请输入手机号");
                 return;
             }
-            if(!code){
+            if (!code) {
                 MessageBox.show("请输入验证码");
                 return;
             }
-            if (!(/^1[34578]\d{9}$/.test(phone))){
+            if (!(/^1[34578]\d{9}$/.test(phone))) {
                 MessageBox.show("手机号格式不正确");
                 return;
             }
-            parameters = {phone,code};
-        }else{
+            parameters = {phone, code};
+        } else {
             let phone = this.refs['p-phone'].value;
             let password = this.refs['p-password'].value;
-            if(!phone){
+            if (!phone) {
                 MessageBox.show("请输入手机号");
                 return;
             }
-            if(!password){
+            if (!password) {
                 MessageBox.show("请输入密码");
                 return;
             }
-            if (!(/^1[34578]\d{9}$/.test(phone))){
+            if (!(/^1[34578]\d{9}$/.test(phone))) {
                 MessageBox.show("手机号格式不正确");
                 return;
             }
-            parameters = {phone,code};
+            parameters = {phone, code};
         }
+        self.setState({isLanding: true});
         DataStore.login(parameters).then(function (responseObject) {
+            self.setState({isLanding: false});
             self.props.dispatch({type: ActionTypes.login, responseObject});
-            self.context.router.push(`mine/${self.props.params.returnPage}`);
+            if(self.props.params.returnPage){
+                self.context.router.replace(`mine/${self.props.params.returnPage}`);
+            }else{
+                self.context.router.replace('mine/archive');
+            }
         }, function (error) {
-            console.info(error);
+            self.setState({isLanding: false});
+            MessageBox.show(error);
         });
     }
 
     handleSwitch() {
-        if(this.turnLeft){
+        if (this.turnLeft) {
             $('.login-page-v').addClass("turn-left");
             $('.login-page-p').addClass("turn-right");
-        }else{
+        } else {
             $('.login-page-v').removeClass("turn-left");
             $('.login-page-p').removeClass("turn-right");
         }
@@ -85,7 +95,7 @@ class Login extends React.Component {
                         <input type="tel" name="code" ref="v-code"/>
                         <CountDown text="获取短信验证码"/>
                     </div>
-                    <LoadingButton text="登陆" loadingText="正在为您登陆..." status={0}
+                    <LoadingButton text="登陆" loadingText="正在为您登陆..." status={this.state.isLanding}
                                    onClick={() => this.handleLogin()}/>
                     <div className="login-page-login-type" onClick={() => this.handleSwitch()}>密码登陆</div>
                 </div>
@@ -99,7 +109,7 @@ class Login extends React.Component {
                         <div className="left-label">登陆密码</div>
                         <input type="tel" name="password" ref="p-password"/>
                     </div>
-                    <LoadingButton text="登陆" loadingText="正在为您登陆..." status={0}
+                    <LoadingButton text="登陆" loadingText="正在为您登陆..." status={this.state.isLanding}
                                    onClick={() => this.handleLogin()}/>
                     <div className="login-page-login-type" onClick={() => this.handleSwitch()}>短信登陆</div>
                 </div>

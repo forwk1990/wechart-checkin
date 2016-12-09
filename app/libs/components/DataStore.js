@@ -52,8 +52,8 @@ function sendRequest(url, parameters) {
                 } else {
                     reject(responseObject.message);
                 }
-            } else {
-                reject(new Error(this.statusText));
+            } else {console.info(this.statusText);
+                reject(this.statusText);
             }
         }
     });

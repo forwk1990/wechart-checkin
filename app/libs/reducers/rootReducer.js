@@ -68,12 +68,36 @@ function explainReducer(state = {}, action) {
 }
 
 /*
-* 用户信息
-* */
+ * 用户信息
+ * */
 function userInfoReducer(state = {}, action) {
     switch (action.type) {
         case ActionTypes.login: {
             return Object.assign({}, state, action.responseObject);
+        }
+        case ActionTypes.modifyNickname: {
+            return Object.assign({}, state, {nickname: action.nickname});
+        }
+        case ActionTypes.modifyEmail: {
+            return Object.assign({}, state, {email: action.email});
+        }
+        case ActionTypes.modifyAddress: {
+            return Object.assign({}, state, {address: action.address});
+        }
+        case ActionTypes.modifyWx: {
+            return Object.assign({}, state, {wx: action.wx});
+        }
+        case ActionTypes.modifyBirthday: {
+            return Object.assign({}, state, {birthday: action.birthday});
+        }
+        case ActionTypes.modifyIDNumber: {
+            return Object.assign({}, state, {IDNumber: action.IDNumber, name: action.name});
+        }
+        case ActionTypes.modifyPassword: {
+            return Object.assign({}, state, {password: action.password});
+        }
+        case ActionTypes.modifyPayPassword: {
+            return Object.assign({}, state, {isSetPayPassword: action.isSetPayPassword});
         }
         default:
             return state;

@@ -189,13 +189,14 @@ class Index extends React.Component {
 
     componentDidMount() {
         const self = this;
-
         const type = self.props.params.type;
         if(type == 1 || type == 2 || type == 3){
+            if(type == 1) document.title = "十五分钟静坐";
+            if(type == 2) document.title = "十五分钟行走";
+            if(type == 3) document.title = "正念用餐";
 
             // 获取生命吃走睡
             DataStore.getLife({type: type}).then(function (responseObject) {
-                document.title = responseObject.title;
                 self.setState({isReady: true, audios: responseObject.audios, text: responseObject.text});
             }, function () {
 

@@ -7,7 +7,7 @@ var MockRandom = Mock.Random;
 var AppConfig = require("./../components/AppConfig.js");
 
 // 配置请求的相应时间
-Mock.setup({timeout: '600-1000'});
+Mock.setup({timeout: '2000-3000'});
 
 
 // 模拟活动页数据
@@ -42,18 +42,18 @@ Mock.mock(AppConfig.ApiConfig.login, {
         id: '72cf0b3c-6db0-4c09-99bc-7d99afed961b',/*用户Id*/
         nickname: '甜甜圈', /*用户昵称*/
         phone: '134****6543', /*手机号码*/
-        email: '13476116543#163.com', /*邮箱*/
-        birthday: '1990-05-20', /*生日*/
+        email: '13476116543@163.com', /*邮箱*/
+        birthday: '', /*生日*/
         address: '光谷资本大厦', /*联系地址*/
         name: 'itachi', /*真实姓名*/
-        IDNumber: '420114199005202345', /*身份正好*/
+        IDNumber: '420984198908063345', /*身份证号*/
         password: 'afed961', /*md5格式,做自动登陆*/
         isSetPayPassword: false /*是否设置支付密码*/,
         wx: 'w1915655273', /*微信号码*/
         imageUrl: 'http://img.boqiicdn.com/Data/BK/A/1311/25/img26701385362659_y.jpg', /*用户头像*/
-        activityScore: 280, /*活动积分*/
-        numberScore: 30, /*生命数字积分*/
-        lifeScore: 600, /*正念生活积分*/
+        activityScore: 2000, /*活动积分*/
+        numberScore: 3000, /*生命数字积分*/
+        lifeScore: 3000, /*正念生活积分*/
         range: 128 /*积分排名*/
     }
 });
@@ -73,52 +73,124 @@ Mock.mock(AppConfig.ApiConfig.getIntegralDetail, {
 });
 
 /*
+ * 修改微信
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyWx,{
+    'status':0
+});
+
+/*
+ * 修改实名
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyIDNumber,{
+    'status':0
+});
+
+/*
+ * 修改支付密码
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyPayPassword,{
+    'status':0
+});
+
+/*
+ * 修改生日
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyBirthday,{
+    'status':0
+});
+
+/*
+ * 修改登陆密码
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyPassword,{
+    'status':0
+});
+
+/*
+ * 修改地址
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyAddress,{
+    'status':0
+});
+
+/*
+ * 修改邮箱
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyEmail,{
+    'status':0
+});
+
+/*
+ * 修改手机号
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyPhone,{
+    'status':0
+});
+
+/*
+* 修改昵称
+* */
+Mock.mock(AppConfig.ApiConfig.modifyNickname,{
+    'status':0
+});
+
+/*
  * 获取积分排名
  * */
 Mock.mock(AppConfig.ApiConfig.getIntegralOrder, {
     'status': 0,
     'data': [
         {
+            index:1,
             imageUrl: 'http://tse1.mm.bing.net/th?id=OIP.M8b1c1fbeb0742c5e561d00e24b107593o0&pid=15.1',
             name: 'Zhu Zhenxiang',
             score: 12800
         },
         {
+            index:2,
             imageUrl: 'http://file.youboy.com/a/142/32/24/8/931358.jpg',
             name: 'Wan Dewu',
             score: 12600
         },
         {
+            index:3,
             imageUrl: 'http://www.cndog.net/tpb/2012-12/20/2012218-4592.jpg',
             name: 'Gao Xing',
             score: 12400
         },
         {
+            index:4,
             imageUrl: 'http://img4.goumin.com/attachments/photo/0/0/57/14829/3796245o2.jpg',
             name: 'Ren Jinlong',
             score: 12200
         },
         {
+            index:5,
             imageUrl: 'http://img.boqiicdn.com/Data/BK/A/1311/25/img26701385362659_y.jpg',
             name: 'Yin Pan',
             score: 12000
         },
         {
+            index:6,
             imageUrl: 'http://www.cndog.net/tpb/2012-12/20/2012218-4592.jpg',
             name: 'Gao Xing',
             score: 12400
         },
         {
+            index:7,
             imageUrl: 'http://img4.goumin.com/attachments/photo/0/0/57/14829/3796245o2.jpg',
             name: 'Ren Jinlong',
             score: 12200
         },
         {
+            index:8,
             imageUrl: 'http://www.cndog.net/tpb/2012-12/20/2012218-4592.jpg',
             name: 'Gao Xing',
             score: 12400
         },
         {
+            index:9,
             imageUrl: 'http://img4.goumin.com/attachments/photo/0/0/57/14829/3796245o2.jpg',
             name: 'Ren Jinlong',
             score: 12200
