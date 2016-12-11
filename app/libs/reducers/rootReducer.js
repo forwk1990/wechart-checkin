@@ -82,7 +82,8 @@ function userInfoReducer(state = {}, action) {
             return Object.assign({}, state, {email: action.email});
         }
         case ActionTypes.modifyAddress: {
-            return Object.assign({}, state, {address: action.address});
+            console.log("修改地址");
+            return Object.assign({}, state, {address: action.address, provinceValues: action.provinceValues, provinceLabel: action.provinceLabel});
         }
         case ActionTypes.modifyPhone: {
             return Object.assign({}, state, {phone: action.phone});

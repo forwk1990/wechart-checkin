@@ -16,6 +16,8 @@ class ModifyAddress extends React.Component {
             data: [],
             isDataLoading: false,
             isDataReady: false,
+            initialValue: this.props.provinceLabel,
+            address: this.props.address,
             value: []
         }
     }
@@ -26,19 +28,67 @@ class ModifyAddress extends React.Component {
         self.setState({isDataLoading: true});
         DataStore.getProvince({}).then(function (responseObject) {
             self.isDataReady = true;
-            self.setState({isDataLoading: false});
-            self.setState({data: responseObject, value: self.props.value});
+            self.setState({
+                isDataLoading: false,
+                data: responseObject,
+                value: self.props.provinceValues
+            });
         }, function (error) {
             self.setState({isDataLoading: false});
         })
     }
 
     handleChange(val) {
+        this.setState({value: val, initialValue: this.getProvince(this.state.data, [], val, 0).join('')});
+    }
 
+    handleInputChange() {
+        this.setState({address: this.refs["address"].value});
+    }
+
+    getProvince(array, selArray, val, deep) {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i].value == val[deep]) {
+                selArray.push(array[i].label);
+                if (array[i].children) {
+                    this.getProvince(array[i].children, selArray, val, ++deep);
+                }
+                break;
+            }
+        }
+        return selArray;
     }
 
     handleSave() {
+        const self = this;
+        const address = self.refs["address"].value;
+        if (!address) {
+            MessageBox.show("请输入详细地址");
+            return;
+        }
 
+        const provinceValues = self.state.value;
+        const provinceLabel = self.state.initialValue;
+
+        console.log(address, provinceValues, provinceLabel);
+        self.setState({isSaving: true});
+        DataStore.modifyAddress({
+            id: self.state.id,
+            address: address,
+            provinceValues: provinceValues,
+            provinceLabel: provinceLabel
+        }).then(function () {
+            self.setState({isSaving: false});
+            self.props.dispatch({
+                type: ActionTypes.modifyAddress,
+                address: address,
+                provinceValues: provinceValues,
+                provinceLabel: provinceLabel
+            });
+            self.context.router.goBack();
+        }, function () {
+            self.setState({isSaving: false});
+        });
     }
 
     render() {
@@ -55,15 +105,16 @@ class ModifyAddress extends React.Component {
                     <div className="modify-address-picker-item" onClick={() => this.handleClick()}>
                         <div className="title">选择省市区</div>
                         {
-                            !this.state.hasInitialValue ? (<div className="extra"></div>) : (
-                                <div className="extra"></div>)
+                            !this.state.initialValue ? (<div className="extra"></div>) : (
+                                <div className="extra">{this.state.initialValue}</div>)
                         }
                         <img src={require("../../assets/images/arrow_right.png")}/>
                     </div>
                 </Picker>
-                <div className="input-base">
+                <div className="modify-address-input-base">
                     <div className="label">详细地址</div>
-                    <input type="text" ref="detail" value={this.props.address}/>
+                    <input type="text" ref="address" value={this.state.address}
+                           onChange={ () => this.handleInputChange()}/>
                 </div>
                 <LoadingButton text="保存" loadingText="正在为您保存..." status={this.state.isSaving}
                                onClick={() => this.handleSave()}/>
@@ -72,9 +123,15 @@ class ModifyAddress extends React.Component {
     }
 }
 
+ModifyAddress.contextTypes = {
+    router: React.PropTypes.object
+}
+
 const mapStateToProps = (state) => {
     return {
-        province: state.userInfoReducer.province,
+        id: state.userInfoReducer.id,
+        provinceLabel: state.userInfoReducer.provinceLabel,
+        provinceValues: state.userInfoReducer.provinceValues,
         address: state.userInfoReducer.address /*微信号码*/
     }
 }

@@ -15,7 +15,7 @@ module.exports = {
     login:"@redux/login",
     modifyNickname:"@redux/modifyNickname",
     modifyEmail:"@redux/modifyEmail",
-    modifyAddress:"@redux/modifyEmail",
+    modifyAddress:"@redux/modifyAddress",
     modifyBirthday:"@redux/modifyBirthday",
     modifyPhone:"@redux/modifyPhone",
     modifyWx:"@redux/modifyWx",
