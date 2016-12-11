@@ -38,7 +38,7 @@ class Archive extends React.Component{
     }
 
     render(){
-        const {imageUrl,nickname,phone,email,birthday,address,IDNumber,password,isSetPayPassword,wx} = this.props;
+        const {imageUrl,nickname,phone,email,birthday,address,IDNumber,password,payPassword,wx} = this.props;
         return (
             <div className="archive">
                 <div className="archive-header">
@@ -58,7 +58,7 @@ class Archive extends React.Component{
                     <ArchiveCell imageUrl={require("address_dark")} value={address} title="联系地址" extra="未设置" onClick={() => this.handleNavigate("mine/modifyAddress")}/>
                     <ArchiveCell imageUrl={require("sm_dark")} value={IDNumber} title="实名认证" extra="未认证" onClick={() => this.handleNavigate("mine/modifyId")}/>
                     <ArchiveCell imageUrl={require("password_dark")} value={password ? "修改" : ''} title="登录密码" extra="未设置" onClick={() => password ? this.handleNavigate("mine/modifyPassword") : this.handleNavigate("mine/modifyPasswordConfirm")}/>
-                    <ArchiveCell imageUrl={require("paypassword_dark")} value={isSetPayPassword ? '修改' : ''} title="支付密码" extra="未设置" onClick={() => this.handleNavigate("mine/modifyPayPassword")}/>
+                    <ArchiveCell imageUrl={require("paypassword_dark")} value={payPassword ? '修改' : ''} title="支付密码" extra="未设置" onClick={() => payPassword ? this.handleNavigate("mine/modifyPayPassword") : this.handleNavigate("mine/modifyPayPasswordConfirm")}/>
                 </div>
             </div>
         );
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
         name: state.userInfoReducer.name, /*真实姓名*/
         IDNumber: state.userInfoReducer.IDNumber, /*身份正好*/
         password: state.userInfoReducer.password, /*md5格式,做自动登陆*/
-        isSetPayPassword: state.userInfoReducer.isSetPayPassword /*是否设置支付密码*/,
+        payPassword: state.userInfoReducer.payPassword, /*是否设置支付密码*/
         wx: state.userInfoReducer.wx, /*微信号码*/
     }
 }

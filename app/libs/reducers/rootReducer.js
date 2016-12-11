@@ -84,6 +84,9 @@ function userInfoReducer(state = {}, action) {
         case ActionTypes.modifyAddress: {
             return Object.assign({}, state, {address: action.address});
         }
+        case ActionTypes.modifyPhone: {
+            return Object.assign({}, state, {phone: action.phone});
+        }
         case ActionTypes.modifyWx: {
             return Object.assign({}, state, {wx: action.wx});
         }
@@ -97,7 +100,7 @@ function userInfoReducer(state = {}, action) {
             return Object.assign({}, state, {password: action.password});
         }
         case ActionTypes.modifyPayPassword: {
-            return Object.assign({}, state, {isSetPayPassword: action.isSetPayPassword});
+            return Object.assign({}, state, {payPassword: action.payPassword});
         }
         default:
             return state;

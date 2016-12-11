@@ -33,6 +33,11 @@ import ModifyPhoneConfirm from 'account/modifyPhoneConfirm'
 import ModifyPassword from 'account/modifyPassword'
 import ModifyPasswordByCode from 'account/modifyPasswordByCode'
 import ModifyPasswordConfirm from 'account/modifyPasswordConfirm'
+
+import ModifyPayPassword from 'account/modifyPayPassword'
+import ModifyPayPasswordByCode from 'account/modifyPayPasswordByCode'
+import ModifyPayPasswordConfirm from 'account/modifyPayPasswordConfirm'
+
 import ModifyId from 'account/modifyId'
 import ModifyBirthday from 'account/modifyBirthday'
 import ModifyAddress from 'account/modifyAddress'
@@ -113,6 +118,9 @@ ReactDOM.render(
                 <Route path="mine/modifyPassword" component={ModifyPassword}/>
                 <Route path="mine/modifyPasswordByCode" component={ModifyPasswordByCode}/>
                 <Route path="mine/modifyPasswordConfirm" component={ModifyPasswordConfirm}/>
+                <Route path="mine/modifyPayPassword" component={ModifyPayPassword}/>
+                <Route path="mine/modifyPayPasswordByCode" component={ModifyPayPasswordByCode}/>
+                <Route path="mine/modifyPayPasswordConfirm" component={ModifyPayPasswordConfirm}/>
                 <Route path="mine/modifyId" component={ModifyId}/>
                 <Route path="mine/modifyBirthday" component={ModifyBirthday}/>
                 <Route path="mine/modifyAddress" component={ModifyAddress}/>

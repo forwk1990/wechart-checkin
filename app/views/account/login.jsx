@@ -4,7 +4,7 @@ import React from 'react';
 import CountDown from 'countDown';
 import LoadingButton from 'loadingButton';
 import {connect} from 'react-redux';
-import {MessageBox} from 'Utils';
+import {MessageBox, Validator} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
 
@@ -15,59 +15,87 @@ class Login extends React.Component {
         super(props);
         this.turnLeft = true;
         this.state = {
-            isLanding: false
+            isLanding: false,
+            isStop: false
         };
     }
 
-    handleLogin() {
+    loginByCode() {
         const self = this;
-        let parameters = {};
-        if (this.turnLeft) {
-            let phone = this.refs['v-phone'].value;
-            let code = this.refs['v-code'].value;
-            if (!phone) {
-                MessageBox.show("请输入手机号");
-                return;
-            }
-            if (!code) {
-                MessageBox.show("请输入验证码");
-                return;
-            }
-            if (!(/^1[34578]\d{9}$/.test(phone))) {
-                MessageBox.show("手机号格式不正确");
-                return;
-            }
-            parameters = {phone, code};
-        } else {
-            let phone = this.refs['p-phone'].value;
-            let password = this.refs['p-password'].value;
-            if (!phone) {
-                MessageBox.show("请输入手机号");
-                return;
-            }
-            if (!password) {
-                MessageBox.show("请输入密码");
-                return;
-            }
-            if (!(/^1[34578]\d{9}$/.test(phone))) {
-                MessageBox.show("手机号格式不正确");
-                return;
-            }
-            parameters = {phone, code};
+        const phone = this.refs['v-phone'].value;
+        const code = this.refs['v-code'].value;
+        if (!phone) {
+            MessageBox.show("请输入手机号");
+            return;
         }
+        if (!code) {
+            MessageBox.show("请输入验证码");
+            return;
+        }
+        if (!Validator.isRegularPhone(phone)) {
+            MessageBox.show("手机号格式不正确");
+            return;
+        }
+        self.setState({isLanding: true});
+        DataStore.validatePhone({phone: self.props.phone}).then(function (responseObject) {
+            self.setState({isLanding: false});
+            if (responseObject.code != code) {
+                MessageBox.show("验证码不正确");
+            } else {
+                self.setState({isStop: true});
+                if (self.props.params.returnPage) {
+                    self.context.router.replace(`mine/${self.props.params.returnPage}`);
+                } else {
+                    self.context.router.replace('mine/archive');
+                }
+            }
+        }, function (error) {
+            self.setState({isLanding: false});
+        });
+    }
+
+    loginByPassword(phone, password) {
+        const _phone = this.refs['p-phone'].value;
+        const _password = this.refs['p-password'].value;
+        if (!_phone) {
+            MessageBox.show("请输入手机号");
+            return;
+        }
+        if (!_password) {
+            MessageBox.show("请输入密码");
+            return;
+        }
+        if (!Validator.isRegularPhone(_phone)) {
+            MessageBox.show("手机号格式不正确");
+            return;
+        }
+        this.login({phone:_phone, password:_password});
+    }
+
+    login(parameters) {
+        const self = this;
         self.setState({isLanding: true});
         DataStore.login(parameters).then(function (responseObject) {
             self.setState({isLanding: false});
             self.props.dispatch({type: ActionTypes.login, responseObject});
-            if(self.props.params.returnPage){
+            if (self.props.params.returnPage) {
                 self.context.router.replace(`mine/${self.props.params.returnPage}`);
-            }else{
+            } else {
                 self.context.router.replace('mine/archive');
             }
         }, function (error) {
             self.setState({isLanding: false});
             MessageBox.show(error);
         });
+    }
+
+    handleLogin() {
+        const self = this;
+        if (self.turnLeft) {
+            self.loginByCode();
+        } else {
+            self.loginByPassword();
+        }
     }
 
     handleSwitch() {
@@ -93,7 +121,7 @@ class Login extends React.Component {
                     <div className="login-page-edit-row">
                         <div className="left-label">短信验证码</div>
                         <input type="tel" name="code" ref="v-code"/>
-                        <CountDown text="获取短信验证码"/>
+                        <CountDown text="获取短信验证码" stop={this.state.isStop}/>
                     </div>
                     <LoadingButton text="登陆" loadingText="正在为您登陆..." status={this.state.isLanding}
                                    onClick={() => this.handleLogin()}/>

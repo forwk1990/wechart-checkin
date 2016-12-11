@@ -16,13 +16,17 @@ class CountDown extends React.Component {
         let seconds = 60;
         self.setState({text: `${seconds}s`});
         const interval = setInterval(function () {
-            seconds--;
-            if (seconds < 0) {
+            if(self.props.stop){
                 clearInterval(interval);
-                self.setState({isActive: false});
-                self.setState({text: self.props.text});
-            } else {
-                self.setState({text: `${seconds}s`});
+            }else{
+                seconds--;
+                if (seconds < 0) {
+                    clearInterval(interval);
+                    self.setState({isActive: false});
+                    self.setState({text: self.props.text});
+                } else {
+                    self.setState({text: `${seconds}s`});
+                }
             }
         }, 1000);
     }

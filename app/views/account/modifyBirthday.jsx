@@ -60,7 +60,7 @@ class ModifyBirthday extends React.Component {
     handleChange(val) {
         this.setState({monthDate: val, hasInitialValue: true});
 
-        const value = `${val[0]}/${val[1]}/${val[2]}`;
+        const value = `${val[0]}-${this.formatValueWithZero(val[1])}-${this.formatValueWithZero(val[2])}`;
         const self = this;
         this.setState({isSaving: true});
         DataStore.modifyBirthday({id: this.props.id, birthday: value}).then(function () {

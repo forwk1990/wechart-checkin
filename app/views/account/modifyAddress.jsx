@@ -3,60 +3,42 @@ import {connect} from 'react-redux';
 import {Picker} from 'antd-mobile';
 import LoadingButton from 'loadingButton';
 import './modifyAddress.scss'
+import {MessageBox, Validator} from 'Utils';
+import DataStore from 'DataStore';
+import ActionTypes from 'constants/ActionTypes';
 
 class ModifyAddress extends React.Component {
 
     constructor(props) {
         super(props);
-        const date = new Date(Date.parse(props.birthday));
         this.state = {
-            birthdayData: this._getYearMonthDayData(),
-            loading: 0,
-            monthDate: props.birthday ? [date.getFullYear(), date.getMonth() + 1, date.getDate()] : [1980,1,1],
-            hasInitialValue: props.birthday ? true : false
+            isSaving: false,
+            data: [],
+            isDataLoading: false,
+            isDataReady: false,
+            value: []
         }
-
     }
 
-    _getYearMonthDayData() {
-        var yearArray = [];
-        const currentYear = new Date().getFullYear();
-        for (var year = currentYear; year > currentYear - 60; year--) {
-            var yearObject = {label: `${year}`, value: year, id: 'year', children: []};
-            for (var month = 1; month <= 12; month++) {
-                const monthStr = month < 10 ? `0${month}` : month;
-                var monthObject = {label: `${monthStr}`, value: month, id: "month", children: []};
-                var maxDay = 30;
-                if (month == 1 || month == 3 || month == 5
-                    || month == 7 || month == 8 || month == 10 || month == 12) {
-                    maxDay = 31;
-                }
-                if (month == 2) {
-                    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-                        maxDay = 29;
-                    } else {
-                        maxDay = 29;
-                    }
-                }
-                for (var day = 1; day <= maxDay; day++) {
-                    const dayStr = day < 10 ? `0${day}` : day;
-                    monthObject.children.push({label: `${dayStr}`, value: day, id: "day"});
-                }
-                yearObject.children.push(monthObject);
-            }
-            yearArray.push(yearObject);
-        }
-        console.info(yearArray);
-        return yearArray;
+    handleClick() {
+        const self = this;
+        if (self.state.isDataReady)return;
+        self.setState({isDataLoading: true});
+        DataStore.getProvince({}).then(function (responseObject) {
+            self.isDataReady = true;
+            self.setState({isDataLoading: false});
+            self.setState({data: responseObject, value: self.props.value});
+        }, function (error) {
+            self.setState({isDataLoading: false});
+        })
     }
 
     handleChange(val) {
-        console.info(val);
-        this.setState({monthDate: val, hasInitialValue: true});
+
     }
 
-    formatValueWithZero(value) {
-        return value < 10 ? `0${value}` : `${value}`;
+    handleSave() {
+
     }
 
     render() {
@@ -68,14 +50,13 @@ class ModifyAddress extends React.Component {
                     </div>
                     <div className="title">联系地址</div>
                 </div>
-                <Picker style={{fontSize: "24px"}} cols={3}
-                        data={this.state.birthdayData}
-                        title="选择省市区" value={this.state.monthDate}
-                        onChange={ (val) => this.handleChange(val)}>
-                    <div className="modify-address-picker-item">
+                <Picker style={{fontSize: "24px"}} cols={3} data={this.state.data} value={this.state.value}
+                        title="选择省市区" onChange={ (val) => this.handleChange(val)}>
+                    <div className="modify-address-picker-item" onClick={() => this.handleClick()}>
                         <div className="title">选择省市区</div>
                         {
-                            !this.state.hasInitialValue ? (<div className="extra"></div>) : (<div className="extra">{`${this.state.monthDate[0]}-${this.formatValueWithZero(this.state.monthDate[1])}-${this.formatValueWithZero(this.state.monthDate[2])}`}</div>)
+                            !this.state.hasInitialValue ? (<div className="extra"></div>) : (
+                                <div className="extra"></div>)
                         }
                         <img src={require("../../assets/images/arrow_right.png")}/>
                     </div>
@@ -93,6 +74,7 @@ class ModifyAddress extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        province: state.userInfoReducer.province,
         address: state.userInfoReducer.address /*微信号码*/
     }
 }

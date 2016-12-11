@@ -6,8 +6,9 @@ import './modifyPassword.scss'
 import {MessageBox, Validator} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
+import {hashHistory} from 'react-router';
 
-class ModifyPassword extends React.Component {
+class ModifyPayPassword extends React.Component {
 
     constructor(props) {
         super(props);
@@ -24,7 +25,7 @@ class ModifyPassword extends React.Component {
 
         const self = this;
         const oldPassword = self.refs["oldPassword"].value;
-        if (oldPassword !== self.props.password) {
+        if (oldPassword !== self.props.payPassword) {
             MessageBox.show("旧密码不正确");
             return;
         }
@@ -43,9 +44,9 @@ class ModifyPassword extends React.Component {
             return;
         }
         self.setState({isSaving1: true});
-        DataStore.modifyPassword({id: self.props.id, password: confirmPassword}).then(function () {
+        DataStore.modifyPayPassword({id: self.props.id, payPassword: confirmPassword}).then(function () {
             self.setState({isSaving1: false});
-            self.props.dispatch({type: ActionTypes.modifyPassword, password: confirmPassword});
+            self.props.dispatch({type: ActionTypes.modifyPayPassword, payPassword: confirmPassword});
             self.context.router.goBack();
         }, function (error) {
             self.setState({isSaving1: false});
@@ -63,7 +64,7 @@ class ModifyPassword extends React.Component {
                 MessageBox.show("验证码不正确");
             } else {
                 self.setState({isStop: true});
-                self.context.router.push('mine/modifyPasswordByCode');
+                self.context.router.push('mine/modifyPayPasswordByCode');
             }
         }, function (error) {
             self.setState({isSaving2: false});
@@ -89,19 +90,19 @@ class ModifyPassword extends React.Component {
                         <div className="image">
                             <img src={require("password_light")}/>
                         </div>
-                        <div className="title">登陆密码</div>
+                        <div className="title">支付密码</div>
                     </div>
                     <div className="modify-page-input-base">
                         <div className="label">旧密码</div>
-                        <input type="password" ref="oldPassword"/>
+                        <input type="text" ref="oldPassword"/>
                     </div>
                     <div className="modify-page-input-base">
                         <div className="label">新密码</div>
-                        <input type="password" ref="newPassword"/>
+                        <input type="text" ref="newPassword"/>
                     </div>
                     <div className="modify-page-input-base">
                         <div className="label">再次输入</div>
-                        <input type="password" ref="confirmPassword"/>
+                        <input type="text" ref="confirmPassword"/>
                     </div>
                     <LoadingButton text="确认修改" loadingText="正在为您保存..." status={this.state.isSaving1}
                                    onClick={() => this.handleSave()}/>
@@ -112,7 +113,7 @@ class ModifyPassword extends React.Component {
                         <div className="image">
                             <img src={require("password_light")}/>
                         </div>
-                        <div className="title">登陆密码</div>
+                        <div className="title">支付密码</div>
                     </div>
                     <div className="modify-page-input-base">
                         <div className="label">手机号码</div>
@@ -135,16 +136,16 @@ class ModifyPassword extends React.Component {
 }
 
 
-ModifyPassword.contextTypes = {
+ModifyPayPassword.contextTypes = {
     router: React.PropTypes.object
 }
 
 const mapStateToProps = (state) => {
     return {
         id: state.userInfoReducer.id,
-        password: state.userInfoReducer.password, /*支付密码*/
+        payPassword: state.userInfoReducer.payPassword, /*支付密码*/
         phone: state.userInfoReducer.phone /*微信号码*/
     }
 }
 
-export default connect(mapStateToProps)(ModifyPassword);
+export default connect(mapStateToProps)(ModifyPayPassword);

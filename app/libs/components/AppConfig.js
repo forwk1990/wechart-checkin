@@ -60,6 +60,11 @@ var Config =  {
         getIntegralDetail:_getFullUrlFromRelative("getIntegralDetail"),
 
         /*
+        * 验证手机
+        * */
+        validatePhone:_getFullUrlFromRelative("validatePhone"),
+
+        /*
         * 登陆
         * */
         login:_getFullUrlFromRelative("login"),

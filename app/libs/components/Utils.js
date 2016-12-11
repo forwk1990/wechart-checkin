@@ -8,5 +8,16 @@ module.exports = {
         show:function(content){
             Toast.info(content,1.2);
         }
+    },
+    Validator:{
+        isRegularID:function(id){
+            return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(id)
+        },
+        isRegularPhone:function(phone){
+            return /^1[34578]\d{9}$/.test(phone)
+        },
+        isRegularEmail:function(email){
+            return /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(email)
+        }
     }
 };
