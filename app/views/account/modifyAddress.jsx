@@ -63,7 +63,7 @@ class ModifyAddress extends React.Component {
                 </Picker>
                 <div className="input-base">
                     <div className="label">详细地址</div>
-                    <input type="text" ref="detail"/>
+                    <input type="text" ref="detail" value={this.props.address}/>
                 </div>
                 <LoadingButton text="保存" loadingText="正在为您保存..." status={this.state.isSaving}
                                onClick={() => this.handleSave()}/>
