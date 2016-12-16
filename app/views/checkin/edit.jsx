@@ -65,7 +65,7 @@ class Edit extends React.Component {
         }
 
         this.setState({status: 1});
-        DataStore.fill({...values, uid: self.props.uid}).then(function (responseObject) {
+        DataStore.fill({...values, uid: self.props.uid,code:this.props.params.code}).then(function (responseObject) {
             console.info(responseObject);
             self.setState({status: 0});
             self.context.router.push(`success`);

@@ -13,7 +13,8 @@ class ModifyPhoneConfirm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isSaving: false
+            isSaving: false,
+            isStop: false
         };
     }
 
@@ -33,14 +34,37 @@ class ModifyPhoneConfirm extends React.Component {
             MessageBox.show("手机号格式不正确");
             return;
         }
-        let parameters = {phone, code, id: self.props.id};
-        self.setState({isSaving: true});
-        DataStore.modifyPhone(parameters).then(function () {
-            self.setState({isSaving: false});
-            self.props.dispatch({type: ActionTypes.modifyPhone, phone: phone});
-            hashHistory.go(-2);
-        }, function () {
-            self.setState({isSaving: false});
+
+        DataStore.validatePhone({phone}).then(function (responseObject) {
+            if (responseObject.code != code) {
+                MessageBox.show("验证码不正确");
+            } else {
+                self.setState({isSaving: true});
+                DataStore.modifyPhone({phone, id: self.props.id}).then(function () {
+                    self.setState({isSaving: false, isStop: true});
+                    self.props.dispatch({type: ActionTypes.modifyPhone, phone: phone});
+                    hashHistory.go(-2);
+                }, function () {
+                    self.setState({isSaving: false, isStop: true});
+                });
+            }
+        }, function (error) {
+            MessageBox.show(error.message);
+        });
+
+    }
+
+    handleVerifyCode() {
+        const phone = this.refs['phone'].value;
+        if (!phone) {
+            MessageBox.show("请输入手机号");
+            return;
+        }
+        // 获取手机验证码
+        DataStore.getVerifyCode({phone: phone, type: 4}).then(function () {
+            console.info("get verify code success");
+        }, function (error) {
+            console.info(error);
         });
     }
 
@@ -53,14 +77,14 @@ class ModifyPhoneConfirm extends React.Component {
                     </div>
                     <div className="title">联系手机</div>
                 </div>
-                <div className="input-base">
+                <div className="modify-phone-confirm-input-base">
                     <div className="label">新手机号</div>
                     <input type="text" ref="phone"/>
                 </div>
-                <div className="input-base">
+                <div className="modify-phone-confirm-input-base">
                     <div className="label">短信验证码</div>
-                    <input type="text" ref="code"/>
-                    <CountDown text="获取短信验证码"/>
+                    <input type="text" ref="code" name="code"/>
+                    <CountDown text="点击获取" stop={this.state.isStop} onClick={ () => this.handleVerifyCode()}/>
                 </div>
                 <LoadingButton text="确认更改" loadingText="正在为您保存..." status={this.state.isSaving}
                                onClick={() => this.handleSave()}/>

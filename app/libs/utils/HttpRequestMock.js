@@ -20,9 +20,21 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
         "lat": 39.90923,
         'imageUrl': 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
         'subTitle': '成都养生协会国学交流论坛',
-        'address': '成都市武侯区香格里拉酒店2楼',
-        'date': '@datetime("yyyy/MM/dd HH:mm")',
+        'address': '湖北省武汉市武昌区积玉桥街金地国际花园',
+        'activeTime': '@datetime("yyyy/MM/dd HH:mm")',
         'desc': '这是一场分享如何平复自己心灵，学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。'
+    }
+});
+
+/*
+ * 管理人员登陆
+ * @param username:String
+ * @param password:String
+ * */
+Mock.mock(AppConfig.ApiConfig.managerLogin, {
+    'status': 0,
+    'data': {
+        id: '34-99bc-7d99afed9' /*用户ID*/
     }
 });
 
@@ -44,34 +56,52 @@ Mock.mock(AppConfig.ApiConfig.login, {
         phone: '134****6543', /*手机号码*/
         email: '13476116543@163.com', /*邮箱*/
         birthday: '', /*生日*/
-        provinceValues: [1, 1, 2],
+        provinceValues: [1, 1, 2], /*省市区值*/
         provinceLabel: "北京市北京市东城区",
         address: '光谷资本大厦', /*联系地址*/
         name: '', /*真实姓名*/
         IDNumber: '', /*身份证号*/
         password: 'afed961', /*md5格式,做自动登陆*/
-        payPassword: '123456', /*md5格式,做自动登陆*/
+        payPassword: '', /*md5格式,做自动登陆*/
         wx: 'w1915655273', /*微信号码*/
-        imageUrl: 'http://img.boqiicdn.com/Data/BK/A/1311/25/img26701385362659_y.jpg', /*用户头像*/
+        imageUrl: 'http://images.china.cn/attachement/jpg/site1000/20140924/002564bb43f1158ca2fc2d.jpg', /*用户头像*/
         activityScore: 2000, /*活动积分*/
         numberScore: 3000, /*生命数字积分*/
         lifeScore: 3000, /*正念生活积分*/
-        range: 128 /*积分排名*/
+        totalScore: 8000, /*总分*/
+        range: 1 /*积分排名*/
     }
 });
 
 /*
- * 验证手机
+ * 报告活动完成
+ * @param id:String 用户ID
+ * @param type:Int 活动类型
+ * */
+Mock.mock(AppConfig.ApiConfig.notifyComplete, {
+    'status': 0
+});
+
+/*
+ * 获取验证码
+ * @param phone:String
+ * */
+Mock.mock(AppConfig.ApiConfig.getVerifyCode, {
+    'status': 0
+});
+
+/*
+ * 验证手机是否正确
+ * @param phone:String
+ * @param code:String
  * */
 Mock.mock(AppConfig.ApiConfig.validatePhone, {
-    'status': 0,
-    'data': {
-        code: '1234'
-    }
+    'status': 0
 });
 
 /*
  * 获取积分详情
+ * @param id:String 用户ID
  * */
 Mock.mock(AppConfig.ApiConfig.getIntegralDetail, {
     'status': 0,
@@ -86,6 +116,8 @@ Mock.mock(AppConfig.ApiConfig.getIntegralDetail, {
 
 /*
  * 修改微信
+ * @param id:String 用户ID
+ * @param wx:String 微信号码
  * */
 Mock.mock(AppConfig.ApiConfig.modifyWx, {
     'status': 0
@@ -93,13 +125,30 @@ Mock.mock(AppConfig.ApiConfig.modifyWx, {
 
 /*
  * 修改实名
+ * @param id:String 用户ID
+ * @param IDNumber:String 身份证号码
+ * @param name:String 真实姓名
  * */
 Mock.mock(AppConfig.ApiConfig.modifyIDNumber, {
     'status': 0
 });
 
 /*
+ * 修改头像
+ * @param id:String 用户ID
+ * @param mediaId:String 服务器端资源ID
+ * */
+Mock.mock(AppConfig.ApiConfig.modifyImageUrl, {
+    'status': 0,
+    'data': {
+        imageUrl: 'http://images.china.cn/attachement/jpg/site1000/20140924/002564bb43f1158ca2fc2d.jpg'
+    }
+});
+
+/*
  * 修改支付密码
+ * @param id:String 用户ID
+ * @param payPassword:String 支付密码 （MD5加密过）
  * */
 Mock.mock(AppConfig.ApiConfig.modifyPayPassword, {
     'status': 0
@@ -107,6 +156,8 @@ Mock.mock(AppConfig.ApiConfig.modifyPayPassword, {
 
 /*
  * 修改生日
+ * @param id:String 用户ID
+ * @param birthday:String 生日 (格式为:yyyy-MM-dd)
  * */
 Mock.mock(AppConfig.ApiConfig.modifyBirthday, {
     'status': 0
@@ -114,6 +165,8 @@ Mock.mock(AppConfig.ApiConfig.modifyBirthday, {
 
 /*
  * 修改登陆密码
+ * @param id:String 用户ID
+ * @param password:String 登陆密码 MD5加密过）
  * */
 Mock.mock(AppConfig.ApiConfig.modifyPassword, {
     'status': 0
@@ -121,6 +174,10 @@ Mock.mock(AppConfig.ApiConfig.modifyPassword, {
 
 /*
  * 修改地址
+ * @param id:String 用户ID
+ * @param address: String 详细地址
+ * @param provinceValues:Array[3] 省市区值 例如[1,1,1]
+ * @param provinceLabel:String 省市区字符串
  * */
 Mock.mock(AppConfig.ApiConfig.modifyAddress, {
     'status': 0
@@ -128,6 +185,8 @@ Mock.mock(AppConfig.ApiConfig.modifyAddress, {
 
 /*
  * 修改邮箱
+ * @param id:String 用户ID
+ * @param email:String 用户邮箱
  * */
 Mock.mock(AppConfig.ApiConfig.modifyEmail, {
     'status': 0
@@ -135,6 +194,8 @@ Mock.mock(AppConfig.ApiConfig.modifyEmail, {
 
 /*
  * 修改手机号
+ * @param id:String 用户ID
+ * @param phone:String 手机号码
  * */
 Mock.mock(AppConfig.ApiConfig.modifyPhone, {
     'status': 0
@@ -142,6 +203,8 @@ Mock.mock(AppConfig.ApiConfig.modifyPhone, {
 
 /*
  * 修改昵称
+ * @param id:String 用户ID
+ * @param nickname:String 用户昵称
  * */
 Mock.mock(AppConfig.ApiConfig.modifyNickname, {
     'status': 0
@@ -149,6 +212,8 @@ Mock.mock(AppConfig.ApiConfig.modifyNickname, {
 
 /*
  * 获取积分排名
+ * @param pageIndex:Int 第几页 从1开始
+ * @param pageSize:Int 每页多少条数据
  * */
 Mock.mock(AppConfig.ApiConfig.getIntegralOrder, {
     'status': 0,
@@ -3983,7 +4048,7 @@ Mock.mock(AppConfig.ApiConfig.getProvince, {
 });
 
 /*
- * 获取我的活动
+ * 获取喜悦活动
  * */
 Mock.mock(AppConfig.ApiConfig.getMyActivity, {
     'status': 0,
@@ -3992,21 +4057,61 @@ Mock.mock(AppConfig.ApiConfig.getMyActivity, {
             id: '1',
             title: '纪念逝去的杀马特',
             imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-            date: '2016/11/08 00:00:00',
-            address: '张之洞路窑洞之王'
+            activeTime: '2016/11/08 00:00:00',
+            address: '张之洞路窑洞之王',
+            code: 'eF3efd',
+            shortCode: '3erfd',
+            isComplete: 1
         },
         {
             id: '2',
             title: '活在我们心中的雷锋哥哥',
             imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-            date: '2016/11/08 00:00:00',
+            activeTime: '2016/11/08 00:00:00',
+            address: '汉阳大道雾里吞',
+            code: 'eF3efd',
+            shortCode: '3erfd',
+            isComplete: 0
+        },
+        {
+            id: '3',
+            title: '咱们屯里的人纪念发布会',
+            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            activeTime: '2016/11/08 00:00:00',
+            address: '光谷大道中山公园',
+            code: 'eF3efd',
+            shortCode: '3erfd',
+            isComplete: 1
+        }
+    ]
+});
+
+/*
+ * 获取我的活动
+ * @param id:String 用户ID
+ * */
+Mock.mock(AppConfig.ApiConfig.getAllActivity, {
+    'status': 0,
+    'data': [
+        {
+            id: '1',
+            title: '纪念逝去的杀马特',
+            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            activeTime: '2016/11/08 00:00:00',
+            address: '张之洞路张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王窑洞之王'
+        },
+        {
+            id: '2',
+            title: '活在我们心中的雷锋哥哥',
+            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            activeTime: '2016/11/08 00:00:00',
             address: '汉阳大道雾里吞'
         },
         {
             id: '3',
             title: '咱们屯里的人纪念发布会',
             imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-            date: '2016/11/08 00:00:00',
+            activeTime: '2016/11/08 00:00:00',
             address: '光谷大道中山公园'
         }
     ]
@@ -4019,8 +4124,9 @@ Mock.mock(AppConfig.ApiConfig.getLife, {
         title: "十五分钟静坐",
         text: "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。<br/>舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。<br/>舍利子，是诸法空相，不生不灭，不垢不净，不增不减。<br/>是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。<br/>无苦集灭道，无智亦无得。<br/>以无所得故。菩提萨埵，依般若波罗蜜多故，心无挂碍。<br/>无挂碍故，无有恐怖，远离颠倒梦想，究竟涅盘。<br/>三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。<br/>",
         integral: 120,
+        isOpen: 1,
         audios: [
-            "http://96.f.1ting.com/584955f6/fca36059a2b7eb31b81249bedfe0ca94/zzzzzmp3/2008Hapr/01/02i_FanYin/2.mp3",
+            "http://xyhd.oss-cn-shenzhen.aliyuncs.com/mp3/%EC%8B%AC%EC%BF%B5%20(%E5%BF%83%E5%8A%A8)%20-%20%EB%B0%95%EB%B3%B4%EB%9E%8C%20(%E6%9C%B4%E5%AE%9D%E8%93%9D).mp3",
             "http://mp3.haoduoge.com/s/2016-09-29/1475120524.mp3"
         ]
     }
@@ -8041,6 +8147,7 @@ Mock.mock(AppConfig.ApiConfig.getExplain, {
     }],
     "message": "ok"
 });
+
 /*
  * 模拟参加活动接口，返回密钥
  * */
@@ -8051,61 +8158,6 @@ Mock.mock(AppConfig.ApiConfig.checkin, {
         uid: "@string",
         isExt: 1,
         shortCode: "Rf9Rb0I"
-    }
+    },
+    'message': '人数已满'
 });
-
-//// 模拟首页请求数据
-//Mock.mock(AppConfig.ApiConfig.getBarginInfo,{
-//    'status':1,
-//    'data':{
-//        'openId': '@string',
-//        'isMine|0-1': 1,
-//        'isFirst|0-1': 1,
-//        'money':MockRandom.integer(30000,40000),
-//        'price':MockRandom.integer(100000,500000),
-//        'originalPrice':MockRandom.integer(500000,600000),
-//        'name|1':['奥迪A7','奔驰','雪铁龙'],
-//        'url':'',
-//        'deadline|1':['2016/11/08 00:00:00','2016/11/09 00:00:00','2016/11/10 00:00:00']
-//    }
-//});
-//
-///*
-//* 模拟好友请求数据
-//* */
-//Mock.mock(AppConfig.ApiConfig.getFriendList,{
-//    "status":1,
-//    "data|1-10":[
-//        {
-//            "text|1":[
-//                "不忘初心，人胖多砍价，人笨多砍价，一口气砍掉<span>800</span>元",
-//                "小溪，说待我长发及腰时再砍，帮你砍掉<span>800</span>元",
-//                "Uchiha Itachi,你问我爱你有多深，砍价代表我的心，帮你砍掉<span>800</span>元",
-//                "snail,帮你砍掉<span>34.27</span>元,我和我的小伙伴都惊呆了！",
-//                "Mars，说专治各种砍价，不服来砍，帮你砍掉<span>35.02</span>元!"
-//            ],
-//            "imageUrl":MockRandom.dataImage('80x80')
-//        }
-//    ]
-//});
-//
-///*
-//* 模拟参与榜请求数据
-//* */
-//Mock.mock(AppConfig.ApiConfig.getParticipationList,{
-//    "status":1,
-//    "data|1-10":[
-//        {
-//            "text|1":[
-//                "不忘初心，已砍掉800元,<span>当前金额23216</span>元",
-//                "乔峰，已砍掉1800元,<span>当前金额50034</span>元",
-//                "慕容复，已砍掉8000元,<span>当前金额50034</span>元",
-//                "傅家坡杜兰特，已砍掉4760元,<span>当前金额34355</span>元",
-//                "花山科比，已砍掉2390元,<span>当前金额3556</span>元",
-//                "江夏詹姆斯，已砍掉100元,<span>当前金额56563</span>元",
-//            ],
-//            "imageUrl":MockRandom.image('80x80')
-//        }
-//    ]
-//});
-

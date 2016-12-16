@@ -25,7 +25,19 @@ class Ticket extends Component {
     }
 
     handleMap() {
-        window.location.href = window.location.origin + `/wx/map.html?lat=${this.props.lat}&lng=${this.props.lng}`;
+        const self = this;
+        wx.getLocation({
+            type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                window.location.href = window.location.origin + `/wx/map.html?lat=${self.props.lat}&lng=${self.props.lng}&t=${Math.random()}&clat=${latitude}&clng=${longitude}`;
+            },
+            fail:function (res) {
+                alert(res);
+            }
+        });
+        // window.location.href = window.location.origin + `/wx/map.html?lat=${this.props.lat}&lng=${this.props.lng}&t=${Math.random()}`;
     }
 
     render() {
@@ -56,7 +68,7 @@ class Ticket extends Component {
                         {isReady && (
                             <div className="ticket-card-top-address" onClick={this.handleMap.bind(this)}>
                                 <img src={require("location_light")}/>
-                                <span>{address}</span>
+                                <span className="text-overflow">{address}</span>
                                 <img src={require("arrow_right")}/>
                             </div>)}
                         <div className="ticket-card-top-date">{date}</div>
@@ -67,7 +79,7 @@ class Ticket extends Component {
                         <div className="ticket-card-middle-title">活动当日您可凭此券入场</div>
                         <div className="ticket-card-middle-qrcode">
                             <div className="qr-container">
-                                <QRCode level='H' value={`http://t.cn/${this.props.params.shortCode}#/v/${this.props.params.code}`}
+                                <QRCode level='H' value={`http://t.cn/${this.props.params.shortCode}#/validate/${this.props.params.code}`}
                                         size={self.state.size}/>
                             </div>
                         </div>
@@ -76,12 +88,12 @@ class Ticket extends Component {
                     </div>
                     <div className="ticket-card-bottom">
                         { parseInt(self.props.params.isExt) ? (<div className="ticket-card-bottom-ok">完善个人资料 获专业服务</div>)
-                            : (<Link to="edit" className="ticket-card-bottom-link">完善个人资料 获专业服务</Link>)}
+                            : (<Link to={`edit/${this.props.params.code}`} className="ticket-card-bottom-link">完善个人资料 获专业服务</Link>)}
                     </div>
                 </div>
 
                 <div className="ticket-remark">
-                    您可在公众号 个人中心 我的报名 查看此券
+                    您可在公众号 个人中心 我的活动 查看此券
                 </div>
             </div>
         );

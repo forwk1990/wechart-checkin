@@ -46,6 +46,7 @@ class Index extends React.Component {
             'inputValue_name': '',
             'inputValue_phone': '',
             'inputValue_ageGroup': [],
+            isRequest: false
         };
     }
 
@@ -65,6 +66,7 @@ class Index extends React.Component {
             dispatch({type: ActionTypes.getActivityBefore});
             return DataStore.getActivityInfo({id: queryParameters.id});
         }).then(function (responseObject) {
+            console.log("what?", responseObject);
             self.props.dispatch({type: ActionTypes.getActivity, responseObject});
             self.props.dispatch({type: ActionTypes.getActivityAfter});
         }, function (error) {
@@ -98,8 +100,8 @@ class Index extends React.Component {
 
         const queryParameters = QueryString.parse(location.search);
         if (!queryParameters.id) return;
-        self.props.dispatch((dispatch) => {
-            dispatch({type: ActionTypes.checkInBefore});
+        self.props.dispatch(() => {
+            self.setState({isRequest: true});
             return DataStore.checkin({
                 id: queryParameters.id,
                 name: name,
@@ -109,9 +111,12 @@ class Index extends React.Component {
         }).then(function (responseObject) {
             self.props.dispatch({type: ActionTypes.checkIn, responseObject});
             self.context.router.push(`ticket/${responseObject.qrCode}/${responseObject.shortCode}/${responseObject.isExt}`);
-            self.props.dispatch({type: ActionTypes.checkInAfter, phone: phone});
+            self.setState({isRequest: false});
         }, function (error) {
-            console.info(error);
+            self.setState({isRequest: false});
+            MessageBox.show(error.message);
+            // if (error.level == 0) MessageBox.show(error.message);
+            // if (error.level == 1) MessageBox.show("网络暂不给力,请稍后再试");
         });
     }
 
@@ -123,12 +128,23 @@ class Index extends React.Component {
     }
 
     handleMap() {
-        window.location.href = window.location.origin + `/wx/map.html?lat=${this.props.lat}&lng=${this.props.lng}`;
+        const self = this;
+        wx.getLocation({
+            type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                window.location.href = window.location.origin + `/wx/map.html?lat=${self.props.lat}&lng=${self.props.lng}&t=${Math.random()}&clat=${latitude}&clng=${longitude}`;
+            },
+            fail:function (res) {
+                alert(res);
+            }
+        });
     }
 
     render() {
         var self = this;
-        const {isReady, title, subTitle, imageUrl, address, date, desc, loading} = this.props;
+        const {isReady, imageUrl, address, date} = this.props;
         return !isReady ? (<div className="loading"></div>)
             : (
             <RouteTransition
@@ -136,7 +152,7 @@ class Index extends React.Component {
                 pathname={this.props.location.pathname}
                 {...presets.fade}>
                 <div className="index">
-                    <div className="index-img" style={{background:`url(${imageUrl}) center center`}}></div>
+                    <div className="index-img" style={{background: `url(${imageUrl}) center center no-repeat`,backgroundSize:'100% 100%'}}></div>
                     <div className="content">
                         <div className="address" onClick={this.handleMap.bind(this)}>
                             <img src={require("location_back")}/>
@@ -159,7 +175,7 @@ class Index extends React.Component {
                                        value={this.state.inputValue_phone}
                                        onChange={ (val) => self.handleChange('inputValue_phone', val)}>手机号</InputItem>
                         </List>
-                        <LoadingButton text="报名领取参与券" loadingText="领取中..." status={loading}
+                        <LoadingButton text="报名领取参与券" loadingText="领取中..." status={this.state.isRequest}
                                        onClick={() => this.handleSubmit()}/>
                     </div>
                 </div>

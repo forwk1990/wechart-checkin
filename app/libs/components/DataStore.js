@@ -21,6 +21,7 @@ function sendRequest(url, parameters) {
         // Object.assign(formData, parameters);
         var params = `key=${encodeURIComponent(JSON.stringify(parameters))}`;
         params = params.replace(/%20/g, '+');
+        console.log(parameters);
         /*
          * initialize the xml http request level2
          * @discussion :
@@ -41,19 +42,20 @@ function sendRequest(url, parameters) {
             }
             if (this.status === 200) {
                 var responseObject;
-                if (__DEV__){
+                if (__DEV__) {
                     responseObject = JSON.parse(this.response);
-                }else{
+                } else {
                     responseObject = this.response;
                 }
                 console.info(responseObject);
                 if (responseObject.status == 0) {
                     resolve(responseObject.data);
                 } else {
-                    reject(responseObject.message);
+                    reject({level: 0, message: responseObject.message});
                 }
-            } else {console.info(this.statusText);
-                reject(this.statusText);
+            } else {
+                console.info(this.statusText);
+                reject({level: -1, message: "网络正在打盹，请稍后再试"});
             }
         }
     });

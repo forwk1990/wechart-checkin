@@ -34,9 +34,9 @@ class ModifyPasswordByCode extends React.Component{
             return;
         }
         self.setState({isSaving: true});
-        DataStore.modifyPassword({password: confirmPassword,id:self.props.id}).then(function () {
+        DataStore.modifyPassword({password: md5(confirmPassword),id:self.props.id}).then(function () {
             self.setState({isSaving: false});
-            self.props.dispatch({type: ActionTypes.modifyPassword,password:confirmPassword});
+            self.props.dispatch({type: ActionTypes.modifyPassword,password:md5(confirmPassword)});
             hashHistory.go(-2);
         }, function () {
             self.setState({isSaving: false});

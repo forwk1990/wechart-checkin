@@ -20,6 +20,10 @@ class Login extends React.Component {
         };
     }
 
+    componentDidMount(){
+        document.title = "喜悦登陆";
+    }
+
     loginByCode() {
         const self = this;
         const phone = this.refs['v-phone'].value;
@@ -36,22 +40,9 @@ class Login extends React.Component {
             MessageBox.show("手机号格式不正确");
             return;
         }
+
         self.setState({isLanding: true});
-        DataStore.validatePhone({phone: self.props.phone}).then(function (responseObject) {
-            self.setState({isLanding: false});
-            if (responseObject.code != code) {
-                MessageBox.show("验证码不正确");
-            } else {
-                self.setState({isStop: true});
-                if (self.props.params.returnPage) {
-                    self.context.router.replace(`mine/${self.props.params.returnPage}`);
-                } else {
-                    self.context.router.replace('mine/archive');
-                }
-            }
-        }, function (error) {
-            self.setState({isLanding: false});
-        });
+        this.login({phone: phone, code: code});
     }
 
     loginByPassword(phone, password) {
@@ -69,13 +60,14 @@ class Login extends React.Component {
             MessageBox.show("手机号格式不正确");
             return;
         }
-        this.login({phone:_phone, password:_password});
+        this.login({phone: _phone, password: md5(_password)});
     }
 
-    login(parameters) {
+    login(parameters, isStop) {
         const self = this;
         self.setState({isLanding: true});
         DataStore.login(parameters).then(function (responseObject) {
+            if (isStop) self.setState({isStop: true});
             self.setState({isLanding: false});
             self.props.dispatch({type: ActionTypes.login, responseObject});
             if (self.props.params.returnPage) {
@@ -84,8 +76,9 @@ class Login extends React.Component {
                 self.context.router.replace('mine/archive');
             }
         }, function (error) {
+            if (isStop) self.setState({isStop: false});
             self.setState({isLanding: false});
-            MessageBox.show(error);
+            MessageBox.show(error.message);
         });
     }
 
@@ -109,11 +102,25 @@ class Login extends React.Component {
         this.turnLeft = !this.turnLeft;
     }
 
+    handleVerifyCode(){
+        const phone = this.refs['v-phone'].value;
+        if (!phone) {
+            MessageBox.show("请输入手机号");
+            return;
+        }
+        // 获取手机验证码
+        DataStore.getVerifyCode({phone: phone,type:1}).then(function () {
+            console.info("get verify code success");
+        },function (error) {
+            console.info(error);
+        });
+    }
+
     render() {
         return (
             <div className="login-page">
                 <div className="login-page-v">
-                    <div className="login-page-title">喜悦登陆</div>
+                    <div className="login-page-title">手机快速登陆</div>
                     <div className="login-page-edit-row">
                         <div className="left-label">手机号码</div>
                         <input type="tel" name="phone" ref="v-phone"/>
@@ -121,7 +128,7 @@ class Login extends React.Component {
                     <div className="login-page-edit-row">
                         <div className="left-label">短信验证码</div>
                         <input type="tel" name="code" ref="v-code"/>
-                        <CountDown text="获取短信验证码" stop={this.state.isStop}/>
+                        <CountDown text="点击获取" stop={this.state.isStop}  onClick={() => this.handleVerifyCode()}/>
                     </div>
                     <LoadingButton text="登陆" loadingText="正在为您登陆..." status={this.state.isLanding}
                                    onClick={() => this.handleLogin()}/>
@@ -135,7 +142,7 @@ class Login extends React.Component {
                     </div>
                     <div className="login-page-edit-row">
                         <div className="left-label">登陆密码</div>
-                        <input type="tel" name="password" ref="p-password"/>
+                        <input type="password" name="password" ref="p-password"/>
                     </div>
                     <LoadingButton text="登陆" loadingText="正在为您登陆..." status={this.state.isLanding}
                                    onClick={() => this.handleLogin()}/>

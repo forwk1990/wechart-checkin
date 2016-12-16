@@ -13,6 +13,8 @@ module.exports = {
     checkInAfter:"@redux/checkinAfter",
     getExplain:"@redux/getExplain",
     login:"@redux/login",
+    clearUser:"@redux/clearUser",
+    managerLogin:"@redux/managerLogin",
     modifyNickname:"@redux/modifyNickname",
     modifyEmail:"@redux/modifyEmail",
     modifyAddress:"@redux/modifyAddress",
@@ -21,5 +23,6 @@ module.exports = {
     modifyWx:"@redux/modifyWx",
     modifyPassword:"@redux/modifyPassword",
     modifyPayPassword:"@redux/modifyPayPassword",
-    modifyIDNumber:"@redux/modifyIDNumber"
+    modifyIDNumber:"@redux/modifyIDNumber",
+    modifyImageUrl:"@redux/modifyImageUrl"
 }

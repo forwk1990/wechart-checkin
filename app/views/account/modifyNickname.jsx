@@ -34,7 +34,7 @@ class ModifyNickname extends React.Component {
             self.context.router.goBack();
         }, function (error) {
             self.setState({isSaving: false});
-            MessageBox.show(error);
+            MessageBox.show(error.message);
         });
     }
 

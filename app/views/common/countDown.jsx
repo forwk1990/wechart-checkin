@@ -13,12 +13,13 @@ class CountDown extends React.Component {
         const self = this;
         if (self.state.isActive)return;
         self.setState({isActive: true});
+        if (self.props.onClick) self.props.onClick();
         let seconds = 60;
         self.setState({text: `${seconds}s`});
         const interval = setInterval(function () {
-            if(self.props.stop){
+            if (self.props.stop) {
                 clearInterval(interval);
-            }else{
+            } else {
                 seconds--;
                 if (seconds < 0) {
                     clearInterval(interval);

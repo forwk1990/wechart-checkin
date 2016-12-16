@@ -3,6 +3,8 @@
  * on 2016-10-20.
  */
 
+/*<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>*/
 
 var path = require('path');
 var webpack = require('webpack');
@@ -45,7 +47,7 @@ const px2remOpts = {
 
 // const host = "192.168.2.112"; // 家用
 // const host = "192.168.2.112/~itachi"; // 家用
-const host = "www.ldted.com"; // 公司
+const host = "www.joyiou.com"; // 公司
 
 module.exports = {
     // devtool: 'source-map',
@@ -122,6 +124,8 @@ module.exports = {
             cache: false,
             showErrors: false
         }),
+
+
         // 代码压缩
         new webpack.optimize.UglifyJsPlugin({
             test: /(\.jsx|\.js)$/,

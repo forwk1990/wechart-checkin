@@ -18,7 +18,7 @@
     display: block;
     width:100%;
     height:450px;
-    background-size: cover;
+    //background-size: 720px 450px;
   }
 }
 
@@ -65,7 +65,7 @@ span.checkin-link{
   @extend %flex-row-base;
   justify-content:flex-start;
   align-items: center;
-  height:30px;
+  height:60px;
   margin-top:20px;
 
   img:first-child{
@@ -77,8 +77,10 @@ span.checkin-link{
     font-size:26px;
     font-family: "PingFang SC";
     color:#333333;
+    //height:60px;
     margin-left:10px;
     margin-right:20px;
+    overflow:hidden;
   }
 
   img:last-child{

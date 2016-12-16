@@ -46,7 +46,7 @@
 
     .count-down{
       display:inline-block;
-      width:230px;
+      width:130px;
       color:#333;
       text-align: right;
     }
@@ -61,13 +61,18 @@
       flex:1;
     }
 
+    input[name='username']{
+      flex:1;
+    }
+
     input[name='password']{
       flex:1;
     }
 
     input[name='code']{
-      max-width: 30%;
+      max-width: 35%;
       flex:1;
+      //border-right:1px solid #e8e8e8;
     }
   }
 

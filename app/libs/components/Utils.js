@@ -19,5 +19,15 @@ module.exports = {
         isRegularEmail:function(email){
             return /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(email)
         }
+    },
+    Formatter:{
+        /*
+        * 加密手机号
+        * */
+        encryptionPhone:function(phone){
+            if(!phone)return "";
+            if(!phone.length && phone.length !== 11)return "";
+            return phone.substring(0,3) + "****" + phone.substring(7);
+        }
     }
 };

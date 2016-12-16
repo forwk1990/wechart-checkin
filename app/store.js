@@ -9,7 +9,8 @@ import persistState from 'redux-localstorage'
 import {compose,createStore,applyMiddleware} from 'redux'
 
 const persistedReducers = [
-    'userInfoReducer'
+    'userInfoReducer',
+    'managerReducer'
 ];
 
 // 扩展createStore

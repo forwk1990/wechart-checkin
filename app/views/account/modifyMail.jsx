@@ -3,7 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux';
 import LoadingButton from 'loadingButton';
 import './modifyMail.scss'
-import {MessageBox} from 'Utils';
+import {MessageBox,Validator} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
 
@@ -28,6 +28,10 @@ class ModifyMail extends React.Component{
             MessageBox.show("邮箱不能为空");
             return;
         }
+        if(!Validator.isRegularEmail(value)){
+            MessageBox.show("邮箱地址格式不正确");
+            return;
+        }
         this.setState({isSaving: true});
         DataStore.modifyEmail({id: this.props.id, email: value}).then(function () {
             self.setState({isSaving: false});
@@ -35,7 +39,7 @@ class ModifyMail extends React.Component{
             self.context.router.goBack();
         }, function (error) {
             self.setState({isSaving: false});
-            MessageBox.show(error);
+            MessageBox.show(error.message);
         });
     }
 
@@ -70,6 +74,7 @@ ModifyMail.contextTypes = {
 
 const mapStateToProps = (state) => {
     return {
+        id:state.userInfoReducer.id,
         email: state.userInfoReducer.email /*微信号码*/
     }
 }

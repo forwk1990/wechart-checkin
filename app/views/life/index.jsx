@@ -1,8 +1,10 @@
-
 import React from 'react';
 import './index.scss'
-import {Carousel} from 'antd-mobile';
+import {Carousel, Modal} from 'antd-mobile';
 import DataStore from 'DataStore'
+import {connect} from 'react-redux';
+import {MessageBox, Validator} from 'Utils';
+import LoginModal from 'LoginModal';
 
 class Clock extends React.Component {
 
@@ -14,11 +16,11 @@ class Clock extends React.Component {
             isShowMessage: false
         };
         this.isTimerStart = false;
+        this.isNotify = false;
     }
 
     componentDidMount() {
         const height = $(document).height();
-        // console.log("clock height:",$(document).height());
         $(".life-clock").height(height);
     }
 
@@ -87,6 +89,12 @@ class Clock extends React.Component {
         return `${minuteStr}:${secondsStr}`;
     }
 
+    notifyComplete() {
+        if (this.isNotify)return;
+        this.isNotify = true;
+        DataStore.notifyComplete({id: this.props.id, type: this.props.type});
+    }
+
     handleClick() {
         let isStart = this.state.isStart;
         this.setState({isStart: !isStart});
@@ -106,7 +114,6 @@ class Clock extends React.Component {
     }
 
     render() {
-
         return (
             <div className="life-clock">
                 <div className="life-clock-pie-container">
@@ -118,7 +125,12 @@ class Clock extends React.Component {
                     <div className="life-clock-pie-container-right"></div>
                     <div className="life-clock-pie-container-left"></div>
                     <div className="life-clock-pie-container-music-flag">
-                        <div className="music"></div>
+                        {this.props.type == 2 && (<div className="music"
+                                                       style={{background: `url(${require('sit')}) top center no-repeat`,backgroundSize:'cover'}}></div>)}
+                        {this.props.type == 1 && (<div className="music"
+                                                       style={{background: `url(${require('walk')}) top center no-repeat`,backgroundSize:'cover'}}></div>)}
+                        {this.props.type == 3 && (<div className="music"
+                                                       style={{background: `url(${require('dinner')}) top center no-repeat`,backgroundSize:'cover'}}></div>)}
                     </div>
                     <div className="life-clock-pie-container-alarm-flag"></div>
                     <div className="life-clock-pie-container-progress-right"></div>
@@ -162,14 +174,14 @@ class Lyrics extends React.Component {
 
     componentDidMount() {
         const height = $(document).height();
-        console.log("lyrics height:",height);
+        console.log("lyrics height:", height);
         $(".life-lyrics").height(height);
     }
 
     render() {
         return (
             <div className="life-lyrics">
-                <div className="life-lyrics-content" dangerouslySetInnerHTML={{__html:this.props.text}} >
+                <div className="life-lyrics-content" dangerouslySetInnerHTML={{__html: this.props.text}}>
                 </div>
             </div>
         );
@@ -183,46 +195,109 @@ class Index extends React.Component {
         this.state = {
             isReady: false,
             audios: [],
-            text: ""
+            isOpen:0,
+            annouce:"",
+            text: "",
+            visible: false,
+            integral: '--'
         };
     }
 
     componentDidMount() {
         const self = this;
         const type = self.props.params.type;
-        if(type == 1 || type == 2 || type == 3){
-            if(type == 1) document.title = "十五分钟静坐";
-            if(type == 2) document.title = "十五分钟行走";
-            if(type == 3) document.title = "正念用餐";
+        if (type == 1 || type == 2 || type == 3) {
+
+            if (type == 1) {
+                document.title = "喜悦行走";
+                this.setState({annouce:"喜悦行走,健康生活"});
+            }
+            if (type == 2) {
+                document.title = "喜悦静坐";
+                this.setState({annouce:"喜悦静坐,健康生活"});
+            }
+            if (type == 3) {
+                document.title = "喜悦用餐";
+                this.setState({annouce:"喜悦用餐,健康生活"});
+            }
 
             // 获取生命吃走睡
-            DataStore.getLife({type: type}).then(function (responseObject) {
-                self.setState({isReady: true, audios: responseObject.audios, text: responseObject.text});
-            }, function () {
-
+            DataStore.getLife({type: parseInt(type)}).then(function (responseObject) {
+                self.setState({
+                    isReady: true,
+                    isOpen:responseObject.isOpen,
+                    audios: responseObject.audios,
+                    text: responseObject.text,
+                    integral: responseObject.integral
+                });
+            }, function (error) {
+                MessageBox.show(error.message);
             });
-
-        }else{
-
+        } else {
+            self.context.router.replace('notfound');
         }
     }
 
+    /*
+     *登陆
+     * */
+    handleLogin() {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    onClose() {
+        this.setState({
+            visible: false,
+        });
+    }
+
     render() {
+        const {id} = this.props;
+        var announceHtml;
+        if(this.state.isOpen){
+            announceHtml = id ? (
+                <div className="life-index-announce-text">
+                    本次正念结束您将获得<span>{this.state.integral}</span>能量
+                </div>
+            ) : (
+                <div className="life-index-announce-text">您还未<span>登陆</span>，本次活动将无法获得能量</div>
+            );
+        }else{
+            announceHtml = (
+                <div className="life-index-announce-text">
+                    {this.state.annouce}
+                </div>
+            );
+        }
         return !this.state.isReady ? (<div className="loading"></div>)
             : (
-            <div className="life-index">
-                <div className="life-index-announce">
-                    <div className="life-index-announce-img"></div>
-                    <div className="life-index-announce-text">本次正念结束您将获得<span>120</span>积分</div>
+            <div>
+                <div className="life-index">
+                    <div className="life-index-announce" onClick={() => !id && this.state.isOpen && this.handleLogin()}>
+                        <div className="life-index-announce-img"></div>
+                        {announceHtml}
+                    </div>
+                    <Carousel dots={false} style={{height: "100%"}}>
+                        <Clock audios={this.state.audios} type={this.props.params.type} id={id}></Clock>
+                        <Lyrics text={this.state.text}></Lyrics>
+                    </Carousel>
                 </div>
-                <Carousel dots={false} style={{height: "100%"}}>
-                    <Clock audios={this.state.audios}></Clock>
-                    <Lyrics text={this.state.text}></Lyrics>
-                </Carousel>
+                {this.state.visible && (<LoginModal onClose={() => this.onClose()}/>)}
             </div>
         );
     }
-
 }
 
-export default Index;
+Index.contextTypes = {
+    router: React.PropTypes.object
+}
+
+const mapStateToProps = (state) => {
+    return {
+        id: state.userInfoReducer.id /*用户ID*/
+    };
+}
+
+export default connect(mapStateToProps)(Index);

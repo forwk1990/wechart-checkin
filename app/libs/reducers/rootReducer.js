@@ -68,10 +68,46 @@ function explainReducer(state = {}, action) {
 }
 
 /*
+* 管理员帐户信息
+* */
+function managerReducer(state = {}, action) {
+    switch (action.type){
+        case ActionTypes.managerLogin: {
+            return Object.assign({}, state, action.responseObject);
+        }
+        default:
+            return state;
+    }
+}
+
+const userInfoDefaultState = {
+    id: '', /*用户Id*/
+    nickname: '', /*用户昵称*/
+    phone: '', /*手机号码*/
+    email: '', /*邮箱*/
+    birthday: '', /*生日*/
+    provinceValues: [], /*省市区值*/
+    provinceLabel: "",
+    address: '', /*联系地址*/
+    name: '', /*真实姓名*/
+    IDNumber: '', /*身份证号*/
+    password: '', /*md5格式,做自动登陆*/
+    payPassword: '', /*md5格式,做自动登陆*/
+    wx: '', /*微信号码*/
+    imageUrl: '', /*用户头像*/
+    activityScore: 0, /*活动积分*/
+    numberScore: 0, /*生命数字积分*/
+    lifeScore: 0, /*正念生活积分*/
+    totalScore: 0, /*总分*/
+    range: 0 /*积分排名*/
+}
+
+/*
  * 用户信息
  * */
-function userInfoReducer(state = {}, action) {
+function userInfoReducer(state = userInfoDefaultState, action) {
     switch (action.type) {
+        case ActionTypes.modifyImageUrl:
         case ActionTypes.login: {
             return Object.assign({}, state, action.responseObject);
         }
@@ -82,7 +118,6 @@ function userInfoReducer(state = {}, action) {
             return Object.assign({}, state, {email: action.email});
         }
         case ActionTypes.modifyAddress: {
-            console.log("修改地址");
             return Object.assign({}, state, {address: action.address, provinceValues: action.provinceValues, provinceLabel: action.provinceLabel});
         }
         case ActionTypes.modifyPhone: {
@@ -103,6 +138,9 @@ function userInfoReducer(state = {}, action) {
         case ActionTypes.modifyPayPassword: {
             return Object.assign({}, state, {payPassword: action.payPassword});
         }
+        case ActionTypes.clearUser:{
+            return {};
+        }
         default:
             return state;
     }
@@ -110,6 +148,7 @@ function userInfoReducer(state = {}, action) {
 
 const rootReducer = combineReducers({
     getActivityReducer,
+    managerReducer,
     checkInReducer,
     explainReducer,
     userInfoReducer

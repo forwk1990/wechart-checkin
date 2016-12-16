@@ -24,7 +24,7 @@ class ModifyPassword extends React.Component {
 
         const self = this;
         const oldPassword = self.refs["oldPassword"].value;
-        if (oldPassword !== self.props.password) {
+        if (md5(oldPassword) !== self.props.password) {
             MessageBox.show("旧密码不正确");
             return;
         }
@@ -43,9 +43,9 @@ class ModifyPassword extends React.Component {
             return;
         }
         self.setState({isSaving1: true});
-        DataStore.modifyPassword({id: self.props.id, password: confirmPassword}).then(function () {
+        DataStore.modifyPassword({id: self.props.id, password: md5(confirmPassword)}).then(function () {
             self.setState({isSaving1: false});
-            self.props.dispatch({type: ActionTypes.modifyPassword, password: confirmPassword});
+            self.props.dispatch({type: ActionTypes.modifyPassword, password: md5(confirmPassword)});
             self.context.router.goBack();
         }, function (error) {
             self.setState({isSaving1: false});
@@ -57,7 +57,7 @@ class ModifyPassword extends React.Component {
         const self = this;
         const code = self.refs["code"].value;
         self.setState({isSaving2: true});
-        DataStore.validatePhone({phone: self.props.phone}).then(function (responseObject) {
+        DataStore.validatePhone({phone: self.props.phone, code: code, type: 2}).then(function (responseObject) {
             self.setState({isSaving2: false});
             if (responseObject.code != code) {
                 MessageBox.show("验证码不正确");
@@ -67,6 +67,7 @@ class ModifyPassword extends React.Component {
             }
         }, function (error) {
             self.setState({isSaving2: false});
+            MessageBox.show(error.message);
         });
     }
 
@@ -79,6 +80,11 @@ class ModifyPassword extends React.Component {
             $('.modify-password-p').removeClass("turn-right");
         }
         this.turnLeft = !this.turnLeft;
+    }
+
+    handleVerifyCode() {
+        // 获取手机验证码
+        DataStore.getVerifyCode({phone: this.props.phone, type: 2});
     }
 
     render() {
@@ -121,7 +127,7 @@ class ModifyPassword extends React.Component {
                     <div className="modify-page-input-base">
                         <div className="label">短信验证码</div>
                         <input type="text" ref="code" name="code"/>
-                        <CountDown text="获取短信验证码" stop={this.state.isStop}/>
+                        <CountDown text="获取短信验证码" stop={this.state.isStop} onClick={() => this.handleVerifyCode()}/>
                     </div>
                     <LoadingButton text="下一步" loadingText="正在为您验证手机号码..." status={this.state.isSaving2}
                                    onClick={() => this.handleNext()}/>

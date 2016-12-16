@@ -35,7 +35,7 @@ class ModifyWechart extends React.Component{
             self.context.router.goBack();
         }, function (error) {
             self.setState({isSaving: false});
-            MessageBox.show(error);
+            MessageBox.show(error.message);
         });
     }
 
@@ -70,6 +70,7 @@ ModifyWechart.contextTypes = {
 
 const mapStateToProps = (state) => {
     return {
+        id:state.userInfoReducer.id,
         wx: state.userInfoReducer.wx /*微信号码*/
     }
 }

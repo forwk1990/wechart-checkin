@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Picker} from 'antd-mobile';
 import './modifyBirthday.scss'
 import {MessageBox} from 'Utils';
+import LoadingButton from 'loadingButton';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
 
@@ -14,6 +15,7 @@ class ModifyBirthday extends React.Component {
         this.state = {
             birthdayData: this._getYearMonthDayData(),
             loading: 0,
+            isSaving:false,
             monthDate: props.birthday ? [date.getFullYear(), date.getMonth() + 1, date.getDate()] : [1980, 1, 1],
             hasInitialValue: props.birthday ? true : false
         }
@@ -59,16 +61,20 @@ class ModifyBirthday extends React.Component {
 
     handleChange(val) {
         this.setState({monthDate: val, hasInitialValue: true});
+    }
 
+    handleSave(){
+        const val = this.state.monthDate;
         const value = `${val[0]}-${this.formatValueWithZero(val[1])}-${this.formatValueWithZero(val[2])}`;
         const self = this;
         this.setState({isSaving: true});
         DataStore.modifyBirthday({id: this.props.id, birthday: value}).then(function () {
             self.setState({isSaving: false});
             self.props.dispatch({type: ActionTypes.modifyBirthday, birthday: value});
+            self.context.router.goBack();
         }, function (error) {
             self.setState({isSaving: false});
-            MessageBox.show(error);
+            MessageBox.show(error.message);
         });
     }
 
@@ -94,9 +100,16 @@ class ModifyBirthday extends React.Component {
                         <img src={require("../../assets/images/arrow_right.png")}/>
                     </div>
                 </Picker>
+                <LoadingButton text="保存" loadingText="正在为您保存..." status={this.state.isSaving}
+                               onClick={() => this.handleSave()}/>
             </div>
         );
     }
+}
+
+
+ModifyBirthday.contextTypes = {
+    router: React.PropTypes.object
 }
 
 const mapStateToProps = (state) => {

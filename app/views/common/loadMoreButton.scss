@@ -12,7 +12,9 @@
   text-align: center;
   line-height: 100px;
   border-radius: 50px;
-  margin:13px auto 0px auto;
+  margin:0px auto 0px auto;
+  box-sizing: border-box;
+  padding-top:13px;
   font-size:28px;
 
   .loading-button-loading{

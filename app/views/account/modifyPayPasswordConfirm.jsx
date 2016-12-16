@@ -33,9 +33,9 @@ class ModifyPayPasswordConfirm extends React.Component{
             return;
         }
         self.setState({isSaving: true});
-        DataStore.modifyPayPassword({payPassword: confirmPassword,id:self.props.id}).then(function () {
+        DataStore.modifyPayPassword({payPassword: md5(confirmPassword),id:self.props.id}).then(function () {
             self.setState({isSaving: false});
-            self.props.dispatch({type: ActionTypes.modifyPayPassword,payPassword:confirmPassword});
+            self.props.dispatch({type: ActionTypes.modifyPayPassword,payPassword:md5(confirmPassword)});
             self.context.router.goBack();
         }, function () {
             self.setState({isSaving: false});
@@ -53,11 +53,11 @@ class ModifyPayPasswordConfirm extends React.Component{
                 </div>
                 <div className="modify-password-code-input-base">
                     <div className="label">支付密码</div>
-                    <input type="password" ref="password" />
+                    <input type="password" name="password" ref="password"/>
                 </div>
                 <div className="modify-password-code-input-base">
                     <div className="label">再次输入</div>
-                    <input type="password" ref="confirmPassword"/>
+                    <input type="password" name="password" ref="confirmPassword"/>
                 </div>
                 <LoadingButton text="确认修改" loadingText="正在为您保存..." status={this.state.isSaving}
                                onClick={() => this.handleSave()}/>

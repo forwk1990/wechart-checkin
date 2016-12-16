@@ -18,7 +18,6 @@ imagesFiles.forEach(function(file){
 });
 
 
-
 //var WebpackDevServer = require("webpack-dev-server");
 // var CURRENT_PATH = path.resolve(__dirname); // 获取到当前目录
 // var ROOT_PATH = path.join(__dirname, '../'); // 项目根目录
@@ -44,8 +43,8 @@ const px2remOpts = {
     propWhiteList: []
 }
 
-const host = "192.168.2.112";/**/ // 家用
-// const host = "192.168.31.208"; // 公司
+// const host = "192.168.2.112";/**/ // 家用
+const host = "192.168.31.208"; // 公司
 
 module.exports = {
     postcss: [px2rem(px2remOpts)],
@@ -102,6 +101,7 @@ module.exports = {
     },
 
     plugins: [
+
         //new webpack.HotModuleReplacementPlugin(),
         // 提取公共部分资源
         new webpack.optimize.CommonsChunkPlugin({

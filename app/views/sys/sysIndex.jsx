@@ -50,6 +50,10 @@ class SysIndex extends React.Component {
         return yearArray;
     }
 
+    componentDidMount(){
+        document.title = "生命数字";
+    }
+
     handleSubmit() {
         const self = this;
         const monthDate = this.state.monthDate;
