@@ -29,5 +29,12 @@ module.exports = {
             if(!phone.length && phone.length !== 11)return "";
             return phone.substring(0,3) + "****" + phone.substring(7);
         }
+    },
+    Vip:{
+        getNameFromLevel(level){
+            if(level == 2)return "高级会员";
+            if(level == 3)return "堂主";
+            return "普通会员";
+        }
     }
 };

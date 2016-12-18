@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Formatter} from 'Utils'
-import {MessageBox} from 'Utils';
+import {MessageBox, Formatter, Vip} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
 import './archive.scss';
@@ -36,10 +35,10 @@ class Archive extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         if (!this.props.id) {
             this.context.router.push(`login/${"archive"}`);
-        }else{
+        } else {
             document.title = "我的资料";
             return;
         }
@@ -83,8 +82,9 @@ class Archive extends React.Component {
     }
 
     render() {
-        const {imageUrl, nickname, phone, email, birthday, address, IDNumber, password, payPassword, wx,provinceLabel} = this.props;
+        const {imageUrl, nickname, phone, email, birthday, level, address, IDNumber, password, payPassword, wx, provinceLabel} = this.props;
         const logoImageUrl = !imageUrl ? require('logo') : imageUrl;
+
         return (
             <div className="archive">
                 <div className="archive-header">
@@ -97,6 +97,8 @@ class Archive extends React.Component {
                     </div>
                 </div>
                 <div className="archive-list">
+                    <ArchiveCell imageUrl={require("vip")} value={Vip.getNameFromLevel(level)} title="会员等级"
+                                 extra="未绑定" onClick={() => this.handleNavigate("mine/vipCenter")}/>
                     <ArchiveCell imageUrl={require("phone_dark")} value={Formatter.encryptionPhone(phone)} title="联系手机"
                                  extra="未绑定" onClick={() => this.handleNavigate("mine/modifyPhone")}/>
                     <ArchiveCell imageUrl={require("email_dark")} value={email} title="联系邮箱" extra="未设置"
@@ -105,7 +107,8 @@ class Archive extends React.Component {
                                  onClick={() => this.handleNavigate("mine/modifyWx")}/>
                     <ArchiveCell imageUrl={require("birthday_dark")} value={birthday} title="生日日期" extra="未设置"
                                  onClick={() => this.handleNavigate("mine/modifyBirthday")}/>
-                    <ArchiveCell imageUrl={require("address_dark")} value={`${provinceLabel}${address}`} title="联系地址" extra="未设置"
+                    <ArchiveCell imageUrl={require("address_dark")} value={`${provinceLabel}${address}`} title="联系地址"
+                                 extra="未设置"
                                  onClick={() => this.handleNavigate("mine/modifyAddress")}/>
                     <ArchiveCell imageUrl={require("sm_dark")} value={IDNumber ? '已认证' : ''} title="实名认证" extra="未认证"
                                  onClick={() => this.handleNavigate("mine/modifyId")}/>
@@ -127,8 +130,9 @@ Archive.contextTypes = {
 
 const mapStateToProps = (state) => {
     return {
+        level: state.userInfoReducer.level, /*会员级别*/
         imageUrl: state.userInfoReducer.imageUrl,
-        provinceLabel:state.userInfoReducer.provinceLabel,
+        provinceLabel: state.userInfoReducer.provinceLabel,
         id: state.userInfoReducer.id,
         nickname: state.userInfoReducer.nickname, /*用户昵称*/
         phone: state.userInfoReducer.phone, /*手机号码*/

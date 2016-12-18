@@ -59,7 +59,7 @@ Mock.mock(AppConfig.ApiConfig.login, {
         provinceValues: [1, 1, 2], /*省市区值*/
         provinceLabel: "北京市北京市东城区",
         address: '光谷资本大厦', /*联系地址*/
-        name: '', /*真实姓名*/
+        name: '陈玲', /*真实姓名*/
         IDNumber: '', /*身份证号*/
         password: 'afed961', /*md5格式,做自动登陆*/
         payPassword: '', /*md5格式,做自动登陆*/
@@ -69,6 +69,7 @@ Mock.mock(AppConfig.ApiConfig.login, {
         numberScore: 3000, /*生命数字积分*/
         lifeScore: 3000, /*正念生活积分*/
         totalScore: 8000, /*总分*/
+        level: 1, /*会员级别*/
         range: 1 /*积分排名*/
     }
 });

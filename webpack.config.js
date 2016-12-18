@@ -43,8 +43,8 @@ const px2remOpts = {
     propWhiteList: []
 }
 
-// const host = "192.168.2.112";/**/ // 家用
-const host = "192.168.31.208"; // 公司
+const host = "192.168.2.112";/**/ // 家用
+// const host = "192.168.31.208"; // 公司
 
 module.exports = {
     postcss: [px2rem(px2remOpts)],

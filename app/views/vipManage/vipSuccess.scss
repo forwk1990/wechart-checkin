@@ -1,0 +1,36 @@
+
+$prefixCls:vip-success;
+
+.#{$prefixCls}{
+
+  &-content{
+    height:654px;
+
+    &-background{
+      width:100%;
+      height:360px;
+      background:url(../../assets/images/vipSuccessBackground.png) center bottom no-repeat;
+      background-size:350px 275px;
+    }
+
+    &-big-message{
+      width:100%;
+      display:block;
+      margin-top:40px;
+      font-size:46px;
+      color:#333;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    &-small-message{
+      width:100%;
+      display:block;
+      margin-top:20px;
+      font-size:28px;
+      color:#999;
+      text-align: center;
+    }
+  }
+
+}

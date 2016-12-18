@@ -50,6 +50,11 @@ import NotFound from 'notFound';
 import Donate from 'account/donate';
 import Feedback from 'account/feedback';
 
+import VipCenter from 'vipManage/vipCenter';
+import VipTicket from 'vipManage/vipTicket';
+import VipInvite from 'vipManage/vipInvite';
+import VipSuccess from 'vipManage/vipSuccess';
+
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
 
@@ -121,11 +126,14 @@ ReactDOM.render(
                 <Route path="life/:type" component={LifeIndex}/>
                 <Route path="mine/activity" component={MyActivity}/>
                 <Route path="activity" component={Activity}/>
+                <Route path="vipTicket" component={VipTicket}/>
+                <Route path="vipInvite" component={VipInvite}/>
                 <Route path="mine/integral" component={MyIntegral}/>
                 <Route path="mine/moreIntegral" component={MoreIntegral}/>
                 <Route path="mine/integralDetail" component={IntegralDetail}/>
                 <Route path="mine/archive" component={Archive}/>
                 <Route path="mine/modifyWx" component={ModifyWx}/>
+                <Route path="mine/vipCenter" component={VipCenter}/>
                 <Route path="mine/modifyMail" component={ModifyMail}/>
                 <Route path="mine/modifyPhone" component={ModifyPhone}/>
                 <Route path="mine/modifyPhoneConfirm" component={ModifyPhoneConfirm}/>
