@@ -36,18 +36,14 @@ class ModifyPhoneConfirm extends React.Component {
         }
 
         DataStore.validatePhone({phone}).then(function (responseObject) {
-            if (responseObject.code != code) {
-                MessageBox.show("验证码不正确");
-            } else {
-                self.setState({isSaving: true});
-                DataStore.modifyPhone({phone, id: self.props.id}).then(function () {
-                    self.setState({isSaving: false, isStop: true});
-                    self.props.dispatch({type: ActionTypes.modifyPhone, phone: phone});
-                    hashHistory.go(-2);
-                }, function () {
-                    self.setState({isSaving: false, isStop: true});
-                });
-            }
+            self.setState({isSaving: true});
+            DataStore.modifyPhone({phone, id: self.props.id}).then(function () {
+                self.setState({isSaving: false, isStop: true});
+                self.props.dispatch({type: ActionTypes.modifyPhone, phone: phone});
+                hashHistory.go(-2);
+            }, function () {
+                self.setState({isSaving: false, isStop: true});
+            });
         }, function (error) {
             MessageBox.show(error.message);
         });

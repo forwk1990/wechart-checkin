@@ -128,7 +128,9 @@ class Clock extends React.Component {
                         {this.props.type == 2 && (<div className="music"
                                                        style={{background: `url(${require('sit')}) top center no-repeat`,backgroundSize:'cover'}}></div>)}
                         {this.props.type == 1 && (<div className="music"
-                                                       style={{background: `url(${require('walk')}) top center no-repeat`,backgroundSize:'cover'}}></div>)}
+                                                       style={{background: `url(${require('walk')}) top center no-repeat`,backgroundSize:'cover'}}>
+                            {this.state.isStart && (<div className="walking"></div>)}
+                        </div>)}
                         {this.props.type == 3 && (<div className="music"
                                                        style={{background: `url(${require('dinner')}) top center no-repeat`,backgroundSize:'cover'}}></div>)}
                     </div>
@@ -279,7 +281,7 @@ class Index extends React.Component {
                         <div className="life-index-announce-img"></div>
                         {announceHtml}
                     </div>
-                    <Carousel dots={false} style={{height: "100%"}}>
+                    <Carousel style={{height: "100%"}}>
                         <Clock audios={this.state.audios} type={this.props.params.type} id={id}></Clock>
                         <Lyrics text={this.state.text}></Lyrics>
                     </Carousel>

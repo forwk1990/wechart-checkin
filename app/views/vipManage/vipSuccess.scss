@@ -3,8 +3,18 @@ $prefixCls:vip-success;
 
 .#{$prefixCls}{
 
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
   &-content{
-    height:654px;
+    width:100%;
+    flex:1;
+    padding:0px 40px 0px 40px;
+    box-sizing: border-box;
 
     &-background{
       width:100%;
@@ -30,6 +40,64 @@ $prefixCls:vip-success;
       font-size:28px;
       color:#999;
       text-align: center;
+    }
+
+    .loading-button{
+      margin-top:80px;
+    }
+  }
+
+  &-bottom{
+    width:100%;
+    height:300px;
+    background-color:#f5f5f5;
+
+    &-content{
+      width:100%;
+      height:280px;
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      background-color:#fff;
+      margin-top:20px;
+      box-sizing: border-box;
+      //padding-left:40px;
+
+      &-qrContainer{
+        width:280px;
+        height:280px;
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &-tip{
+        display:flex;
+        flex:1;
+        padding:100px 0px 100px 0px;
+        box-sizing: border-box;
+        align-items: left;
+        flex-direction: column;
+        justify-content: space-between;
+
+
+        .big-msg{
+          font-size:28px;
+          color:#333;
+          line-height: 48px;
+          text-align: left;
+        }
+
+        .small-msg{
+          font-size:20px;
+          color:#999;
+          line-height: 40px;
+          text-align: left;
+        }
+      }
+
     }
   }
 

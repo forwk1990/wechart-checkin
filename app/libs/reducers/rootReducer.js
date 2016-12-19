@@ -105,11 +105,11 @@ const userInfoDefaultState = {
 /*
  * 用户信息
  * */
-function userInfoReducer(state = userInfoDefaultState, action) {
+function userInfoReducer(state = {}, action) {
     switch (action.type) {
         case ActionTypes.modifyImageUrl:
         case ActionTypes.login: {
-            return Object.assign({}, state, action.responseObject);
+            return Object.assign({}, state,userInfoDefaultState, action.responseObject);
         }
         case ActionTypes.modifyNickname: {
             return Object.assign({}, state, {nickname: action.nickname});
@@ -139,7 +139,7 @@ function userInfoReducer(state = userInfoDefaultState, action) {
             return Object.assign({}, state, {payPassword: action.payPassword});
         }
         case ActionTypes.clearUser:{
-            return {};
+            return userInfoDefaultState;
         }
         default:
             return state;

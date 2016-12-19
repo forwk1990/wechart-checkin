@@ -22,7 +22,9 @@ class ArchiveCell extends React.Component {
                     this.props.value ? (<div className="archive-cell-value text-overflow">{this.props.value}</div>) : (
                         <div className="archive-cell-extra">{this.props.extra}</div>)
                 }
-                <div className="archive-cell-indicator"></div>
+                {
+                    !this.props.hiddenIndicator && (<div className="archive-cell-indicator"></div>)
+                }
             </div>
         );
     }
@@ -97,8 +99,6 @@ class Archive extends React.Component {
                     </div>
                 </div>
                 <div className="archive-list">
-                    <ArchiveCell imageUrl={require("vip")} value={Vip.getNameFromLevel(level)} title="会员等级"
-                                 extra="未绑定" onClick={() => this.handleNavigate("mine/vipCenter")}/>
                     <ArchiveCell imageUrl={require("phone_dark")} value={Formatter.encryptionPhone(phone)} title="联系手机"
                                  extra="未绑定" onClick={() => this.handleNavigate("mine/modifyPhone")}/>
                     <ArchiveCell imageUrl={require("email_dark")} value={email} title="联系邮箱" extra="未设置"
@@ -123,6 +123,9 @@ class Archive extends React.Component {
         );
     }
 }
+
+/*<ArchiveCell imageUrl={require("vip")} value={Vip.getNameFromLevel(level)} title="会员等级"
+             extra="未绑定" onClick={() => this.handleNavigate("mine/vipCenter")}/>*/
 
 Archive.contextTypes = {
     router: React.PropTypes.object

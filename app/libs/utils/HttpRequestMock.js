@@ -62,14 +62,14 @@ Mock.mock(AppConfig.ApiConfig.login, {
         name: '陈玲', /*真实姓名*/
         IDNumber: '', /*身份证号*/
         password: 'afed961', /*md5格式,做自动登陆*/
-        payPassword: '', /*md5格式,做自动登陆*/
+        payPassword: 'xxx', /*md5格式,做自动登陆*/
         wx: 'w1915655273', /*微信号码*/
         imageUrl: 'http://images.china.cn/attachement/jpg/site1000/20140924/002564bb43f1158ca2fc2d.jpg', /*用户头像*/
         activityScore: 2000, /*活动积分*/
         numberScore: 3000, /*生命数字积分*/
         lifeScore: 3000, /*正念生活积分*/
         totalScore: 8000, /*总分*/
-        level: 1, /*会员级别*/
+        level: 3, /*会员级别:1：普通会员 2:高级会员 3:堂主*/
         range: 1 /*积分排名*/
     }
 });

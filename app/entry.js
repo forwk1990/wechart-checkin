@@ -54,6 +54,8 @@ import VipCenter from 'vipManage/vipCenter';
 import VipTicket from 'vipManage/vipTicket';
 import VipInvite from 'vipManage/vipInvite';
 import VipSuccess from 'vipManage/vipSuccess';
+import VipInvalidate from 'vipManage/vipInvalidate';
+import VipExist from 'vipManage/vipExist';
 
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
@@ -128,6 +130,9 @@ ReactDOM.render(
                 <Route path="activity" component={Activity}/>
                 <Route path="vipTicket" component={VipTicket}/>
                 <Route path="vipInvite" component={VipInvite}/>
+                <Route path="vipExist" component={VipExist}/>
+                <Route path="vipInvalidate" component={VipInvalidate}/>
+                <Route path="inviteSuccess" component={VipSuccess}/>
                 <Route path="mine/integral" component={MyIntegral}/>
                 <Route path="mine/moreIntegral" component={MoreIntegral}/>
                 <Route path="mine/integralDetail" component={IntegralDetail}/>

@@ -49,6 +49,7 @@ class ModifyPassword extends React.Component {
             self.context.router.goBack();
         }, function (error) {
             self.setState({isSaving1: false});
+            MessageBox.show(error.message);
         });
 
     }
@@ -59,12 +60,8 @@ class ModifyPassword extends React.Component {
         self.setState({isSaving2: true});
         DataStore.validatePhone({phone: self.props.phone, code: code, type: 2}).then(function (responseObject) {
             self.setState({isSaving2: false});
-            if (responseObject.code != code) {
-                MessageBox.show("验证码不正确");
-            } else {
-                self.setState({isStop: true});
-                self.context.router.push('mine/modifyPasswordByCode');
-            }
+            self.setState({isStop: true});
+            self.context.router.push('mine/modifyPasswordByCode');
         }, function (error) {
             self.setState({isSaving2: false});
             MessageBox.show(error.message);

@@ -50,6 +50,7 @@ class ModifyPayPassword extends React.Component {
             self.context.router.goBack();
         }, function (error) {
             self.setState({isSaving1: false});
+            MessageBox.show(error.message);
         });
 
     }
@@ -62,12 +63,8 @@ class ModifyPayPassword extends React.Component {
         // 验证
         DataStore.validatePhone({phone: self.props.phone,code:code}).then(function (responseObject) {
             self.setState({isSaving2: false});
-            if (responseObject.code != code) {
-                MessageBox.show("验证码不正确");
-            } else {
-                self.setState({isStop: true});
-                self.context.router.push('mine/modifyPayPasswordByCode');
-            }
+            self.setState({isStop: true});
+            self.context.router.push('mine/modifyPayPasswordByCode');
         }, function (error) {
             self.setState({isSaving2: false});
             MessageBox.show(error.message);
@@ -102,15 +99,15 @@ class ModifyPayPassword extends React.Component {
                     </div>
                     <div className="modify-page-input-base">
                         <div className="label">旧密码</div>
-                        <input type="text" ref="oldPassword"/>
+                        <input type="password" ref="oldPassword"/>
                     </div>
                     <div className="modify-page-input-base">
                         <div className="label">新密码</div>
-                        <input type="text" ref="newPassword"/>
+                        <input type="password" ref="newPassword"/>
                     </div>
                     <div className="modify-page-input-base">
                         <div className="label">再次输入</div>
-                        <input type="text" ref="confirmPassword"/>
+                        <input type="password" ref="confirmPassword"/>
                     </div>
                     <LoadingButton text="确认修改" loadingText="正在为您保存..." status={this.state.isSaving1}
                                    onClick={() => this.handleSave()}/>

@@ -20,6 +20,9 @@ class Validate extends React.Component {
         if (!this.props.id) {
             this.context.router.push(`managerLogin/${ticketNo}`);
         } else{
+
+
+
             DataStore.validate({ticketNo: ticketNo}).then(function (responseObject) {
                 console.info(responseObject);
                 self.setState({isReady: true, isSuccess: true});
@@ -60,7 +63,7 @@ class Validate extends React.Component {
                     <div className="page-validate-msg-text-area">
                         <h2 className="page-validate-msg-text-area-title">
                             {
-                                this.state.isSuccess ? "验证通过" : "无效的票据"
+                                this.state.isSuccess ? "验证通过" : "无效票据"
                             }
                         </h2>
                     </div>

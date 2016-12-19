@@ -1,5 +1,6 @@
 import React from 'react';
 import './vipCenter.scss';
+import {connect} from 'react-redux';
 
 class VipCenterCell extends React.Component {
     constructor(props) {
@@ -28,10 +29,13 @@ class VipCenter extends React.Component {
     }
 
     render() {
+        const {imageUrl,name}  = this.props;
+        const logoImageUrl = !imageUrl ? require('logo') : imageUrl;
         return (
             <div className="vip-center">
                 <div className="vip-center-header">
-
+                    <img src={logoImageUrl}/>
+                    <div className=""></div>
                 </div>
                 <div className="vip-center-banner">
                     <div className="vip-center-banner-title">堂主特权</div>
@@ -45,4 +49,12 @@ class VipCenter extends React.Component {
 
 }
 
-export default VipCenter;
+const mapStateToProps = (state) => {
+    return {
+        id: state.userInfoReducer.id,
+        imageUrl: state.userInfoReducer.imageUrl,
+        name: state.userInfoReducer.name
+    };
+}
+
+export default connect(mapStateToProps)(VipCenter);
