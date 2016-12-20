@@ -10,7 +10,7 @@ class VipInvalidate extends React.Component{
     }
 
     handleClick(){
-
+        wx.closeWindow();
     }
 
     render(){
@@ -20,7 +20,7 @@ class VipInvalidate extends React.Component{
                     <div className="image"></div>
                     <div className="title">该邀请码已失效!</div>
                 </div>
-                <div className="vip-invalidate-msg first">请联系您的邀请人 万小武</div>
+                <div className="vip-invalidate-msg first">请联系您的邀请人 {this.props.params.name}</div>
                 <div className="vip-invalidate-msg second">获取最新邀请码</div>
                 <div className="vip-invalidate-finish" onClick={() => this.handleClick()}>
                     完成

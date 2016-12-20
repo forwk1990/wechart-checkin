@@ -22,7 +22,7 @@ $ticketPrefixCls: vip-ticket;
   height:100%;
   box-sizing: border-box;
   display:block;
-  padding:20px 40px 0px 40px;
+  padding:30px 40px 100px 40px;
 
   -webkit-touch-callout:none;  /*系统默认菜单被禁用*/
   -webkit-user-select:none; /*webkit浏览器*/
@@ -72,8 +72,9 @@ $ticketPrefixCls: vip-ticket;
     padding-top:50px;
     border-radius: 20px;
     width:100%;
-    height:calc(100% - 50px - 90px);
-    height:-webkit-calc(100% - 50px - 90px);
+    height:100%;
+    //height:calc(100% - 50px - 90px);
+    //height:-webkit-calc(100% - 50px - 90px);
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -159,7 +160,7 @@ $ticketPrefixCls: vip-ticket;
       width:100%;
       background-color:#ffffff;
       display:flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
       height:calc(100% * 220 / 870);
       height:-webkit-calc(100% * 220 / 870);
@@ -167,6 +168,20 @@ $ticketPrefixCls: vip-ticket;
       border-radius: 0px 0px 20px 20px;
       padding:0px 50px 0px 50px;
       box-sizing: border-box;
+      line-height:40px;
+
+      .big{
+        font-size:28px;
+        color:#333;
+        font-weight: 800;
+      }
+
+      .small{
+        font-size:20px;
+
+        color:#999;
+        font-weight: 700;
+      }
 
       &-share{
         width:100%;
@@ -216,6 +231,8 @@ $ticketPrefixCls: vip-ticket;
         .qr-container{
           height:100%;
           width:auto;
+          background:url(../../assets/images/loading.gif) center center no-repeat;
+          background-size: 32px;
         }
       }
 

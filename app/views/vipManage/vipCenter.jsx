@@ -28,20 +28,33 @@ class VipCenter extends React.Component {
         super(props);
     }
 
+    handleClick() {
+        this.context.router.push('vipTicket');
+    }
+
+    componentDidMount(){
+        if(!this.props.id || this.props.level !== 3){
+            this.context.router.replace(`mine/archive`);
+        }
+    }
+
     render() {
-        const {imageUrl,name}  = this.props;
+        const {imageUrl, name}  = this.props;
         const logoImageUrl = !imageUrl ? require('logo') : imageUrl;
         return (
             <div className="vip-center">
                 <div className="vip-center-header">
-                    <img src={logoImageUrl}/>
-                    <div className=""></div>
+                    <div className="logo-area">
+                        <img src={logoImageUrl}/>
+                        <div className="logo-area-badge">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;堂主</div>
+                    </div>
+                    <div className="name">{name}</div>
                 </div>
                 <div className="vip-center-banner">
                     <div className="vip-center-banner-title">堂主特权</div>
                 </div>
                 <div className="vip-center-list">
-                    <VipCenterCell imageUrl={require('invite')} title="邀请朋友"/>
+                    <VipCenterCell imageUrl={require('invite')} title="邀请朋友" onClick={ () => this.handleClick() }/>
                 </div>
             </div>
         );
@@ -49,11 +62,16 @@ class VipCenter extends React.Component {
 
 }
 
+VipCenter.contextTypes = {
+    router: React.PropTypes.object
+}
+
 const mapStateToProps = (state) => {
     return {
         id: state.userInfoReducer.id,
         imageUrl: state.userInfoReducer.imageUrl,
-        name: state.userInfoReducer.name
+        name: state.userInfoReducer.name,
+        level: state.userInfoReducer.level
     };
 }
 

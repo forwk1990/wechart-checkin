@@ -99,6 +99,8 @@ class Archive extends React.Component {
                     </div>
                 </div>
                 <div className="archive-list">
+                    {__DEV__ && (<ArchiveCell imageUrl={require("vip")} value={Vip.getNameFromLevel(level)} title="会员等级"
+                                 extra="未绑定" onClick={() => this.handleNavigate("mine/vipCenter")} hiddenIndicator={level !== 3}/>)}
                     <ArchiveCell imageUrl={require("phone_dark")} value={Formatter.encryptionPhone(phone)} title="联系手机"
                                  extra="未绑定" onClick={() => this.handleNavigate("mine/modifyPhone")}/>
                     <ArchiveCell imageUrl={require("email_dark")} value={email} title="联系邮箱" extra="未设置"

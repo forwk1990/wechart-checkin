@@ -147,7 +147,17 @@ var Config =  {
         /*
         * 获取省市区
         * */
-        getProvince:_getFullUrlFromRelative("CheckInServer","getProvince")
+        getProvince:_getFullUrlFromRelative("CheckInServer","getProvince"),
+
+        /*
+        * 生成邀请码
+        * */
+        generateInviteCode:_getFullUrlFromRelative("UserServer","generateInviteCode"),
+
+        /*
+        * 接受邀请
+        * */
+        acceptInvite:_getFullUrlFromRelative("UserServer","acceptInvite")
     },
     /*
     * 百度地图API密钥

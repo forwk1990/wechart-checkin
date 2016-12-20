@@ -8,7 +8,45 @@ $prefixCls:vip-center;
     background: url(../../assets/images/integral_header_background.png) center center no-repeat;
     background-size: cover;
     box-sizing: border-box;
-    padding: 60px 0px 28px 0px;
+    padding: 80px 0px 28px 0px;
+
+    .name{
+      font-size:28px;
+      color:#D8C3A4;
+      width:100%;
+      text-align: center;
+      margin-top:30px;
+    }
+
+    .logo-area{
+      width:100px;
+      height:100px;
+      border-radius: 50px;
+      margin:0 auto;
+      position:relative;
+
+      img{
+        width:100%;
+        height:100%;
+        display:block;
+        border-radius: 50px;
+      }
+
+      &-badge{
+        width:70px;
+        height:31px;
+        position:absolute;
+        bottom:0;
+        left:calc(50% + 13px);
+        left:-webkit-calc(50% + 13px);
+        background:url(../../assets/images/tz02.png) center center no-repeat;
+        backgrond-size:70px 31px;
+        color:#333;
+        font-size:16px;
+        line-height: 31px;
+      }
+
+    }
   }
 
   &-banner{

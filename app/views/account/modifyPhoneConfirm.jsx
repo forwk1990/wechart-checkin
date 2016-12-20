@@ -54,7 +54,7 @@ class ModifyPhoneConfirm extends React.Component {
         const phone = this.refs['phone'].value;
         if (!phone) {
             MessageBox.show("请输入手机号");
-            return;
+            return false;
         }
         // 获取手机验证码
         DataStore.getVerifyCode({phone: phone, type: 4}).then(function () {

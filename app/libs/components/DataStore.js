@@ -51,7 +51,7 @@ function sendRequest(url, parameters) {
                 if (responseObject.status == 0) {
                     resolve(responseObject.data);
                 } else {
-                    reject({level: 0, message: responseObject.message});
+                    reject({level: 0, message: responseObject.message, status: responseObject.status});
                 }
             } else {
                 console.info(this.statusText);

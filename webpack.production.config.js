@@ -18,8 +18,8 @@ imagesFiles.forEach(function (file) {
     imagePathAlias[filename] = path.resolve('app/assets/images/', file);
 });
 
-//var WebpackDevServer = require("webpack-dev-server");
 
+//var WebpackDevServer = require("webpack-dev-server");
 // var CURRENT_PATH = path.resolve(__dirname); // 获取到当前目录
 // var ROOT_PATH = path.join(__dirname, '../'); // 项目根目录
 // var MODULES_PATH = path.join(ROOT_PATH, './node_modules'); // node包目录

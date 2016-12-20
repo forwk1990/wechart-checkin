@@ -336,9 +336,9 @@ class MyIntegralInner extends React.Component {
             const lifeScoreRatio = 1 - activityScoreRatio - numberScoreRatio;
             console.log(activityScoreRatio, numberScoreRatio, lifeScoreRatio);
 
-            this.drawArc(0, lifeScoreRatio * 2, "#D9C3A4"); //#D9C3A4
-            this.drawArc(2 * lifeScoreRatio, 2 * (lifeScoreRatio + numberScoreRatio), "#B3A188");//#B3A188
-            this.drawArc(2 * (lifeScoreRatio + numberScoreRatio), 2, "#8C7F6B"); //#8C7F6B
+            this.drawArc(0, activityScoreRatio * 2, "#D9C4A5"); //#D9C3A4
+            this.drawArc(2 * activityScoreRatio, 2 * (activityScoreRatio + numberScoreRatio), "#A6967E");//#B3A188
+            this.drawArc(2 * (activityScoreRatio + numberScoreRatio), 2, "#736857"); //#8C7F6B
         }
     }
 
@@ -388,7 +388,7 @@ class MyIntegralInner extends React.Component {
                     <div className="m-i-h-c">
                         <div className="m-i-h-c-activity">
                             <div className="dot"></div>
-                            <div className="title">喜悦活动</div>
+                            <div className="title">喜悦生活</div>
                         </div>
                         <div className="m-i-h-c-number">
                             <div className="dot"></div>
@@ -396,7 +396,7 @@ class MyIntegralInner extends React.Component {
                         </div>
                         <div className="m-i-h-c-life">
                             <div className="dot"></div>
-                            <div className="title">正念生活</div>
+                            <div className="title">喜悦生活</div>
                         </div>
                     </div>
                 </div>

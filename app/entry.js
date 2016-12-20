@@ -129,9 +129,9 @@ ReactDOM.render(
                 <Route path="mine/activity" component={MyActivity}/>
                 <Route path="activity" component={Activity}/>
                 <Route path="vipTicket" component={VipTicket}/>
-                <Route path="vipInvite" component={VipInvite}/>
+                <Route path="vipInvite/:name/:code" component={VipInvite}/>
                 <Route path="vipExist" component={VipExist}/>
-                <Route path="vipInvalidate" component={VipInvalidate}/>
+                <Route path="vipInvalidate/:name" component={VipInvalidate}/>
                 <Route path="inviteSuccess" component={VipSuccess}/>
                 <Route path="mine/integral" component={MyIntegral}/>
                 <Route path="mine/moreIntegral" component={MoreIntegral}/>

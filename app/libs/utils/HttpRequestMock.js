@@ -27,6 +27,29 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
 });
 
 /*
+* 生成邀请码
+* @param id:String 用户ID
+* */
+Mock.mock(AppConfig.ApiConfig.generateInviteCode,{
+    'status':0,
+    'data':{
+        code:'ReT8'
+    }
+});
+
+/*
+* 接受邀请
+* @param name:String 用户实名姓名
+* @param IDNumber:String 用户身份证号码
+* @param phone:String 用户手机号
+* @param code:String 短信验证码
+* @param inviteCode:String 邀请码
+* */
+Mock.mock(AppConfig.ApiConfig.acceptInvite,{
+    'status':0
+});
+
+/*
  * 管理人员登陆
  * @param username:String
  * @param password:String
@@ -69,7 +92,7 @@ Mock.mock(AppConfig.ApiConfig.login, {
         numberScore: 3000, /*生命数字积分*/
         lifeScore: 3000, /*正念生活积分*/
         totalScore: 8000, /*总分*/
-        level: 3, /*会员级别:1：普通会员 2:高级会员 3:堂主*/
+        level: 1, /*会员级别:1：普通会员 2:高级会员 3:堂主*/
         range: 1 /*积分排名*/
     }
 });

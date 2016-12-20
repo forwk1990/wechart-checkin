@@ -10,7 +10,7 @@ class VipSuccess extends React.Component{
     }
 
     handleClick(){
-
+        wx.closeWindow();
     }
 
     render(){

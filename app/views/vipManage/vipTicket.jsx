@@ -10,7 +10,8 @@ class VipTicket extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            size: 300
+            size: 300,
+            code:''
         };
     }
 
@@ -18,6 +19,18 @@ class VipTicket extends React.Component {
         const qrCodeHeight = $(".vip-ticket-card-middle-qrcode").height();
         $(".vip-ticket-card-middle-qrcode").width(qrCodeHeight);
         this.setState({size: qrCodeHeight});
+        this.generateInviteCode();
+    }
+
+    generateInviteCode(){
+        const self = this;
+        DataStore.generateInviteCode({id:self.props.id}).then(function (responseObject) {
+            if(responseObject.code){
+                self.setState({code:responseObject.code});
+            }else{
+
+            }
+        });
     }
 
     render() {
@@ -33,12 +46,18 @@ class VipTicket extends React.Component {
                     <div className="vip-ticket-card-middle">
                         <div className="vip-ticket-sicircle-top-left"></div>
                         <div className="vip-ticket-sicircle-top-right"></div>
-                        <div className="vip-ticket-card-middle-title">邀请码:0728</div>
+                        <div className="vip-ticket-card-middle-title">
+                            {
+                                 this.state.code ? (<span>邀请码:{this.state.code}</span>) : (<span>正在生成邀请码</span>)
+                            }
+                        </div>
                         <div className="vip-ticket-card-middle-qrcode">
                             <div className="qr-container">
-                                <QRCode level='H'
-                                        value={`http://t.cn`}
-                                        size={this.state.size}/>
+                                {
+                                    this.state.code != '' && (<QRCode level='H'
+                                                                value={`${window.location.origin}${window.location.pathname}#/vipInvite/${encodeURI(name)}/${this.state.code}`}
+                                                                size={this.state.size}/>)
+                                }
                             </div>
                         </div>
                         <div className="vip-ticket-card-middle-desc">
@@ -49,7 +68,8 @@ class VipTicket extends React.Component {
                         <div className="vip-ticket-sicircle-bottom-right"></div>
                     </div>
                     <div className="vip-ticket-card-bottom">
-                        <div className="vip-ticket-card-bottom-share">分享</div>
+                        <div className="big">截图此页面发送给朋友</div>
+                        <div className="small">您可以 截图 选择朋友 发送图片</div>
                     </div>
                 </div>
             </div>
@@ -60,6 +80,7 @@ class VipTicket extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        id:state.userInfoReducer.id,
         name: state.userInfoReducer.name,
         imageUrl: state.userInfoReducer.imageUrl
     }

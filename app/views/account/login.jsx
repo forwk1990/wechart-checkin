@@ -106,7 +106,7 @@ class Login extends React.Component {
         const phone = this.refs['v-phone'].value;
         if (!phone) {
             MessageBox.show("请输入手机号");
-            return;
+            return false;
         }
         // 获取手机验证码
         DataStore.getVerifyCode({phone: phone,type:1}).then(function () {

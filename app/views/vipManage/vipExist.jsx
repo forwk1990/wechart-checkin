@@ -8,7 +8,7 @@ class VipExist extends React.Component {
     }
 
     handleClick(){
-
+        wx.closeWindow();
     }
 
     render() {
