@@ -40,6 +40,9 @@ class VipInvite extends React.Component {
         if (!IDNumber) {
             MessageBox.show("请输入身份证号码");
             return;
+        }else if(!Validator.isRegularID(IDNumber)){
+            MessageBox.show("请输入正确的身份证号码");
+            return;
         }
 
         const self = this;
@@ -51,12 +54,12 @@ class VipInvite extends React.Component {
             phone,
             code,
             IDNumber,
-            inviteCode: this.props.params.inviteCode
+            inviteCode: this.props.params.code
         }).then(function () {
             self.setState({isRequest: false, isStop: true});
-            self.context.router.push('vipSuccess');
+            self.context.router.push('inviteSuccess');
         }, function (error) {
-            self.setState({isRequest: false, isStop: true});
+            self.setState({isRequest: false});
             if (error.status == 61453) {
                 self.context.router.push('vipExist');
             } else if(error.status == 61452){
@@ -87,7 +90,7 @@ class VipInvite extends React.Component {
         return (
             <div className="vip-invite">
                 <div className="vip-invite-top-bar">
-                    接受{name}的邀请成为喜悦高级会员
+                    接受{decodeURI(name)}的邀请成为喜悦高级会员
                 </div>
                 <div className="vip-invite-title">
                     喜悦邀请

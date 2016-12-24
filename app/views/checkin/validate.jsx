@@ -20,15 +20,12 @@ class Validate extends React.Component {
         if (!this.props.id) {
             this.context.router.push(`managerLogin/${ticketNo}`);
         } else{
-
-
-
             DataStore.validate({ticketNo: ticketNo}).then(function (responseObject) {
                 console.info(responseObject);
                 self.setState({isReady: true, isSuccess: true});
             }, function (error) {
                 self.setState({isReady: true, isSuccess: false});
-                MessageBox.show(error.message);
+                //MessageBox.show(error.message);
             });
         }
     }

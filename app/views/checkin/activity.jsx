@@ -31,7 +31,7 @@ class Activity extends React.Component {
     componentDidMount() {
         const self = this;
         self.setState({isRequest: true});
-        document.title = "喜悦活动";
+        document.setTitle("线下活动");
         DataStore.getAllActivity({}).then(function (responseObject) {
             self.setState({activities: responseObject,isRequest: false});
         },function () {

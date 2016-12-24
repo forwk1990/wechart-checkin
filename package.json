@@ -50,6 +50,8 @@
     "postcss-pxtorem": "^3.3.1",
     "react-addons-css-transition-group": "^15.3.2",
     "react-hot-loader": "^3.0.0-beta.6",
+    "reactotron-react-js": "^1.6.0",
+    "reactotron-redux": "^1.6.1",
     "resolve-url": "^0.2.1",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",

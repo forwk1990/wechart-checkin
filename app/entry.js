@@ -17,7 +17,7 @@ import Success from 'checkin/success'
 import Validate from 'checkin/validate'
 import Activity from 'checkin/activity';
 
-import LifeIndex from 'life/index'
+import {LifeIndex,LifeWrapper} from 'life/index'
 
 import SysIndex from 'sys/sysIndex'
 import SysValue from 'sys/sysValue'
@@ -45,6 +45,7 @@ import ModifyId from 'account/modifyId'
 import ModifyBirthday from 'account/modifyBirthday'
 import ModifyAddress from 'account/modifyAddress'
 import ModifyNickname from 'account/modifyNickname'
+import Profile from 'account/profile'
 
 import NotFound from 'notFound';
 import Donate from 'account/donate';
@@ -56,6 +57,8 @@ import VipInvite from 'vipManage/vipInvite';
 import VipSuccess from 'vipManage/vipSuccess';
 import VipInvalidate from 'vipManage/vipInvalidate';
 import VipExist from 'vipManage/vipExist';
+
+
 
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
@@ -125,7 +128,9 @@ ReactDOM.render(
                 <Route path="validate/:code" component={Validate}/>
                 <Route path="sys" component={SysIndex}/>
                 <Route path="sysValue" component={SysValue}/>
+                <Route path="life" component={LifeIndex}/>
                 <Route path="life/:type" component={LifeIndex}/>
+                <Route path="life/:type/:title/:time" component={LifeWrapper}/>
                 <Route path="mine/activity" component={MyActivity}/>
                 <Route path="activity" component={Activity}/>
                 <Route path="vipTicket" component={VipTicket}/>
@@ -134,6 +139,7 @@ ReactDOM.render(
                 <Route path="vipInvalidate/:name" component={VipInvalidate}/>
                 <Route path="inviteSuccess" component={VipSuccess}/>
                 <Route path="mine/integral" component={MyIntegral}/>
+                <Route path="mine/profile" component={Profile}/>
                 <Route path="mine/moreIntegral" component={MoreIntegral}/>
                 <Route path="mine/integralDetail" component={IntegralDetail}/>
                 <Route path="mine/archive" component={Archive}/>

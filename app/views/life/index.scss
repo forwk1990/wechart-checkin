@@ -32,6 +32,8 @@
   position: absolute;
 }
 
+$musicFlag:78px;
+
 @mixin block-semi-circle-percent($width) {
   width: $width;
   height: $width;
@@ -56,8 +58,8 @@
     padding: 80px 20px 20px 20px;
     height: auto;
     color: #999999;
-    font-size: 38px;
-    line-height: 60px;
+    font-size: 36px;
+    line-height: 55px;
   }
 
 }
@@ -74,7 +76,7 @@
 
   &-message {
     color: #ffffff;
-    font-size: 48px;
+    font-size: 36px;
     text-align: center;
     position:relative;
     width: 100%;
@@ -99,8 +101,8 @@
       .music {
         position: relative;
         border-radius: 36px;
-        width: 80px;
-        height: 80px;
+        width: $musicFlag;
+        height: $musicFlag;
         margin: 0 auto;
         top: 0;
         background-size:cover;
@@ -112,8 +114,26 @@
           width:100%;
           height:100%;
           background: url('../../assets/images/walking.gif') center center no-repeat;
-          -webkit-background-size:80px;
-          background-size:80px;
+          -webkit-background-size:$musicFlag;
+          background-size:$musicFlag;
+        }
+
+        .wxing{
+          display:block;
+          width:100%;
+          height:100%;
+          background: url('../../assets/images/午休动图.gif') center center no-repeat;
+          -webkit-background-size:$musicFlag;
+          background-size:$musicFlag;
+        }
+
+        .sjing{
+          display:block;
+          width:100%;
+          height:100%;
+          background: url('../../assets/images/睡觉动图.gif') center center no-repeat;
+          -webkit-background-size:$musicFlag;
+          background-size:$musicFlag;
         }
       }
     }
@@ -123,21 +143,53 @@
       z-index: 8;
       background: url("../../assets/images/alarm_flag.png") top center no-repeat;
       border-radius: 260px;
-      background-size: 80px 80px;
+      background-size: $musicFlag $musicFlag;
     }
+/*
+    &-progress-left {
+      @include block-semi-circle-percent(100%);
+      @include color-gradient-bottom-top(#ffbd00, #ffc200);
+      z-index: 5;
+      border: 1px solid #171717;
+      clip: rect(0px, 260px, 520px, 0px);
+    }
+
+    &-progress-right {
+      @include block-semi-circle-percent(100%);
+      @include color-gradient-top-bottom(#ffa000, #ffbd00);
+      z-index: 7;
+      border: 1px solid #171717;
+      display: none;
+      clip: rect(0px, 520px, 520px, 260px);
+    }
+
+    &-left {
+      background-color: #171717;
+      @include block-semi-circle-percent(100%);
+      //border: 1px solid #171717;
+      clip: rect(0px, 260px, 520px, 0px);
+      z-index: 6;
+    }
+
+    &-right {
+      background-color: #171717;
+      @include block-semi-circle-percent(100%);
+      //border: 1px solid #171717;
+      clip: rect(0px, 520px, 520px, 260px);
+      z-index: 4;
+    }*/
 
     &-progress-left {
       @include block-semi-circle-percent(100%);
       background-color: #171717;
-      z-index: 5;
+      z-index: 7;
       clip: rect(0px, 260px, 520px, 0px);
     }
 
     &-progress-right {
       @include block-semi-circle-percent(100%);
       background-color: #171717;
-      z-index: 7;
-      display: none;
+      z-index: 5;
       clip: rect(0px, 520px, 520px, 260px);
     }
 
@@ -147,6 +199,7 @@
       border: 1px solid #171717;
       clip: rect(0px, 260px, 520px, 0px);
       z-index: 6;
+      display: none;
     }
 
     &-right {
@@ -164,8 +217,9 @@
       width: 360px;
       height: 360px;
       background: url("../../assets/images/time_scale.png") #000 center center no-repeat;
-      background-size: contain;
+      background-size: 360px 360px;
       border-radius: 180px;
+      border:0px;
       left: 80px;
       top: 80px;
       color: #ffffff;
@@ -243,6 +297,77 @@
       }
     }
 
+  }
+
+}
+
+.life-list-wrapper{
+  width:100%;
+  height:100%;
+  background-color:#fff;
+
+
+
+  &-header{
+    width:100%;
+    height:400px;
+    display:block;
+    background:url(../../assets/images/banner.png) center center no-repeat;
+    background-size:cover;
+  }
+
+  .life-list{
+    width:100%;
+    padding:0px 40px 40px 40px;
+    box-sizing: border-box;
+
+    &-item{
+      width:100%;
+      height:300px;
+      margin-top:40px;
+      display:block;
+      border-radius: 10px;
+      padding:40px;
+      box-sizing: border-box;
+      font-weight: 700;
+
+      &-title{
+        font-size:48px;
+        color:#fff;
+        letter-spacing: 12px;
+        font-family: "";
+      }
+
+      &-desc{
+        font-size:24px;
+        color:#fff;
+        margin-top:20px;
+        letter-spacing: 3px;
+        font-family: "PingFang SC";
+      }
+
+      &-time{
+        font-size:24px;
+        color:#fff;
+        margin-top:20px;
+        font-family: "PingFang SC";
+      }
+
+    }
+
+    &-msg{
+      width:100%;
+      display:block;
+      margin-top:40px;
+      border-radius: 10px;
+      font-weight: 500;
+      background-color:#f5f5f5;
+      height:80px;
+      text-align: center;
+      font-size:28px;
+      color:#666;
+      line-height: 80px;
+    }
   }
 
 }

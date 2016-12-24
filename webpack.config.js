@@ -132,7 +132,8 @@ module.exports = {
          * conditionally included "development" JavaScript file
          * */
         new webpack.DefinePlugin({
-            __DEV__: 'true'
+            __DEV__: 'true',
+            __SERVER_URL__: JSON.stringify(host),
         })
     ],
     module: {

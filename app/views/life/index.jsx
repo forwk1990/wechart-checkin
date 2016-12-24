@@ -6,17 +6,20 @@ import {connect} from 'react-redux';
 import {MessageBox, Validator} from 'Utils';
 import LoginModal from 'LoginModal';
 
+
 class Clock extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            timeInterval: 15 * 60 * 1000,
+            timeInterval: props.time * 60 * 1000,
+            // timeInterval: 0.5 * 60 * 1000,
             isStart: false,
             isShowMessage: false
         };
         this.isTimerStart = false;
         this.isNotify = false;
+        this.interval = null;
     }
 
     componentDidMount() {
@@ -30,11 +33,11 @@ class Clock extends React.Component {
     startRotate(funcInterval) {
         const self = this;
         // 是否切换到右半圆
-        var switcher = false;
+        var switcher = true;
         var musicDegTotal = 0;
         var semiCicleDegTotal = 0;
         const deg = funcInterval * 360 / this.state.timeInterval;
-        const interval = setInterval(function () {
+        this.interval = setInterval(function () {
             if (!self.state.isStart)return;
             semiCicleDegTotal = semiCicleDegTotal + deg;
             musicDegTotal = musicDegTotal + deg;
@@ -43,15 +46,16 @@ class Clock extends React.Component {
             self.rotate(".life-clock-pie-container-music-flag", musicDegTotal);
             self.rotate(".music", -musicDegTotal);
             if (semiCicleDegTotal >= 180) {
-                switcher = true;
+                switcher = !switcher;
                 semiCicleDegTotal = 0;
-                $(".life-clock-pie-container-progress-right").show();
+                $(".life-clock-pie-container-left").show();
+                $(".life-clock-pie-container-right").css("z-index", 8);
                 $(".life-clock-pie-container-alarm-flag").css("z-index", 9);
                 if (musicDegTotal >= 360) {
-                    $(".life-clock-pie-container-progress-left").css("z-index", 7);
-                    clearInterval(interval);
+                    clearInterval(self.interval);
                     self.setState({isShowMessage: true});
-                    self.reset();
+                    self.playMusicToggle(true);
+                    //self.playAlarm();
                 }
             }
             const timeInterval = self.state.timeInterval - funcInterval;
@@ -59,6 +63,9 @@ class Clock extends React.Component {
                 self.setState({timeInterval: timeInterval});
             } else {
                 self.setState({timeInterval: 0});
+            }
+            if (360 * 0.95 <= musicDegTotal) {
+                self.notifyComplete();
             }
         }, funcInterval);
     }
@@ -90,6 +97,8 @@ class Clock extends React.Component {
     }
 
     notifyComplete() {
+        if (!this.props.id)return;
+        if (!this.props.shouldIntegral)return;
         if (this.isNotify)return;
         this.isNotify = true;
         DataStore.notifyComplete({id: this.props.id, type: this.props.type});
@@ -102,9 +111,14 @@ class Clock extends React.Component {
             this.startRotate(15);
             this.isTimerStart = true;
         }
+        this.playMusicToggle(isStart);
+    }
 
+    playMusicToggle(isStart) {
+        const self = this;
         this.props.audios.forEach(function (audio, index) {
-            const audioElement = document.getElementById(`life-audio-${index}`);
+            if (self.props.audios.length > 1 && index == self.props.audios.length - 1) return;
+            const audioElement = self.refs[`life-audio-${index}`];
             if (!isStart) {
                 audioElement.play();
             } else {
@@ -113,7 +127,17 @@ class Clock extends React.Component {
         })
     }
 
+    playAlarm() {
+        if (this.props.audios.length <= 1) return;
+        const audioElement = this.refs[`life-audio-${this.props.audios.length - 1}`];
+        audioElement.play();
+    }
+
     render() {
+        const self = this;
+        if (self.props.stop) {
+            clearInterval(self.interval);
+        }
         return (
             <div className="life-clock">
                 <div className="life-clock-pie-container">
@@ -125,14 +149,34 @@ class Clock extends React.Component {
                     <div className="life-clock-pie-container-right"></div>
                     <div className="life-clock-pie-container-left"></div>
                     <div className="life-clock-pie-container-music-flag">
-                        {this.props.type == 2 && (<div className="music"
-                                                       style={{background: `url(${require('sit')}) top center no-repeat`,backgroundSize:'cover'}}></div>)}
                         {this.props.type == 1 && (<div className="music"
-                                                       style={{background: `url(${require('walk')}) top center no-repeat`,backgroundSize:'cover'}}>
+                                                       style={{
+                                                           background: `url(${require('午休静图')}) top center no-repeat`,
+                                                           backgroundSize: 'cover'
+                                                       }}>
+                            {this.state.isStart && (<div className="wxing"></div>)}
+                        </div>)}
+                        {this.props.type == 2 && (<div className="music"
+                                                       style={{
+                                                           background: `url(${require('walk')}) top center no-repeat`,
+                                                           backgroundSize: 'cover'
+                                                       }}>
                             {this.state.isStart && (<div className="walking"></div>)}
                         </div>)}
                         {this.props.type == 3 && (<div className="music"
-                                                       style={{background: `url(${require('dinner')}) top center no-repeat`,backgroundSize:'cover'}}></div>)}
+                                                       style={{
+                                                           background: `url(${require('walk')}) top center no-repeat`,
+                                                           backgroundSize: 'cover'
+                                                       }}>
+                            {this.state.isStart && (<div className="walking"></div>)}
+                        </div>)}
+                        {this.props.type == 4 && (<div className="music"
+                                                       style={{
+                                                           background: `url(${require('睡觉静图')}) top center no-repeat`,
+                                                           backgroundSize: 'cover'
+                                                       }}>
+                            {this.state.isStart && (<div className="sjing"></div>)}
+                        </div>)}
                     </div>
                     <div className="life-clock-pie-container-alarm-flag"></div>
                     <div className="life-clock-pie-container-progress-right"></div>
@@ -155,7 +199,8 @@ class Clock extends React.Component {
                     this.props.audios.map(function (audio, index) {
                         return (
                             <div className="life-clock-audio" key={index}>
-                                <audio id={`life-audio-${index}`} loop="true">
+                                <audio id={`life-audio-${index}`} ref={`life-audio-${index}`}
+                                       loop={index == self.props.audios.length - 1 ? false : true}>
                                     Your browser does not support the <code>audio</code> element.
                                     <source src={audio}/>
                                 </audio>
@@ -190,17 +235,18 @@ class Lyrics extends React.Component {
     }
 }
 
-class Index extends React.Component {
+class Life extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             isReady: false,
             audios: [],
-            isOpen:0,
-            annouce:"",
+            isOpen: 0,
+            annouce: "",
             text: "",
             visible: false,
+            stop: 0,
             integral: '--'
         };
     }
@@ -208,36 +254,33 @@ class Index extends React.Component {
     componentDidMount() {
         const self = this;
         const type = self.props.params.type;
-        if (type == 1 || type == 2 || type == 3) {
 
-            if (type == 1) {
-                document.title = "喜悦行走";
-                this.setState({annouce:"喜悦行走,健康生活"});
-            }
-            if (type == 2) {
-                document.title = "喜悦静坐";
-                this.setState({annouce:"喜悦静坐,健康生活"});
-            }
-            if (type == 3) {
-                document.title = "喜悦用餐";
-                this.setState({annouce:"喜悦用餐,健康生活"});
-            }
-
-            // 获取生命吃走睡
-            DataStore.getLife({type: parseInt(type)}).then(function (responseObject) {
-                self.setState({
-                    isReady: true,
-                    isOpen:responseObject.isOpen,
-                    audios: responseObject.audios,
-                    text: responseObject.text,
-                    integral: responseObject.integral
-                });
-            }, function (error) {
-                MessageBox.show(error.message);
+        // 获取生命吃走睡
+        DataStore.getLife({type: parseInt(type)}).then(function (responseObject) {
+            self.setState({
+                isReady: true,
+                isOpen: responseObject.isOpen,
+                audios: responseObject.audios,
+                token: responseObject.token,
+                text: responseObject.text,
+                integral: responseObject.integral,
+                annouce: `${document.title},健康生活`
             });
-        } else {
-            self.context.router.replace('notfound');
-        }
+        }, function (error) {
+            MessageBox.show(error.message);
+        });
+    }
+
+    componentWillMount() {
+        this.context.router.setRouteLeaveHook(
+            this.props.route,
+            () => this.routeWillLeave()
+        )
+    }
+
+    routeWillLeave() {
+        this.setState({stop: 1});
+        return true;
     }
 
     /*
@@ -258,7 +301,7 @@ class Index extends React.Component {
     render() {
         const {id} = this.props;
         var announceHtml;
-        if(this.state.isOpen){
+        if (this.state.isOpen) {
             announceHtml = id ? (
                 <div className="life-index-announce-text">
                     本次正念结束您将获得<span>{this.state.integral}</span>能量
@@ -266,7 +309,7 @@ class Index extends React.Component {
             ) : (
                 <div className="life-index-announce-text">您还未<span>登陆</span>，本次活动将无法获得能量</div>
             );
-        }else{
+        } else {
             announceHtml = (
                 <div className="life-index-announce-text">
                     {this.state.annouce}
@@ -282,7 +325,8 @@ class Index extends React.Component {
                         {announceHtml}
                     </div>
                     <Carousel style={{height: "100%"}}>
-                        <Clock audios={this.state.audios} type={this.props.params.type} id={id}></Clock>
+                        <Clock audios={this.state.audios} shouldIntegral={this.state.isOpen} stop={this.state.stop}
+                               type={this.props.params.type} id={id} time={this.props.params.time}></Clock>
                         <Lyrics text={this.state.text}></Lyrics>
                     </Carousel>
                 </div>
@@ -292,7 +336,7 @@ class Index extends React.Component {
     }
 }
 
-Index.contextTypes = {
+Life.contextTypes = {
     router: React.PropTypes.object
 }
 
@@ -302,4 +346,84 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps)(Index);
+
+const LifeWrapper = connect(mapStateToProps)(Life)
+
+
+class LifeIndex extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    handleClick(type, title, time) {
+        document.setTitle(title);
+        this.context.router.push(`life/${type + 1}/${encodeURI(title)}/${time}`);
+    }
+
+    componentDidMount() {
+        document.setTitle("喜悦");
+    }
+
+    render() {
+        const items = [
+            {
+                title: "正念静坐",
+                desc: "深度休息 恢复精力",
+                time: 20,
+                imageUrl: require('午休背景图')
+            },
+            {
+                title: "正念行走",
+                desc: "放松身心 连接自然",
+                time: 16,
+                imageUrl: require('行走图')
+            },
+            {
+                title: "正念散步",
+                desc: "安住当下 舒缓情绪",
+                time: 11,
+                imageUrl: require('散步图')
+            },
+            {
+                title: "正念睡眠",
+                desc: "告别失眠 安然入睡",
+                time: 19.5,
+                imageUrl: require('入睡图')
+            }
+        ]
+        const self = this;
+        return (
+            <div className="life-list-wrapper">
+                <div className="life-list-wrapper-header"></div>
+                <div className="life-list">
+                    {
+                        items.map(function (item, index) {
+                            return (
+                                <div onClick={() => self.handleClick(index, item.title, item.time)}
+                                     className="life-list-item"
+                                     key={index} style={{
+                                    background: `url(${item.imageUrl}) center center no-repeat`,
+                                    backgroundSize: 'cover'
+                                }}>
+                                    <div className="life-list-item-title">{item.title}</div>
+                                    <div className="life-list-item-desc">{item.desc}</div>
+                                    <div className="life-list-item-time">{item.time}分钟</div>
+                                </div>
+                            )
+                        })
+                    }
+                    <div className="life-list-msg">
+                        一大波免费语音指导 正在来袭 敬请期待
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+LifeIndex.contextTypes = {
+    router: React.PropTypes.object
+}
+
+export {LifeIndex, LifeWrapper} ;

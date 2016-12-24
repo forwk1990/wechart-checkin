@@ -79,7 +79,7 @@ class Ticket extends Component {
                         <div className="ticket-card-middle-title">活动当日您可凭此券入场</div>
                         <div className="ticket-card-middle-qrcode">
                             <div className="qr-container">
-                                <QRCode level='H' value={`http://www.joyiou.com/wx/index.jsp#/validate/${this.props.params.code}`}
+                                <QRCode level='H' value={`${window.location.origin}${window.location.pathname}#/validate/${this.props.params.code}`}
                                         size={self.state.size}/>
                             </div>
                         </div>

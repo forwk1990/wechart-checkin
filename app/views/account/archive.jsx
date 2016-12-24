@@ -1,34 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {MessageBox, Formatter, Vip} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
+import {MessageBox} from 'Utils';
+import {Vip} from 'Utils';
 import './archive.scss';
-
-class ArchiveCell extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <div className="archive-cell" onClick={() => this.props.onClick()}>
-                <div className="archive-cell-image">
-                    <img src={this.props.imageUrl}/>
-                </div>
-                <div className="archive-cell-title">{this.props.title}</div>
-                {
-                    this.props.value ? (<div className="archive-cell-value text-overflow">{this.props.value}</div>) : (
-                        <div className="archive-cell-extra">{this.props.extra}</div>)
-                }
-                {
-                    !this.props.hiddenIndicator && (<div className="archive-cell-indicator"></div>)
-                }
-            </div>
-        );
-    }
-}
+import TableCell from 'tableCell';
 
 
 class Archive extends React.Component {
@@ -41,11 +18,10 @@ class Archive extends React.Component {
         if (!this.props.id) {
             this.context.router.push(`login/${"archive"}`);
         } else {
-            document.title = "我的资料";
+            document.setTitle("我的喜悦");
             return;
         }
     }
-
 
     handleNavigate(path) {
         this.context.router.push(path);
@@ -84,72 +60,65 @@ class Archive extends React.Component {
     }
 
     render() {
-        const {imageUrl, nickname, phone, email, birthday, level, address, IDNumber, password, payPassword, wx, provinceLabel} = this.props;
+        const {imageUrl, nickname, level, range,totalScore} = this.props;
         const logoImageUrl = !imageUrl ? require('logo') : imageUrl;
-
         return (
-            <div className="archive">
-                <div className="archive-header">
-                    <div className="archive-header-left">
-                        <div className="username">{nickname}</div>
-                        <div className="modify" onClick={() => this.handleNavigate("mine/modifyNickname")}>修改昵称</div>
+            <div className="profile">
+                <div className="profile-header" style={{
+                    background: `url(${require('profileBackground')}) center center no-repeat`,
+                    backgroundSize: 'cover'
+                }}>
+                    <div className="profile-header-base">
+                        <div className="profile-header-base-side">
+                            <div className="profile-header-base-side-image" onClick={() => level == 3 && this.handleNavigate("mine/vipCenter")}>
+                                <img src={require('会员')}/>
+                            </div>
+                            <div className="profile-header-base-side-text">{Vip.getNameFromLevel(level)}</div>
+                        </div>
+                        <div className="profile-header-base-center" onClick={() => this.handleChooseImage()}>
+                            <img src={logoImageUrl}/>
+                        </div>
+                        <div className="profile-header-base-side">
+                            <div className="profile-header-base-side-image" onClick={() => this.handleNavigate("mine/integral")}>
+                                <img src={require('排名icon')}/>
+                            </div>
+                            <div className="profile-header-base-side-text">排名{range}</div>
+                        </div>
                     </div>
-                    <div className="archive-header-logo" onClick={ () => this.handleChooseImage()}>
-                        <img src={logoImageUrl}/>
+                    <div className="profile-header-nickname">{nickname}</div>
+                    <div className="profile-header-nl">
+                        <div className="profile-header-nl-text">我的能量&nbsp;{totalScore}</div>
                     </div>
                 </div>
-                <div className="archive-list">
-                    {__DEV__ && (<ArchiveCell imageUrl={require("vip")} value={Vip.getNameFromLevel(level)} title="会员等级"
-                                 extra="未绑定" onClick={() => this.handleNavigate("mine/vipCenter")} hiddenIndicator={level !== 3}/>)}
-                    <ArchiveCell imageUrl={require("phone_dark")} value={Formatter.encryptionPhone(phone)} title="联系手机"
-                                 extra="未绑定" onClick={() => this.handleNavigate("mine/modifyPhone")}/>
-                    <ArchiveCell imageUrl={require("email_dark")} value={email} title="联系邮箱" extra="未设置"
-                                 onClick={() => this.handleNavigate("mine/modifyMail")}/>
-                    <ArchiveCell imageUrl={require("wx_dark")} value={wx} title="联系微信" extra="未绑定"
-                                 onClick={() => this.handleNavigate("mine/modifyWx")}/>
-                    <ArchiveCell imageUrl={require("birthday_dark")} value={birthday} title="生日日期" extra="未设置"
-                                 onClick={() => this.handleNavigate("mine/modifyBirthday")}/>
-                    <ArchiveCell imageUrl={require("address_dark")} value={`${provinceLabel}${address}`} title="联系地址"
-                                 extra="未设置"
-                                 onClick={() => this.handleNavigate("mine/modifyAddress")}/>
-                    <ArchiveCell imageUrl={require("sm_dark")} value={IDNumber ? '已认证' : ''} title="实名认证" extra="未认证"
-                                 onClick={() => this.handleNavigate("mine/modifyId")}/>
-                    <ArchiveCell imageUrl={require("password_dark")} value={password ? "修改" : ''} title="登录密码"
-                                 extra="未设置"
-                                 onClick={() => password ? this.handleNavigate("mine/modifyPassword") : this.handleNavigate("mine/modifyPasswordConfirm")}/>
-                    <ArchiveCell imageUrl={require("paypassword_dark")} value={payPassword ? '修改' : ''} title="支付密码"
-                                 extra="未设置"
-                                 onClick={() => payPassword ? this.handleNavigate("mine/modifyPayPassword") : this.handleNavigate("mine/modifyPayPasswordConfirm")}/>
+                <div className="profile-banner"></div>
+                <div className="profile-list">
+                    <TableCell imageUrl={require("我的资料")}  title="我的资料"m
+                                 extra="" onClick={() => this.handleNavigate("mine/profile")}/>
+                    <TableCell imageUrl={require("我的活动")}  title="我的活动"
+                                 extra="" onClick={() => this.handleNavigate("mine/activity")}/>
+                    <TableCell imageUrl={require("我的捐赠")}  title="我的捐赠" extra=""
+                                 onClick={() => this.handleNavigate("donate")}/>
+                    <TableCell imageUrl={require("我的反馈")}  title="我的反馈" extra=""
+                                 onClick={() => this.handleNavigate("feedback")}/>
                 </div>
             </div>
         );
     }
 }
 
-/*<ArchiveCell imageUrl={require("vip")} value={Vip.getNameFromLevel(level)} title="会员等级"
-             extra="未绑定" onClick={() => this.handleNavigate("mine/vipCenter")}/>*/
+const mapStateToProps = (state) => {
+    return {
+        id: state.userInfoReducer.id,
+        nickname: state.userInfoReducer.nickname,
+        level: state.userInfoReducer.level,
+        range: state.userInfoReducer.range,
+        totalScore: state.userInfoReducer.totalScore,
+        imageUrl: state.userInfoReducer.imageUrl
+    }
+}
 
 Archive.contextTypes = {
     router: React.PropTypes.object
-}
-
-const mapStateToProps = (state) => {
-    return {
-        level: state.userInfoReducer.level, /*会员级别*/
-        imageUrl: state.userInfoReducer.imageUrl,
-        provinceLabel: state.userInfoReducer.provinceLabel,
-        id: state.userInfoReducer.id,
-        nickname: state.userInfoReducer.nickname, /*用户昵称*/
-        phone: state.userInfoReducer.phone, /*手机号码*/
-        email: state.userInfoReducer.email, /*邮箱*/
-        birthday: state.userInfoReducer.birthday, /*生日*/
-        address: state.userInfoReducer.address, /*联系地址*/
-        name: state.userInfoReducer.name, /*真实姓名*/
-        IDNumber: state.userInfoReducer.IDNumber, /*身份正好*/
-        password: state.userInfoReducer.password, /*md5格式,做自动登陆*/
-        payPassword: state.userInfoReducer.payPassword, /*是否设置支付密码*/
-        wx: state.userInfoReducer.wx, /*微信号码*/
-    }
 }
 
 export default connect(mapStateToProps)(Archive);

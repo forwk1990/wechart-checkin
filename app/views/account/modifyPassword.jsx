@@ -123,8 +123,8 @@ class ModifyPassword extends React.Component {
                     </div>
                     <div className="modify-page-input-base">
                         <div className="label">短信验证码</div>
-                        <input type="text" ref="code" name="code"/>
-                        <CountDown text="获取短信验证码" stop={this.state.isStop} onClick={() => this.handleVerifyCode()}/>
+                        <input type="tel" ref="code" name="code"/>
+                        <CountDown text="点击获取" stop={this.state.isStop} onClick={() => this.handleVerifyCode()}/>
                     </div>
                     <LoadingButton text="下一步" loadingText="正在为您验证手机号码..." status={this.state.isSaving2}
                                    onClick={() => this.handleNext()}/>

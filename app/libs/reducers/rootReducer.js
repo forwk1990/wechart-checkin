@@ -107,7 +107,9 @@ const userInfoDefaultState = {
  * */
 function userInfoReducer(state = {}, action) {
     switch (action.type) {
-        case ActionTypes.modifyImageUrl:
+        case ActionTypes.modifyImageUrl:{
+            return Object.assign({}, state, action.responseObject);
+        }
         case ActionTypes.login: {
             return Object.assign({}, state,userInfoDefaultState, action.responseObject);
         }

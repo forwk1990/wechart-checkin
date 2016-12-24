@@ -144,7 +144,7 @@ class Index extends React.Component {
 
     render() {
         var self = this;
-        const {isReady, imageUrl, address, date} = this.props;
+        const {isReady, imageUrl, address, date,desc} = this.props;
         return !isReady ? (<div className="loading"></div>)
             : (
             <RouteTransition
@@ -159,6 +159,7 @@ class Index extends React.Component {
                             <span>{address}</span>
                             <img src={require("arrow_right")}/>
                         </div>
+                        <span className="desc">{desc}</span>
                         <span className="date">{date}</span>
                         <div className="topline"></div>
                         <List style={{marginTop: "10px"}}>

@@ -4,7 +4,7 @@
  */
 
 /*<%@page contentType="text/html"%>
-<%@page pageEncoding="UTF-8"%>*/
+ <%@page pageEncoding="UTF-8"%>*/
 
 var path = require('path');
 var webpack = require('webpack');
@@ -115,10 +115,9 @@ module.exports = {
 
         new HtmlWebpackPlugin({
             title: '喜悦来了',
-            filename: 'index.html',
+            filename: 'index.jsp',
             template: 'template/index.template.html',      //按照此文件内容生成index.html
             inject: 'body',
-
             minify: false,
             hash: true,
             cache: false,
@@ -142,6 +141,7 @@ module.exports = {
          * */
         new webpack.DefinePlugin({
             __DEV__: 'false',
+            __SERVER_URL__: JSON.stringify(host),
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
         })
     ],

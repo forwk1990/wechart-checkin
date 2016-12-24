@@ -8,7 +8,7 @@ class Donate extends React.Component {
     }
 
     componentDidMount() {
-        document.title = "我的捐赠";
+        document.setTitle("我的捐赠");
     }
 
     render() {

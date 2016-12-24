@@ -47,7 +47,7 @@ class MyActivity extends React.Component {
     componentDidMount() {
         const self = this;
         self.setState({isRequest: true});
-        document.title = "我的活动";
+        document.setTitle("我的活动");
         if (!this.props.id) {
             this.context.router.push(`login/${"activity"}`);
         }else{

@@ -38,8 +38,9 @@ class ModifyPasswordByCode extends React.Component{
             self.setState({isSaving: false});
             self.props.dispatch({type: ActionTypes.modifyPassword,password:md5(confirmPassword)});
             hashHistory.go(-2);
-        }, function () {
+        }, function (error) {
             self.setState({isSaving: false});
+            MessageBox.show(error.message);
         });
     }
 

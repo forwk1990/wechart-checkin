@@ -109,10 +109,10 @@ const IntegralOrderCommonCell = (props) => {
 const IntegralDetailCell = (props) => {
     return (
         <div className="integral-detail-cell">
-            <div className="integral-detail-cell-title">{props.model.title}</div>
+            <div className="integral-detail-cell-title">{props.model.item}</div>
             <div className="integral-detail-cell-score">{props.model.score}能量</div>
             <div className="integral-detail-cell-bottom">
-                <div className="integral-detail-cell-bottom-date">{props.model.date}</div>
+                <div className="integral-detail-cell-bottom-date">{props.model.time}</div>
                 <div className="integral-detail-cell-bottom-line"></div>
             </div>
         </div>
@@ -176,7 +176,7 @@ class IntegralDetailInner extends React.Component {
 
     render() {
         return (
-            <div className="integral-detail" onTouchMove={ () => this.onTouchMove()}>
+            <div id="integralDetail" className="integral-detail" onTouchMove={ () => this.onTouchMove()}>
                 {
                     this.state.integralDetails.map(function (integralDetail, index) {
                         return (<IntegralDetailCell model={integralDetail} key={index}/>)
@@ -238,10 +238,6 @@ class MoreIntegralInner extends React.Component {
         this.requestData(this.pageIndex, 15);
     }
 
-    onScroll() {
-        console.log("scroll");
-    }
-
     onTouchMove() {
         if (this.state.status == -1)return;
         const height = $(document).height();
@@ -261,7 +257,7 @@ class MoreIntegralInner extends React.Component {
         }
         const logoImageUrl = !integralModel.imageUrl ? require('logo') : integralModel.imageUrl;
         return (
-            <div className="more-integral" onScroll={ () => this.onScroll()} onTouchMove={ () => this.onTouchMove()}>
+            <div className="more-integral"  onTouchMove={ () => this.onTouchMove()}>
                 <div className="more-integral-cell">
                     <div className="more-integral-cell-index">
                         {integralModel.index}
@@ -309,7 +305,7 @@ class MyIntegralInner extends React.Component {
         if (!this.props.id) {
             this.context.router.push(`login/${"integral"}`);
         } else {
-            document.title = "我的能量";
+            document.setTitle("我的能量");
             this.setState({isRequest: true});
             DataStore.getIntegralOrder({pageIndex: 0, pageSize: 5}).then(function (responseObject) {
                 self.setState({integrals: responseObject, isRequest: false});
@@ -369,6 +365,11 @@ class MyIntegralInner extends React.Component {
         this.context.router.push("mine/integralDetail");
     }
 
+/*<div className="m-i-h-c-number">
+<div className="dot"></div>
+<div className="title">生命数字</div>
+</div>*/
+
     render() {
         const logoImageUrl = !this.props.imageUrl ? require('logo') : this.props.imageUrl;
         return (
@@ -388,15 +389,12 @@ class MyIntegralInner extends React.Component {
                     <div className="m-i-h-c">
                         <div className="m-i-h-c-activity">
                             <div className="dot"></div>
-                            <div className="title">喜悦生活</div>
+                            <div className="title">正念训练</div>
                         </div>
-                        <div className="m-i-h-c-number">
-                            <div className="dot"></div>
-                            <div className="title">生命数字</div>
-                        </div>
+
                         <div className="m-i-h-c-life">
                             <div className="dot"></div>
-                            <div className="title">喜悦生活</div>
+                            <div className="title">线下活动</div>
                         </div>
                     </div>
                 </div>

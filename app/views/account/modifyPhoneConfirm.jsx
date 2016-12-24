@@ -41,8 +41,9 @@ class ModifyPhoneConfirm extends React.Component {
                 self.setState({isSaving: false, isStop: true});
                 self.props.dispatch({type: ActionTypes.modifyPhone, phone: phone});
                 hashHistory.go(-2);
-            }, function () {
-                self.setState({isSaving: false, isStop: true});
+            }, function (error) {
+                self.setState({isSaving: false});
+                MessageBox.show(error.message);
             });
         }, function (error) {
             MessageBox.show(error.message);

@@ -7,7 +7,7 @@ var MockRandom = Mock.Random;
 var AppConfig = require("./../components/AppConfig.js");
 
 // 配置请求的相应时间
-Mock.setup({timeout: '1000-2000'});
+Mock.setup({timeout: '800-1000'});
 
 
 // 模拟活动页数据
@@ -62,6 +62,36 @@ Mock.mock(AppConfig.ApiConfig.managerLogin, {
 });
 
 /*
+* 密钥登陆
+* */
+Mock.mock(AppConfig.ApiConfig.autoLogin,{
+    'status': 0,
+    'data': {
+        id: '72cf0b3c-6db0-4c09-99bc-7d99afed961b', /*用户Id*/
+        nickname: '甜甜圈', /*用户昵称*/
+        phone: '134****6543', /*手机号码*/
+        email: '13476116543@163.com', /*邮箱*/
+        birthday: '', /*生日*/
+        provinceValues: [1, 1, 2], /*省市区值*/
+        provinceLabel: "北京市北京市东城区",
+        address: '光谷资本大厦', /*联系地址*/
+        name: '陈玲', /*真实姓名*/
+        IDNumber: '', /*身份证号*/
+        password: 'afed961', /*md5格式,做自动登陆*/
+        payPassword: 'xxx', /*md5格式,做自动登陆*/
+        wx: 'w1915655273', /*微信号码*/
+        imageUrl: 'http://images.china.cn/attachement/jpg/site1000/20140924/002564bb43f1158ca2fc2d.jpg', /*用户头像*/
+        activityScore: 2000, /*活动积分*/
+        numberScore: 3000, /*生命数字积分*/
+        lifeScore: 3000, /*正念生活积分*/
+        totalScore: 8000, /*总分*/
+        level: 1, /*会员级别:1：普通会员 2:高级会员 3:堂主*/
+        range: 1, /*积分排名*/
+        token:'2324'
+    }
+});
+
+/*
  * 登陆
  * 1:密码登陆时的参数
  * @param phone:String
@@ -93,7 +123,8 @@ Mock.mock(AppConfig.ApiConfig.login, {
         lifeScore: 3000, /*正念生活积分*/
         totalScore: 8000, /*总分*/
         level: 1, /*会员级别:1：普通会员 2:高级会员 3:堂主*/
-        range: 1 /*积分排名*/
+        range: 1, /*积分排名*/
+        token:'2324'
     }
 });
 
@@ -129,11 +160,11 @@ Mock.mock(AppConfig.ApiConfig.validatePhone, {
  * */
 Mock.mock(AppConfig.ApiConfig.getIntegralDetail, {
     'status': 0,
-    'data|10-15': [
+    'data|15-18': [
         {
-            "title|1": ["[扶老奶奶过马路] 活动报名", "正念行走", "捐款1000元", "吃麻花比赛", "正念用餐", "生命数字", "正念静坐"],
+            "item|1": ["[扶老奶奶过马路] 活动报名", "正念行走", "捐款1000元", "吃麻花比赛", "正念用餐", "生命数字", "正念静坐"],
             "score|1": [20, 18, 30, 50, 80, 15],
-            "date|1": ['2016/11/08 08:30', '2016/11/09 10:30', '2016/11/10 20:00']
+            "time|1": ['2016/11/08 08:30', '2016/11/09 10:30', '2016/11/10 20:00']
         }
     ]
 });
@@ -4146,12 +4177,13 @@ Mock.mock(AppConfig.ApiConfig.getLife, {
     'status': 0,
     'data': {
         title: "十五分钟静坐",
-        text: "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。<br/>舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。<br/>舍利子，是诸法空相，不生不灭，不垢不净，不增不减。<br/>是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。<br/>无苦集灭道，无智亦无得。<br/>以无所得故。菩提萨埵，依般若波罗蜜多故，心无挂碍。<br/>无挂碍故，无有恐怖，远离颠倒梦想，究竟涅盘。<br/>三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。<br/>",
+        text: "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空度一切苦厄。<br/>舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。<br/>舍利子，是诸法空相，不生不灭，不垢不净，不增不减。<br/>是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。<br/>无苦集灭道，无智亦无得。<br/>以无所得故。菩提萨埵，依般若波罗蜜多故，心无挂碍。<br/>无挂碍故，无有恐怖，远离颠倒梦想，究竟涅盘。<br/>三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。<br/>",
         integral: 120,
-        isOpen: 1,
+        token:'xx76458854h',
+        isOpen: 0,
         audios: [
             "http://xyhd.oss-cn-shenzhen.aliyuncs.com/mp3/%EC%8B%AC%EC%BF%B5%20(%E5%BF%83%E5%8A%A8)%20-%20%EB%B0%95%EB%B3%B4%EB%9E%8C%20(%E6%9C%B4%E5%AE%9D%E8%93%9D).mp3",
-            "http://mp3.haoduoge.com/s/2016-09-29/1475120524.mp3"
+            "http://xyhd.oss-cn-shenzhen.aliyuncs.com/mp3/%E9%97%B9%E9%92%9F%E9%9F%B3%E6%95%88.mp3"
         ]
     }
 });

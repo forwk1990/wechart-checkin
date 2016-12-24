@@ -42,7 +42,7 @@ class Login extends React.Component {
         }
 
         self.setState({isLanding: true});
-        this.login({phone: phone, code: code});
+        this.login({phone: phone, code: code},true);
     }
 
     loginByPassword(phone, password) {
@@ -76,7 +76,6 @@ class Login extends React.Component {
                 self.context.router.replace('mine/archive');
             }
         }, function (error) {
-            if (isStop) self.setState({isStop: false});
             self.setState({isLanding: false});
             MessageBox.show(error.message);
         });

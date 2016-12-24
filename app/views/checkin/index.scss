@@ -59,6 +59,13 @@ span.checkin-link{
 
 .content{
   padding:0 40px 40px 40px;
+
+  .desc{
+    font-size:28px;
+    color:#999;
+    font-family: "PingFang SC";
+
+  }
 }
 
 .address{
@@ -96,26 +103,7 @@ span.checkin-link{
   height:100px;
   align-items: center;
 
-  .desc{
-    @extend %flex-column-base;
 
-    span:first-child{
-      display: block;
-      font-size:56px;
-      color:#333333;
-      font-family: "PingFang SC";
-      font-weight: 500;
-    }
-
-    span:last-child{
-      font-family: "PingFang SC";
-      color:#999999;
-      font-size: 28px;
-      line-height: 32px;
-      //margin-top:10px;
-    }
-
-  }
 
   .logo{
     width:100px;

@@ -65,7 +65,11 @@ class Edit extends React.Component {
         }
 
         this.setState({status: 1});
-        DataStore.fill({...values, uid: self.props.uid,code:this.props.params.code}).then(function (responseObject) {
+
+        // 存在checkinUid 取uid，不存在就取localUid
+        const uid = self.props.uid ? self.props.uid : self.props.localUid;
+
+        DataStore.fill({...values, uid: uid, code: this.props.params.code}).then(function (responseObject) {
             console.info(responseObject);
             self.setState({status: 0});
             self.context.router.push(`success`);
@@ -152,7 +156,8 @@ Edit.contextTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        uid: state.checkInReducer.uid
+        uid: state.checkInReducer.uid,
+        localUid: state.userInfoReducer.id
     }
 }
 

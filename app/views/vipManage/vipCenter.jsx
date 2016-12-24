@@ -1,6 +1,7 @@
 import React from 'react';
 import './vipCenter.scss';
 import {connect} from 'react-redux';
+import {MessageBox} from 'Utils';
 
 class VipCenterCell extends React.Component {
     constructor(props) {
@@ -29,7 +30,11 @@ class VipCenter extends React.Component {
     }
 
     handleClick() {
-        this.context.router.push('vipTicket');
+        if(!this.props.name){
+            MessageBox.show("您还未实名认证哦");
+        }else{
+            this.context.router.push('vipTicket');
+        }
     }
 
     componentDidMount(){

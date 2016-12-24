@@ -8,7 +8,7 @@ class Feedback extends React.Component{
     }
 
     componentDidMount(){
-        document.title = "我的反馈";
+        document.setTitle("我的反馈");
     }
 
     render(){

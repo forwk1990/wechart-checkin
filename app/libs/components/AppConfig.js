@@ -2,7 +2,7 @@
  * Created by itachi on 16/11/3.
  */
 
-const domain = "http://www.joyiou.com/";
+const domain = `http://${__SERVER_URL__}/`;
 const serverUrl = "services/";
 
 function _getFullUrlFromRelative(category,relativeUrl){
@@ -90,9 +90,14 @@ var Config =  {
         login:_getFullUrlFromRelative("UserServer","login"),
 
         /*
+        * 自动登录
+        * */
+        autoLogin:_getFullUrlFromRelative("UserServer","autoLogin"),
+
+        /*
         * 配置微信
         * */
-        wxConfig:"http://www.joyiou.com/wxpt/wxConfig.jsp",
+        wxConfig:`http://${__SERVER_URL__}/wxpt/wxConfig.jsp`,
 
         /*
         * 修改昵称

@@ -51,7 +51,7 @@ class SysIndex extends React.Component {
     }
 
     componentDidMount(){
-        document.title = "生命数字";
+        document.setTitle("生命数字");
     }
 
     handleSubmit() {
