@@ -38,7 +38,7 @@ class Clock extends React.Component {
         var semiCicleDegTotal = 0;
         const deg = funcInterval * 360 / this.state.timeInterval;
         this.interval = setInterval(function () {
-            if (!self.state.isStart)return;
+            if (!self.state.isStart) return;
             semiCicleDegTotal = semiCicleDegTotal + deg;
             musicDegTotal = musicDegTotal + deg;
             const selector = !switcher ? ".life-clock-pie-container-progress-left" : ".life-clock-pie-container-progress-right";
@@ -51,21 +51,20 @@ class Clock extends React.Component {
                 $(".life-clock-pie-container-left").show();
                 $(".life-clock-pie-container-right").css("z-index", 8);
                 $(".life-clock-pie-container-alarm-flag").css("z-index", 9);
-                if (musicDegTotal >= 360) {
-                    clearInterval(self.interval);
-                    self.setState({isShowMessage: true});
-                    self.playMusicToggle(true);
-                    //self.playAlarm();
-                }
             }
             const timeInterval = self.state.timeInterval - funcInterval;
             if (timeInterval > 0) {
                 self.setState({timeInterval: timeInterval});
             } else {
-                self.setState({timeInterval: 0});
+                self.setState({timeInterval: 0, isShowMessage: true});
             }
             if (360 * 0.95 <= musicDegTotal) {
                 self.notifyComplete();
+            }
+            if (musicDegTotal >= 360) {
+                clearInterval(self.interval);
+                // self.playMusicToggle(true);
+                //self.playAlarm();
             }
         }, funcInterval);
     }
@@ -85,6 +84,10 @@ class Clock extends React.Component {
         this.rotate(".life-clock-pie-container-music-flag", 0);
         this.rotate(".life-clock-pie-container-progress-left", 0);
         this.rotate(".life-clock-pie-container-progress-right", 0);
+    }
+
+    confirmResult() {
+
     }
 
     getCurrentTime() {
@@ -196,7 +199,7 @@ class Clock extends React.Component {
                 }
                 }
                 {
-                    this.props.audios.map(function (audio, index) {
+                    !this.state.isShowMessage && this.props.audios.map(function (audio, index) {
                         return (
                             <div className="life-clock-audio" key={index}>
                                 <audio id={`life-audio-${index}`} ref={`life-audio-${index}`}
