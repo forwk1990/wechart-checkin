@@ -3,7 +3,6 @@
  */
 
 var Mock = require("mockjs");
-var MockRandom = Mock.Random;
 var AppConfig = require("./../components/AppConfig.js");
 
 // 配置请求的相应时间
@@ -18,11 +17,24 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
         'title': '禅宗',
         "lng": 116.397428,
         "lat": 39.90923,
+        'isExistGroup':1,
         'imageUrl': 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
         'subTitle': '成都养生协会国学交流论坛',
         'address': '湖北省武汉市武昌区积玉桥街金地国际花园',
         'activeTime': '@datetime("yyyy/MM/dd HH:mm")',
         'desc': '这是一场分享如何平复自己心灵，学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。学会静心养身的交流会。我们邀请了知名的国学大师：错红酒来为我们分享中国古文学中静气灵神的经验。'
+    }
+});
+
+/*
+* 获取活动群信息
+* @param:id:String 活动ID
+* */
+Mock.mock(AppConfig.ApiConfig.getActivityGroup,{
+    'status':0,
+    'data':{
+        name:'正念班禅辣妈',/*群名称*/
+        url:'http://www.joyiou.com'/*群二维码地址*/
     }
 });
 

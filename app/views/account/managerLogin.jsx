@@ -51,7 +51,7 @@ class ManagerLogin extends React.Component {
         return (
             <div className="login-page">
                 <div className="login-page-v">
-                    <div className="login-page-title">喜悦登陆</div>
+                    <div className="login-page-title">喜悦验票</div>
                     <div className="login-page-edit-row">
                         <div className="left-label">帐号</div>
                         <input type="text" name="username" ref="username"/>

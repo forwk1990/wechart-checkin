@@ -16,6 +16,7 @@ import Index from 'checkin/index'
 import Success from 'checkin/success'
 import Validate from 'checkin/validate'
 import Activity from 'checkin/activity';
+import ActivityGroup from 'checkin/activityGroup';
 
 import {LifeIndex,LifeWrapper} from 'life/index'
 
@@ -124,6 +125,7 @@ ReactDOM.render(
                 <Route path="ticket/:code/:shortCode/:isExt" component={Ticket}/>
                 <Route path="index" component={Index}/>
                 <Route path="edit/:code" component={Edit}/>
+                <Route path="activityGroup/:activityId" component={ActivityGroup}/>
                 <Route path="success" component={Success}/>
                 <Route path="validate/:code" component={Validate}/>
                 <Route path="sys" component={SysIndex}/>

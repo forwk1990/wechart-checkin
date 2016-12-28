@@ -37,15 +37,14 @@ class Ticket extends Component {
                 alert(res);
             }
         });
-        // window.location.href = window.location.origin + `/wx/map.html?lat=${this.props.lat}&lng=${this.props.lng}&t=${Math.random()}`;
     }
 
     render() {
         const self = this;
-        var {title, address, date, isReady} = self.props;
+        var {title, address, date, isReady,isExistGroup} = self.props;
+        const queryParameters = QueryString.parse(location.search);
         if (!title) {
             title = "加载中...";
-            const queryParameters = QueryString.parse(location.search);
             if (!queryParameters.id) return;
             self.props.dispatch((dispatch) => {
                 dispatch({type: ActionTypes.getActivityBefore});
@@ -58,7 +57,6 @@ class Ticket extends Component {
             });
         }
         const imgUrl = require("logo");
-        console.log(imgUrl);
         return (
             <div className="ticket">
                 <div className="ticket-card">
@@ -87,8 +85,18 @@ class Ticket extends Component {
                         <div className="ticket-sicircle-bottom-right"></div>
                     </div>
                     <div className="ticket-card-bottom">
-                        { parseInt(self.props.params.isExt) ? (<div className="ticket-card-bottom-ok">完善个人资料 获专业服务</div>)
-                            : (<Link to={`edit/${this.props.params.code}`} className="ticket-card-bottom-link">完善个人资料 获专业服务</Link>)}
+                        { parseInt(self.props.params.isExt) ? isExistGroup && (
+                            <div className="ticket-card-bottom-container-center">
+                                <Link to={`activityGroup/${queryParameters.id}`} className="ticket-card-bottom-container-center-group">立即加入活动群</Link>
+                            </div>
+                        ) : (
+                            <div className="ticket-card-bottom-container-between">
+                                <Link to={`activityGroup/${queryParameters.id}`} className="ticket-card-bottom-container-between-group">立即加入活动群</Link>
+                                <div className="ticket-card-bottom-container-between-fix">
+                                    <Link to={`edit/${self.props.params.code}`} className="ticket-card-bottom-link">完善个人资料 获专业服务</Link>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -108,9 +116,9 @@ const mapStateToProps = (state) => {
         imageUrl: state.getActivityReducer.imageUrl,
         lng: state.getActivityReducer.lng,
         lat: state.getActivityReducer.lat,
+        isExistGroup:state.getActivityReducer.isExistGroup == 1,
         address: state.getActivityReducer.address,
-        date: state.getActivityReducer.date,
-        activityId: state.getActivityReducer.activityId,
+        date: state.getActivityReducer.activeTime,
         isExt: state.checkInReducer.isExt,
         shortUrl: state.checkInReducer.shortUrl
     }

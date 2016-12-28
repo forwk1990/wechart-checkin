@@ -90,6 +90,11 @@ var Config =  {
         login:_getFullUrlFromRelative("UserServer","login"),
 
         /*
+        * 获取活动群二维码
+        * */
+        getActivityGroup:_getFullUrlFromRelative("CheckInServer","getActivityGroup"),
+
+        /*
         * 自动登录
         * */
         autoLogin:_getFullUrlFromRelative("UserServer","autoLogin"),
