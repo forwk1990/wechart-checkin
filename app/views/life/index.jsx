@@ -365,7 +365,7 @@ class LifeIndex extends React.Component {
     }
 
     componentDidMount() {
-        document.setTitle("喜悦");
+        document.setTitle("正念训练");
     }
 
     render() {

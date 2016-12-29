@@ -1,5 +1,5 @@
 
 import OfflineActivities from './OfflineActivities'
-import MineActivities from './MineActivities'
+import MineActivitiesTabPages from './MineActivities'
 
-export {OfflineActivities,MineActivities}
+export {OfflineActivities,MineActivitiesTabPages}

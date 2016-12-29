@@ -33,7 +33,8 @@ let theme = {
     "@font-size-caption": "35px",
     "@font-size-popup-title": "32px",
     "@font-size-popup-selected": "40px",
-    "@input-color-icon": "#fff"
+    "@input-color-icon": "#fff",
+    "@tabs-color":"#FAB631"
 };
 
 const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';
@@ -43,8 +44,8 @@ const px2remOpts = {
     propWhiteList: []
 }
 
-// const host = "192.168.2.112";/**/ // 家用
-const host = "192.168.31.176"; // 公司
+const host = "192.168.2.112";/**/ // 家用
+// const host = "192.168.31.176"; // 公司
 
 module.exports = {
     postcss: [px2rem(px2remOpts)],
@@ -119,6 +120,7 @@ module.exports = {
             template: 'template/index.template.html',      //按照此文件内容生成index.html
             inject: 'body',
             minify: false,
+            favicon:path.resolve('app/assets/images/favicon.ico'),
             hash: true,
             cache: false,
             showErrors: false

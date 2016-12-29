@@ -4,8 +4,6 @@
 
 
 
-
-
 module.exports = {
     Text:"text",
     Select:"select",

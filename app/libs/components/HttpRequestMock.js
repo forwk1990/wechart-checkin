@@ -4128,26 +4128,29 @@ Mock.mock(AppConfig.ApiConfig.getMyActivity, {
             address: '张之洞路窑洞之王',
             code: 'eF3efd',
             shortCode: '3erfd',
+            status:1,
             isComplete: 1
         },
         {
             id: '2',
             title: '活在我们心中的雷锋哥哥',
             imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-            activeTime: '2016/11/08 00:00:00',
+            activeTime: '2016/08/08 00:00:00',
             address: '汉阳大道雾里吞',
             code: 'eF3efd',
             shortCode: '3erfd',
+            status:2,
             isComplete: 0
         },
         {
             id: '3',
             title: '咱们屯里的人纪念发布会',
             imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
-            activeTime: '2016/11/08 00:00:00',
+            activeTime: '2016/02/08 00:00:00',
             address: '光谷大道中山公园',
             code: 'eF3efd',
             shortCode: '3erfd',
+            status:-1,
             isComplete: 1
         }
     ]

@@ -53,6 +53,8 @@ class Index extends React.Component {
     // 组件加载到DOM中之后调用
     componentDidMount() {
         let self = this;
+
+        document.setTitle("活动报名");
         /*
          * 获取查询字符串
          * */

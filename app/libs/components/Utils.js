@@ -36,6 +36,32 @@ module.exports = {
             if(level == 3)return "堂主";
             return "普通会员";
         }
+    },
+    ColorManager:{
+        _springColor(){
+            return "#69B26B";
+        },
+        _summerColor(){
+            return "#5DBBE9";
+        },
+        _autumnColor(){
+            return "#FAB631"
+        },
+        _winterColor(){
+            return "#A16BCA"
+        },
+        currentSeasonInfo(date){
+            const month = new Date(Date.parse(date)).getMonth() + 1;
+            if(month >= 1 && month <=3){
+                return {color:this._springColor(),imageUrl:require('喜宝绿色底')}
+            }else if(month > 3 && month < 7){
+                return {color:this._summerColor(),imageUrl:require('喜宝蓝色底')}
+            }else if(month >= 7 && month <= 9){
+                return {color:this._autumnColor(),imageUrl:require('喜宝橙色底')}
+            }else{
+                return {color:this._winterColor(),imageUrl:require('喜宝紫色底')};
+            }
+        }
     }
 };
 
