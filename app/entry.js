@@ -59,10 +59,11 @@ import VipSuccess from 'vipManage/vipSuccess';
 import VipInvalidate from 'vipManage/vipInvalidate';
 import VipExist from 'vipManage/vipExist';
 
-
-
 import DataStore from 'DataStore'
 import QueryString from 'query-string'
+
+
+import {OfflineActivities,MineActivities} from 'activity/index.js'
 
 
 /*
@@ -128,6 +129,8 @@ ReactDOM.render(
                 <Route path="activityGroup/:activityId" component={ActivityGroup}/>
                 <Route path="success" component={Success}/>
                 <Route path="validate/:code" component={Validate}/>
+                <Route path="offlineActivities" component={OfflineActivities}/>
+                <Route component={MineActivities} path="mine/activities"/>
                 <Route path="sys" component={SysIndex}/>
                 <Route path="sysValue" component={SysValue}/>
                 <Route path="life" component={LifeIndex}/>

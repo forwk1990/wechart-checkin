@@ -22,6 +22,7 @@ class Ticket extends Component {
         const qrCodeHeight = $(".ticket-card-middle").height() - 38 - 88;
         $(".ticket-card-middle-qrcode").width(qrCodeHeight).height(qrCodeHeight);
         this.setState({size: $(".qr-container").height()});
+        document.setTitle("我的入场券");
     }
 
     handleMap() {
@@ -85,7 +86,7 @@ class Ticket extends Component {
                         <div className="ticket-sicircle-bottom-right"></div>
                     </div>
                     <div className="ticket-card-bottom">
-                        { parseInt(self.props.params.isExt) ? isExistGroup && (
+                        { parseInt(self.props.params.isExt) ? (
                             <div className="ticket-card-bottom-container-center">
                                 <Link to={`activityGroup/${queryParameters.id}`} className="ticket-card-bottom-container-center-group">立即加入活动群</Link>
                             </div>

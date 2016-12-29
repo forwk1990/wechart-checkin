@@ -9,7 +9,8 @@ class ActivityGroup extends React.Component {
         this.state = {
             isRequest: false,
             name: '',
-            url: ''
+            url: '',
+            isExist: true
         };
     }
 
@@ -19,13 +20,13 @@ class ActivityGroup extends React.Component {
         DataStore.getActivityGroup({id: self.props.params.activityId}).then(function (responseObject) {
             self.setState({isRequest: false});
             self.setState({name: responseObject.name, url: responseObject.url});
-        },function(){
-
+        }, function () {
+            self.setState({isRequest: false,isExist: false});
         });
     }
 
     render() {
-        return this.state.isRequest ? (<div className="loading"></div>) : (
+        return this.state.isRequest ? (<div className="loading"></div>) : this.state.isExist ? (
             <div className="activity-group">
                 <div className="activity-group-content">
                     <div className="activity-group-content-header">
@@ -42,7 +43,7 @@ class ActivityGroup extends React.Component {
                     </div>
                 </div>
             </div>
-        );
+        ) : (<div className="activity-group-nothing">暂无活动群信息</div>);
     }
 }
 

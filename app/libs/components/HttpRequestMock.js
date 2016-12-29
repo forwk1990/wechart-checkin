@@ -31,7 +31,7 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
 * @param:id:String 活动ID
 * */
 Mock.mock(AppConfig.ApiConfig.getActivityGroup,{
-    'status':0,
+    'status':-1,
     'data':{
         name:'正念班禅辣妈',/*群名称*/
         url:'http://www.joyiou.com'/*群二维码地址*/
@@ -4163,21 +4163,21 @@ Mock.mock(AppConfig.ApiConfig.getAllActivity, {
         {
             id: '1',
             title: '纪念逝去的杀马特',
-            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            imageUrl: 'http://joyiou.oss-cn-shanghai.aliyuncs.com/mp3/%E5%85%BB%E6%81%AF%E5%A0%82%E5%89%8D%E5%8E%85.jpg',
             activeTime: '2016/11/08 00:00:00',
             address: '张之洞路张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王窑洞之王'
         },
         {
             id: '2',
             title: '活在我们心中的雷锋哥哥',
-            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            imageUrl: 'http://joyiou.oss-cn-shanghai.aliyuncs.com/userimage/503432961722898520.jpg',
             activeTime: '2016/11/08 00:00:00',
             address: '汉阳大道雾里吞'
         },
         {
             id: '3',
             title: '咱们屯里的人纪念发布会',
-            imageUrl: 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
+            imageUrl: 'http://joyiou.oss-cn-shanghai.aliyuncs.com/userimage/46163683726841720.jpg',
             activeTime: '2016/11/08 00:00:00',
             address: '光谷大道中山公园'
         }

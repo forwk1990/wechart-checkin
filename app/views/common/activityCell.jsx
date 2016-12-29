@@ -22,8 +22,7 @@ class ActivityCell extends React.Component {
             <div className="activity-cell">
                 <div className="activity-cell-container" onClick={ () => this.handleNavigate()}>
                     <div className="activity-cell-container-title">{this.props.activity.title}</div>
-                    <div className="activity-cell-container-image"
-                         style={{background: `url(${this.props.activity.imageUrl}) center center / cover no-repeat`}}>
+                    <div className="activity-cell-container-image" style={{background: `url(${this.props.activity.imageUrl}) center center / cover no-repeat`}}>
                     </div>
                     <div className="activity-cell-container-date">{this.props.activity.activeTime}</div>
                     <div className="activity-cell-container-address text-overflow">{this.props.activity.address}</div>

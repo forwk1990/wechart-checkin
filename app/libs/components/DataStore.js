@@ -6,7 +6,7 @@
  * 开发环境下，开启HttpRequestMock。
  * */
 if (__DEV__) {
-    require("../utils/HttpRequestMock.js");
+    require("./HttpRequestMock.js");
 }
 
 let AppConfig = require("./AppConfig.js");

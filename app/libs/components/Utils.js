@@ -38,3 +38,121 @@ module.exports = {
         }
     }
 };
+
+
+/**
+ * 使用正则表达式校验电子邮箱
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ function isEmail(str) {
+    return /^\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验手机号
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isMobile(str) {
+    return /^0?(13|14|15|17|18)[0-9]{9}$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验电话号
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isTel(str) {
+    return /^[0-9-()\+]{7,18}$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验网址
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isUrl(str) {
+    return /^[a-zA-Z]+:\/\/[^\s]+$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验日期
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isDate(str) {
+    return /^\d{4}(\-|\/|.)\d{1,2}\1\d{1,2}$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验时间
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isDatetime(str) {
+    return /^\d{4}(\-|\/|.)\d{1,2}\1\d{1,2} \d{1,2}:\d{1,2}$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验中文
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isZh(str) {
+    return /^[\u4E00-\u9FA5\s]+$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验用户名
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isUsername(str) {
+    return /^[A-Za-z0-9_\-\u4E00-\u9FA5\s]+$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验真实姓名
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isRealname(str) {
+    return /^[A-Za-z\u4E00-\u9FA5\s]+$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验中国邮编
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isZipcode(str) {
+    return /^[1-9]\d{5}$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验中国身份证
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isIdcard(str) {
+    return /(^\d{17}[\d|x|X]$)|(^\d{15}$)/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验IP地址
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isIp(str) {
+    return /^((?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d))$/.test(str);
+}
+
+ /!**
+ * 使用正则表达式校验数字
+ * @param	string	str	要校验的字符串
+ * @return	bool
+ *!/
+ function isDecimal(str) {
+    return /^([+-]?)\d*\.?\d+$/.test(str);
+}*/
+
