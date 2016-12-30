@@ -3,7 +3,7 @@ import './index.scss'
 import {Carousel, Modal} from 'antd-mobile';
 import DataStore from 'DataStore'
 import {connect} from 'react-redux';
-import {MessageBox, Validator} from 'Utils';
+import {MessageBox, Validator, WxManager} from 'Utils';
 import LoginModal from 'LoginModal';
 
 
@@ -257,7 +257,6 @@ class Life extends React.Component {
     componentDidMount() {
         const self = this;
         const type = self.props.params.type;
-
         // 获取生命吃走睡
         DataStore.getLife({type: parseInt(type)}).then(function (responseObject) {
             self.setState({
@@ -269,9 +268,11 @@ class Life extends React.Component {
                 integral: responseObject.integral,
                 annouce: `${document.title},健康生活`
             });
+            WxManager.shareAllWithOption({title: document.title, desc: `${document.title},健康生活`})
         }, function (error) {
             MessageBox.show(error.message);
         });
+        if (!this.props.openId) this.setState({visible: true})
     }
 
     componentWillMount() {
@@ -345,13 +346,13 @@ Life.contextTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        id: state.userInfoReducer.id /*用户ID*/
+        id: state.userInfoReducer.id, /*用户ID*/
+        openId: state.userInfoReducer.openId
     };
 }
 
 
 const LifeWrapper = connect(mapStateToProps)(Life)
-
 
 class LifeIndex extends React.Component {
 
@@ -366,6 +367,9 @@ class LifeIndex extends React.Component {
 
     componentDidMount() {
         document.setTitle("正念训练");
+        wx && wx.ready(function () {
+            WxManager.shareAllWithOption(WxManager.exerciseShareOptions())
+        })
     }
 
     render() {

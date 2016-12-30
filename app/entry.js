@@ -59,64 +59,15 @@ import VipSuccess from 'vipManage/vipSuccess';
 import VipInvalidate from 'vipManage/vipInvalidate';
 import VipExist from 'vipManage/vipExist';
 
-import DataStore from 'DataStore'
-import QueryString from 'query-string'
+import WXOnly from 'WxOnly'
+
 
 
 import {OfflineActivities,MineActivitiesTabPages} from 'activity/index.js'
 
-
 /*
  *
  * */
-
-if (wx && !__DEV__) {
-    DataStore.wxConfig({currentUrl: window.location.href}).then(function (configObject) {
-        console.log("微信配置成功", window.location.href);
-        wx.config({
-            debug: false,
-            appId: configObject["appId"],
-            timestamp: parseInt(configObject.timeStamp),//configObject.timeStamp
-            nonceStr: configObject.nonceStr,
-            signature: configObject.signature,
-            jsApiList: [
-                'onMenuShareTimeline',
-                'onMenuShareAppMessage',
-                'onMenuShareQQ',
-                'onMenuShareWeibo',
-                'scanQRCode',
-                'onMenuShareQZone',
-                'chooseImage',
-                'uploadImage',
-                'getLocation'
-            ]
-        });
-        wx.ready(function () {
-            const queryParameters = QueryString.parse(location.search);
-            if(queryParameters && queryParameters.id){
-                DataStore.getActivityInfo({id: queryParameters.id}).then(function (responseObject) {
-                    var shareData = {
-                        title: responseObject.title,
-                        desc: responseObject.desc,
-                        link: window.location.origin + `/wx/index.jsp?id=${queryParameters.id}&t=${Math.random()}`,
-                        imgUrl: responseObject.imageUrl
-                    };
-                    wx.onMenuShareAppMessage(shareData);
-                    wx.onMenuShareTimeline(shareData);
-                    wx.onMenuShareQQ(shareData);
-                    wx.onMenuShareQZone(shareData);
-                    wx.onMenuShareWeibo(shareData);
-                });
-            }
-            wx.hideMenuItems({
-                menuList: [
-                    "menuItem:copyUrl", "menuItem:originPage", "menuItem:openWithQQBrowser",
-                    "menuItem:openWithSafari", "menuItem:exposeArticle", "menuItem:setFont"
-                ]
-            });
-        });
-    });
-}
 
 ReactDOM.render(
     <Provider store={store}>
@@ -128,10 +79,11 @@ ReactDOM.render(
                 <Route path="edit/:code" component={Edit}/>
                 <Route path="activityGroup/:activityId" component={ActivityGroup}/>
                 <Route path="success" component={Success}/>
+                <Route component={WXOnly} path="wxOnly"/>
                 <Route path="validate/:code" component={Validate}/>
                 <Route path="offlineActivities" component={OfflineActivities}/>
                 <Route component={MineActivitiesTabPages} path="mine/activities"/>
-                <Route path="sys" component={SysIndex}/>
+                <Route path="mine/sys" component={SysIndex}/>
                 <Route path="sysValue" component={SysValue}/>
                 <Route path="life" component={LifeIndex}/>
                 <Route path="life/:type" component={LifeIndex}/>

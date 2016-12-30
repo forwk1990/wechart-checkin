@@ -117,8 +117,6 @@ class Index extends React.Component {
         }, function (error) {
             self.setState({isRequest: false});
             MessageBox.show(error.message);
-            // if (error.level == 0) MessageBox.show(error.message);
-            // if (error.level == 1) MessageBox.show("网络暂不给力,请稍后再试");
         });
     }
 
@@ -136,9 +134,9 @@ class Index extends React.Component {
             success: function (res) {
                 var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
                 var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                window.location.href = window.location.origin + `/wx/map.html?lat=${self.props.lat}&lng=${self.props.lng}&t=${Math.random()}&clat=${latitude}&clng=${longitude}`;
+                window.location.href = window.location.origin + `/${__SERVER_RELATIVE_FOLDER}/map.html?lat=${self.props.lat}&lng=${self.props.lng}&t=${Math.random()}&clat=${latitude}&clng=${longitude}`;
             },
-            fail:function (res) {
+            fail: function (res) {
                 alert(res);
             }
         });
@@ -146,15 +144,18 @@ class Index extends React.Component {
 
     render() {
         var self = this;
-        const {isReady, imageUrl, address, date,desc} = this.props;
+        const {isReady, imageUrl, address, date, desc, isFull} = this.props;
         return !isReady ? (<div className="loading"></div>)
             : (
             <RouteTransition
                 component={false}
                 pathname={this.props.location.pathname}
                 {...presets.fade}>
-                <div className="index">
-                    <div className="index-img" style={{background: `url(${imageUrl}) center center no-repeat`,backgroundSize:'100% 100%'}}></div>
+                {isFull == 1 ? (<div className="full-message">活动人数已满，报名暂时关闭</div>) : (<div className="index">
+                    <div className="index-img" style={{
+                        background: `url(${imageUrl}) center center no-repeat`,
+                        backgroundSize: '100% 100%'
+                    }}></div>
                     <div className="content">
                         <div className="address" onClick={this.handleMap.bind(this)}>
                             <img src={require("location_back")}/>
@@ -181,7 +182,7 @@ class Index extends React.Component {
                         <LoadingButton text="报名领取参与券" loadingText="领取中..." status={this.state.isRequest}
                                        onClick={() => this.handleSubmit()}/>
                     </div>
-                </div>
+                </div>)}
             </RouteTransition>
         );
     }
@@ -196,6 +197,7 @@ const mapStateToProps = (state) => {
     return {
         isReady: state.getActivityReducer.isReady,
         title: state.getActivityReducer.title,
+        isFull: state.getActivityReducer.isFull,
         lng: state.getActivityReducer.lng,
         lat: state.getActivityReducer.lat,
         imageUrl: state.getActivityReducer.imageUrl,

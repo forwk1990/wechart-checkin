@@ -102,7 +102,7 @@ var Config =  {
         /*
         * 配置微信
         * */
-        wxConfig:`http://${__SERVER_URL__}/wxpt/wxConfig.jsp`,
+        wxConfig:`http://${__SERVER_URL__}/heartjoyiou/wxpt/oauth.jsp`,
 
         /*
         * 修改昵称

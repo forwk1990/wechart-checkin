@@ -6,6 +6,7 @@ import LoadingButton from 'loadingButton';
 import {connect} from 'react-redux';
 import {MessageBox, Validator} from 'Utils';
 import DataStore from 'DataStore';
+import QueryString from 'query-string'
 import ActionTypes from 'constants/ActionTypes';
 
 
@@ -20,7 +21,7 @@ class Login extends React.Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = "喜悦登陆";
     }
 
@@ -40,9 +41,9 @@ class Login extends React.Component {
             MessageBox.show("手机号格式不正确");
             return;
         }
-
         self.setState({isLanding: true});
-        this.login({phone: phone, code: code},true);
+        const queryParameters = QueryString.parse(location.search);
+        this.login({phone: phone, code: code, wxCode: queryParameters.code}, true);
     }
 
     loginByPassword(phone, password) {
@@ -101,16 +102,16 @@ class Login extends React.Component {
         this.turnLeft = !this.turnLeft;
     }
 
-    handleVerifyCode(){
+    handleVerifyCode() {
         const phone = this.refs['v-phone'].value;
         if (!phone) {
             MessageBox.show("请输入手机号");
             return false;
         }
         // 获取手机验证码
-        DataStore.getVerifyCode({phone: phone,type:1}).then(function () {
+        DataStore.getVerifyCode({phone: phone, type: 1}).then(function () {
             console.info("get verify code success");
-        },function (error) {
+        }, function (error) {
             console.info(error);
         });
     }
@@ -127,7 +128,7 @@ class Login extends React.Component {
                     <div className="login-page-edit-row">
                         <div className="left-label">短信验证码</div>
                         <input type="tel" name="code" ref="v-code"/>
-                        <CountDown text="点击获取" stop={this.state.isStop}  onClick={() => this.handleVerifyCode()}/>
+                        <CountDown text="点击获取" stop={this.state.isStop} onClick={() => this.handleVerifyCode()}/>
                     </div>
                     <LoadingButton text="登陆" loadingText="正在为您登陆..." status={this.state.isLanding}
                                    onClick={() => this.handleLogin()}/>

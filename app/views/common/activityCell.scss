@@ -24,6 +24,15 @@ $prefixClsCell: activity-cell;
       color: #000000;
     }
 
+    &-flag{
+      font-size:28px;
+      color:#f00000;
+      position:absolute;
+      top:0;
+      right:40px;
+      line-height: 90px;
+    }
+
     %data-address-base {
       text-align: left;
       font-size: 28px;

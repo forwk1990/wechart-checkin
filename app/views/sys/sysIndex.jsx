@@ -4,7 +4,7 @@ import LoadingButton from '../common/loadingButton'
 import {connect} from 'react-redux';
 import './sysIndex.scss';
 import DataStore from 'DataStore'
-import {MessageBox} from 'Utils';
+import {MessageBox,WxManager} from 'Utils';
 import ActionTypes from 'constants/ActionTypes';
 
 class SysIndex extends React.Component {
@@ -15,7 +15,8 @@ class SysIndex extends React.Component {
             yearMonthDadyData: this._getYearMonthDayData(),
             loading: 0,
             monthDate: [1980, 1, 1],
-            selected: false
+            selected: false,
+            visible: false
         }
     }
 
@@ -50,8 +51,23 @@ class SysIndex extends React.Component {
         return yearArray;
     }
 
-    componentDidMount(){
+    componentDidMount() {
         document.setTitle("生命数字");
+
+        if (!this.props.id) {
+            this.context.router.push(`login/${"sys"}`);
+        } else {
+            wx && wx.ready(function () {
+                WxManager.shareAllWithOption(WxManager.lifeNumberShareOptions())
+            })
+            if (!this.props.openId) this.setState({visible: true})
+        }
+    }
+
+    onClose() {
+        this.setState({
+            visible: false,
+        });
     }
 
     handleSubmit() {
@@ -112,15 +128,22 @@ class SysIndex extends React.Component {
                     <LoadingButton text="开始计算生命数" loadingText="计算中..." status={this.state.loading}
                                    onClick={() => this.handleSubmit()}/>
                 </div>
-
+                {this.state.visible && (<QRCodeModal onClose={() => this.onClose()}/>)}
             </div>
         );
     }
-
 }
+
 
 SysIndex.contextTypes = {
     router: React.PropTypes.object
 }
 
-export default connect()(SysIndex);
+const mapStateToProps = (state) => {
+    return {
+        id: state.userInfoReducer.id,
+        openId: state.userInfoReducer.openId
+    }
+}
+
+export default connect(mapStateToProps)(SysIndex);

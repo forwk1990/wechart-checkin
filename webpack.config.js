@@ -12,8 +12,8 @@ const fs = require('fs');
 const imagesDirectoryPath = path.resolve('app/assets/images/');
 var imagePathAlias = {};
 const imagesFiles = fs.readdirSync(imagesDirectoryPath);
-imagesFiles.forEach(function(file){
-    const filename = file.replace(path.extname(file),"");
+imagesFiles.forEach(function (file) {
+    const filename = file.replace(path.extname(file), "");
     imagePathAlias[filename] = path.resolve('app/assets/images/', file);
 });
 
@@ -26,6 +26,8 @@ imagesFiles.forEach(function(file){
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+//@font-size-heading
+
 let theme = {
     "@font-size-heading": "24px",
     "@font-size-input-label": "30px",
@@ -34,7 +36,7 @@ let theme = {
     "@font-size-popup-title": "32px",
     "@font-size-popup-selected": "40px",
     "@input-color-icon": "#fff",
-    "@tabs-color":"#FAB631"
+    "@tabs-color": "#FAB631"
 };
 
 const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';
@@ -44,8 +46,9 @@ const px2remOpts = {
     propWhiteList: []
 }
 
-const host = "192.168.2.112";/**/ // 家用
-// const host = "192.168.31.176"; // 公司
+// const host = "192.168.2.112";/**/ // 家用
+const host = "192.168.31.176"; // 公司
+const serverRelativeFolder = 'wx';
 
 module.exports = {
     postcss: [px2rem(px2remOpts)],
@@ -66,7 +69,7 @@ module.exports = {
     },
 
     resolve: {
-        alias: Object.assign({},imagePathAlias),
+        alias: Object.assign({}, imagePathAlias),
         root: [ // the root directory for searching modules
             path.resolve('app/views/'),
             path.resolve('app/views/common'),
@@ -120,7 +123,7 @@ module.exports = {
             template: 'template/index.template.html',      //按照此文件内容生成index.html
             inject: 'body',
             minify: false,
-            favicon:path.resolve('app/assets/images/favicon.ico'),
+            favicon: path.resolve('app/assets/images/favicon.ico'),
             hash: true,
             cache: false,
             showErrors: false
@@ -135,7 +138,8 @@ module.exports = {
          * */
         new webpack.DefinePlugin({
             __DEV__: 'true',
-            __SERVER_URL__: JSON.stringify(host),
+            __SERVER_URL__: JSON.stringify(host), /**/
+            __SERVER_RELATIVE_FOLDER: JSON.stringify(serverRelativeFolder)
         })
     ],
     module: {

@@ -7,32 +7,40 @@
     width:100%;
     height:584px;
     background-color:#fff;
+    font-size:30px;
     text-align: center;
 
     &-image{
       width:100%;
       height:384px;
+      display:block;
     }
 
     &-title{
       width:100%;
-      font-size:28px;
+      height:32px;
       color:#333;
+      font-size:32px;
+      line-height: 32px;
       margin-top:30px;
     }
 
     &-date{
       width:100%;
-      font-size:28px;
+      height:30px;
+      line-height: 30px;
       color:#999;
-      margin-top:20px;
+      margin-top:15px;
     }
 
     &-address{
       width:100%;
-      font-size:28px;
+      height:30px;
+      padding:0px 20px 0px 20px;
+      box-sizing: border-box;
+      line-height: 30px;
       color:#999;
-      margin-top:20px;
+      margin-top:15px;
     }
 
   }

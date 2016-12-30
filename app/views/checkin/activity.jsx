@@ -2,7 +2,8 @@ import React from 'react';
 import DataStore from 'DataStore';
 import {connect} from 'react-redux';
 import './activity.scss';
-import ActivityCell from 'activityCell';
+import ActivityCell from 'activityCell'
+import {WxManager} from 'Utils'
 
 const NoActivityList = () => {
     return (
@@ -34,6 +35,7 @@ class Activity extends React.Component {
         document.setTitle("线下活动");
         DataStore.getAllActivity({}).then(function (responseObject) {
             self.setState({activities: responseObject,isRequest: false});
+            WxManager.shareAllWithOption(WxManager.offlineShareOptions())
         },function () {
             self.setState({isRequest: false});
         });

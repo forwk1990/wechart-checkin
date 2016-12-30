@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
-import {MessageBox} from 'Utils';
+import {MessageBox, WxManager} from 'Utils';
 import {Vip} from 'Utils';
 import './archive.scss';
 import TableCell from 'tableCell';
@@ -12,6 +12,7 @@ class Archive extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {visible: false}
     }
 
     componentDidMount() {
@@ -19,8 +20,18 @@ class Archive extends React.Component {
             this.context.router.push(`login/${"archive"}`);
         } else {
             document.setTitle("我的喜悦");
+            if (!this.props.openId) this.setState({visible: true})
+            wx && wx.ready(function () {
+                WxManager.shareAllWithOption(WxManager.archiveShareOptions())
+            })
             return;
         }
+    }
+
+    onClose() {
+        this.setState({
+            visible: false,
+        });
     }
 
     handleNavigate(path) {
@@ -60,7 +71,7 @@ class Archive extends React.Component {
     }
 
     render() {
-        const {imageUrl, nickname, level, range,totalScore} = this.props;
+        const {imageUrl, nickname, level, range, totalScore} = this.props;
         const logoImageUrl = !imageUrl ? require('logo') : imageUrl;
         return (
             <div className="profile">
@@ -70,7 +81,8 @@ class Archive extends React.Component {
                 }}>
                     <div className="profile-header-base">
                         <div className="profile-header-base-side">
-                            <div className="profile-header-base-side-image" onClick={() => level == 3 && this.handleNavigate("mine/vipCenter")}>
+                            <div className="profile-header-base-side-image"
+                                 onClick={() => level == 3 && this.handleNavigate("mine/vipCenter")}>
                                 <img src={require('会员')}/>
                             </div>
                             <div className="profile-header-base-side-text">{Vip.getNameFromLevel(level)}</div>
@@ -79,7 +91,8 @@ class Archive extends React.Component {
                             <img src={logoImageUrl}/>
                         </div>
                         <div className="profile-header-base-side">
-                            <div className="profile-header-base-side-image" onClick={() => this.handleNavigate("mine/integral")}>
+                            <div className="profile-header-base-side-image"
+                                 onClick={() => this.handleNavigate("mine/integral")}>
                                 <img src={require('排名icon')}/>
                             </div>
                             <div className="profile-header-base-side-text">排名{range}</div>
@@ -92,15 +105,16 @@ class Archive extends React.Component {
                 </div>
                 <div className="profile-banner"></div>
                 <div className="profile-list">
-                    <TableCell imageUrl={require("我的资料")}  title="我的资料"m
-                                 extra="" onClick={() => this.handleNavigate("mine/profile")}/>
-                    <TableCell imageUrl={require("我的活动")}  title="我的活动"
-                                 extra="" onClick={() => this.handleNavigate("mine/activity")}/>
-                    <TableCell imageUrl={require("我的捐赠")}  title="我的捐赠" extra=""
-                                 onClick={() => this.handleNavigate("donate")}/>
-                    <TableCell imageUrl={require("我的反馈")}  title="我的反馈" extra=""
-                                 onClick={() => this.handleNavigate("feedback")}/>
+                    <TableCell imageUrl={require("我的资料")} title="我的资料" m
+                               extra="" onClick={() => this.handleNavigate("mine/profile")}/>
+                    <TableCell imageUrl={require("我的活动")} title="我的活动"
+                               extra="" onClick={() => this.handleNavigate("mine/activity")}/>
+                    <TableCell imageUrl={require("我的捐赠")} title="我的捐赠" extra=""
+                               onClick={() => this.handleNavigate("donate")}/>
+                    <TableCell imageUrl={require("我的反馈")} title="我的反馈" extra=""
+                               onClick={() => this.handleNavigate("feedback")}/>
                 </div>
+                {this.state.visible && (<QRCodeModal onClose={() => this.onClose()}/>)}
             </div>
         );
     }
@@ -112,6 +126,7 @@ const mapStateToProps = (state) => {
         nickname: state.userInfoReducer.nickname,
         level: state.userInfoReducer.level,
         range: state.userInfoReducer.range,
+        openId: state.userInfoReducer.openId,
         totalScore: state.userInfoReducer.totalScore,
         imageUrl: state.userInfoReducer.imageUrl
     }

@@ -4,7 +4,7 @@ import './myIntegral.scss';
 import LoadingButton from 'loadingButton';
 import LoadMoreButton from 'common/loadMoreButton';
 import {connect} from 'react-redux';
-import {MessageBox} from 'Utils';
+import {MessageBox,WxManager} from 'Utils';
 
 const mapStateToProps = (state) => {
     return {
@@ -303,12 +303,13 @@ class MyIntegralInner extends React.Component {
         console.log("this:",this);
         const self = this;
         if (!this.props.id) {
-            this.context.router.push(`login/${"integral"}`);
+            this.context.router.push(`login/${"archive"}`);
         } else {
             document.setTitle("我的能量");
             this.setState({isRequest: true});
             DataStore.getIntegralOrder({pageIndex: 0, pageSize: 5}).then(function (responseObject) {
                 self.setState({integrals: responseObject, isRequest: false});
+                //WxManager.shareAllWithOption(WxManager.integralOrderShareOptions())
                 self.drawPie();
             },function(error){
                 MessageBox.show(error.message)

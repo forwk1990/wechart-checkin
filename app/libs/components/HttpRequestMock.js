@@ -17,7 +17,8 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
         'title': '禅宗',
         "lng": 116.397428,
         "lat": 39.90923,
-        'isExistGroup':1,
+        'isExistGroup': 1,
+        'isFull': 0,
         'imageUrl': 'http://p8.qhimg.com/t019277942e2ab9709c.jpg',
         'subTitle': '成都养生协会国学交流论坛',
         'address': '湖北省武汉市武昌区积玉桥街金地国际花园',
@@ -27,38 +28,38 @@ Mock.mock(AppConfig.ApiConfig.getActivityInfo, {
 });
 
 /*
-* 获取活动群信息
-* @param:id:String 活动ID
-* */
-Mock.mock(AppConfig.ApiConfig.getActivityGroup,{
-    'status':-1,
-    'data':{
-        name:'正念班禅辣妈',/*群名称*/
-        url:'http://www.joyiou.com'/*群二维码地址*/
+ * 获取活动群信息
+ * @param:id:String 活动ID
+ * */
+Mock.mock(AppConfig.ApiConfig.getActivityGroup, {
+    'status': -1,
+    'data': {
+        name: '正念班禅辣妈', /*群名称*/
+        url: 'http://www.joyiou.com'/*群二维码地址*/
     }
 });
 
 /*
-* 生成邀请码
-* @param id:String 用户ID
-* */
-Mock.mock(AppConfig.ApiConfig.generateInviteCode,{
-    'status':0,
-    'data':{
-        code:'ReT8'
+ * 生成邀请码
+ * @param id:String 用户ID
+ * */
+Mock.mock(AppConfig.ApiConfig.generateInviteCode, {
+    'status': 0,
+    'data': {
+        code: 'ReT8'
     }
 });
 
 /*
-* 接受邀请
-* @param name:String 用户实名姓名
-* @param IDNumber:String 用户身份证号码
-* @param phone:String 用户手机号
-* @param code:String 短信验证码
-* @param inviteCode:String 邀请码
-* */
-Mock.mock(AppConfig.ApiConfig.acceptInvite,{
-    'status':0
+ * 接受邀请
+ * @param name:String 用户实名姓名
+ * @param IDNumber:String 用户身份证号码
+ * @param phone:String 用户手机号
+ * @param code:String 短信验证码
+ * @param inviteCode:String 邀请码
+ * */
+Mock.mock(AppConfig.ApiConfig.acceptInvite, {
+    'status': 0
 });
 
 /*
@@ -74,9 +75,9 @@ Mock.mock(AppConfig.ApiConfig.managerLogin, {
 });
 
 /*
-* 密钥登陆
-* */
-Mock.mock(AppConfig.ApiConfig.autoLogin,{
+ * 密钥登陆
+ * */
+Mock.mock(AppConfig.ApiConfig.autoLogin, {
     'status': 0,
     'data': {
         id: '72cf0b3c-6db0-4c09-99bc-7d99afed961b', /*用户Id*/
@@ -99,7 +100,7 @@ Mock.mock(AppConfig.ApiConfig.autoLogin,{
         totalScore: 8000, /*总分*/
         level: 1, /*会员级别:1：普通会员 2:高级会员 3:堂主*/
         range: 1, /*积分排名*/
-        token:'2324'
+        token: '2324'
     }
 });
 
@@ -123,6 +124,7 @@ Mock.mock(AppConfig.ApiConfig.login, {
         birthday: '', /*生日*/
         provinceValues: [1, 1, 2], /*省市区值*/
         provinceLabel: "北京市北京市东城区",
+        isBind: 0,
         address: '光谷资本大厦', /*联系地址*/
         name: '陈玲', /*真实姓名*/
         IDNumber: '', /*身份证号*/
@@ -136,7 +138,7 @@ Mock.mock(AppConfig.ApiConfig.login, {
         totalScore: 8000, /*总分*/
         level: 1, /*会员级别:1：普通会员 2:高级会员 3:堂主*/
         range: 1, /*积分排名*/
-        token:'2324'
+        token: '2324'
     }
 });
 
@@ -4128,7 +4130,7 @@ Mock.mock(AppConfig.ApiConfig.getMyActivity, {
             address: '张之洞路窑洞之王',
             code: 'eF3efd',
             shortCode: '3erfd',
-            status:1,
+            status: 1,
             isComplete: 1
         },
         {
@@ -4139,7 +4141,7 @@ Mock.mock(AppConfig.ApiConfig.getMyActivity, {
             address: '汉阳大道雾里吞',
             code: 'eF3efd',
             shortCode: '3erfd',
-            status:2,
+            status: 2,
             isComplete: 0
         },
         {
@@ -4150,7 +4152,7 @@ Mock.mock(AppConfig.ApiConfig.getMyActivity, {
             address: '光谷大道中山公园',
             code: 'eF3efd',
             shortCode: '3erfd',
-            status:-1,
+            status: -1,
             isComplete: 1
         }
     ]
@@ -4168,13 +4170,15 @@ Mock.mock(AppConfig.ApiConfig.getAllActivity, {
             title: '纪念逝去的杀马特',
             imageUrl: 'http://joyiou.oss-cn-shanghai.aliyuncs.com/mp3/%E5%85%BB%E6%81%AF%E5%A0%82%E5%89%8D%E5%8E%85.jpg',
             activeTime: '2016/11/08 00:00:00',
+            isFull: 0,
             address: '张之洞路张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王张之洞路窑洞之王窑洞之王'
         },
         {
             id: '2',
-            title: '活在我们心中的雷锋哥哥',
+            title: '活在我们心中的雷锋哥哥哥哥哥',
             imageUrl: 'http://joyiou.oss-cn-shanghai.aliyuncs.com/userimage/503432961722898520.jpg',
             activeTime: '2016/11/08 00:00:00',
+            isFull: 1,
             address: '汉阳大道雾里吞'
         },
         {
@@ -4182,6 +4186,7 @@ Mock.mock(AppConfig.ApiConfig.getAllActivity, {
             title: '咱们屯里的人纪念发布会',
             imageUrl: 'http://joyiou.oss-cn-shanghai.aliyuncs.com/userimage/46163683726841720.jpg',
             activeTime: '2016/11/08 00:00:00',
+            isFull: 0,
             address: '光谷大道中山公园'
         }
     ]
@@ -4194,7 +4199,7 @@ Mock.mock(AppConfig.ApiConfig.getLife, {
         title: "十五分钟静坐",
         text: "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空波罗蜜多时，照见五蕴皆空度一切苦厄。<br/>舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。<br/>舍利子，是诸法空相，不生不灭，不垢不净，不增不减。<br/>是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。<br/>无苦集灭道，无智亦无得。<br/>以无所得故。菩提萨埵，依般若波罗蜜多故，心无挂碍。<br/>无挂碍故，无有恐怖，远离颠倒梦想，究竟涅盘。<br/>三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。<br/>",
         integral: 120,
-        token:'xx76458854h',
+        token: 'xx76458854h',
         isOpen: 0,
         audios: [
             "http://xyhd.oss-cn-shenzhen.aliyuncs.com/mp3/%EC%8B%AC%EC%BF%B5%20(%E5%BF%83%E5%8A%A8)%20-%20%EB%B0%95%EB%B3%B4%EB%9E%8C%20(%E6%9C%B4%E5%AE%9D%E8%93%9D).mp3",

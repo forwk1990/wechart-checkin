@@ -34,11 +34,11 @@ let theme = {
     "@font-size-caption": "35px",
     "@font-size-popup-title": "32px",
     "@font-size-popup-selected": "40px",
-    "@input-color-icon": "#fff"
+    "@input-color-icon": "#fff",
+    "@tabs-color":"#FAB631"
 };
 
 const lessLoader = 'style!css!postcss!less?{"modifyVars":' + JSON.stringify(theme) + '}';
-
 const px2rem = require('postcss-pxtorem');
 const px2remOpts = {
     rootValue: 100,
@@ -48,6 +48,7 @@ const px2remOpts = {
 // const host = "192.168.2.112"; // 家用
 // const host = "192.168.2.112/~itachi"; // 家用
 const host = "www.joyiou.com"; // 公司
+const serverRelativeFolder = 'swx';
 
 module.exports = {
     // devtool: 'source-map',
@@ -64,7 +65,7 @@ module.exports = {
          * */
         path: path.join(__dirname, 'dist'),
         filename: 'javascripts/index.js',
-        publicPath: "http://" + host + "/wx/"
+        publicPath: "http://" + host + `/${serverRelativeFolder}/`
     },
 
     resolve: {
@@ -119,6 +120,7 @@ module.exports = {
             template: 'template/index.template.html',      //按照此文件内容生成index.html
             inject: 'body',
             minify: false,
+            favicon:path.resolve('app/assets/images/favicon.ico'),
             hash: true,
             cache: false,
             showErrors: false
@@ -142,6 +144,7 @@ module.exports = {
         new webpack.DefinePlugin({
             __DEV__: 'false',
             __SERVER_URL__: JSON.stringify(host),
+            __SERVER_RELATIVE_FOLDER: JSON.stringify(serverRelativeFolder),
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
         })
     ],

@@ -3,6 +3,7 @@ import React from 'react';
 import QRCode from 'qrcode.react';
 import './vipTicket.scss';
 import DataStore from 'DataStore'
+import {WxManager} from 'Utils'
 import {connect} from 'react-redux';
 
 class VipTicket extends React.Component {
@@ -27,9 +28,10 @@ class VipTicket extends React.Component {
         DataStore.generateInviteCode({id:self.props.id}).then(function (responseObject) {
             if(responseObject.code){
                 self.setState({code:responseObject.code});
-            }else{
-
-            }
+                wx && wx.ready(function () {
+                    WxManager.shareAllWithOption({title:"喜悦邀请函",desc:`${encodeURI(self.props.name)}邀请您成为喜悦高级会员`,link:`${window.location.origin}${window.location.pathname}#/vipInvite/${encodeURI(self.props.name)}/${responseObject.code}`})
+                })
+            }else{}
         });
     }
 
@@ -68,14 +70,12 @@ class VipTicket extends React.Component {
                         <div className="vip-ticket-sicircle-bottom-right"></div>
                     </div>
                     <div className="vip-ticket-card-bottom">
-                        <div className="big">截图此页面发送给朋友</div>
-                        <div className="small">您可以 截图 选择朋友 发送图片</div>
+                        <div className="big">您可以将此页面分享给您的好友</div>
                     </div>
                 </div>
             </div>
         );
     }
-
 }
 
 const mapStateToProps = (state) => {

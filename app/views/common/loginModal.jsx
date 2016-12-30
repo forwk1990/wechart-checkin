@@ -37,7 +37,8 @@ class LoginModal extends React.Component {
             return;
         }
         self.setState({isLanding: true});
-        self.login({phone: phone, code: code});
+        const queryParameters = QueryString.parse(location.search);
+        self.login({phone: phone, code: code, wxCode: queryParameters.code});
     }
 
     login(parameters, isStop) {
@@ -59,16 +60,16 @@ class LoginModal extends React.Component {
         if (this.props.onClose) this.props.onClose();
     }
 
-    handleVerifyCode(){
+    handleVerifyCode() {
         const phone = this.refs['phone'].value;
         if (!phone) {
             MessageBox.show("请输入手机号");
             return;
         }
         // 获取手机验证码
-        DataStore.getVerifyCode({phone: phone,type:1}).then(function () {
+        DataStore.getVerifyCode({phone: phone, type: 1}).then(function () {
             console.info("get verify code success");
-        },function (error) {
+        }, function (error) {
             console.info(error);
         });
     }
@@ -99,7 +100,7 @@ class LoginModal extends React.Component {
                         <div className="login-modal-content-edit-row">
                             <div className="left-label">短信验证码</div>
                             <input type="tel" name="code" ref="code"/>
-                            <CountDown text="点击获取" stop={this.state.isStop}  onClick={() => this.handleVerifyCode()}/>
+                            <CountDown text="点击获取" stop={this.state.isStop} onClick={() => this.handleVerifyCode()}/>
                         </div>
                         <LoadingButton text="登陆" loadingText="正在为您登陆..." status={this.state.isLanding}
                                        onClick={() => this.handleLogin()}/>

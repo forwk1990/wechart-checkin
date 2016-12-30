@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import LoadingButton from 'loadingButton';
 import './myActivity.scss';
 import ActivityCell from 'activityCell';
+import {WxManager} from 'Utils'
 
 class NoActivity extends React.Component{
 
@@ -53,6 +54,7 @@ class MyActivity extends React.Component {
         }else{
             DataStore.getMyActivity({id: this.props.id}).then(function (responseObject) {
                 self.setState({activities: responseObject,isRequest: false});
+                WxManager.shareAllWithOption({title: "活动列表", desc: `喜悦活动列表`,link:`${window.location.origin}/wx/index.jsp#/activity`})
             },function(){
                 self.setState({isRequest: false});
             });
