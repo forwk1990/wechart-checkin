@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import './sysIndex.scss';
 import DataStore from 'DataStore'
 import {MessageBox,WxManager} from 'Utils';
+import QRCodeModal from 'QRCodeModal'
 import ActionTypes from 'constants/ActionTypes';
 
 class SysIndex extends React.Component {

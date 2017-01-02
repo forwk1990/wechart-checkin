@@ -61,7 +61,8 @@ class Login extends React.Component {
             MessageBox.show("手机号格式不正确");
             return;
         }
-        this.login({phone: _phone, password: md5(_password)});
+        const queryParameters = QueryString.parse(location.search);
+        this.login({phone: _phone, password: md5(_password), wxCode: queryParameters.code});
     }
 
     login(parameters, isStop) {

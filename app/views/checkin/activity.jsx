@@ -34,7 +34,8 @@ class Activity extends React.Component {
         self.setState({isRequest: true});
         document.setTitle("线下活动");
         DataStore.getAllActivity({}).then(function (responseObject) {
-            self.setState({activities: responseObject,isRequest: false});
+            self.setState({isRequest: false});
+            self.setState({activities: responseObject});
             WxManager.shareAllWithOption(WxManager.offlineShareOptions())
         },function () {
             self.setState({isRequest: false});

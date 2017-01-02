@@ -87,7 +87,9 @@ var Config =  {
         /*
         * 登陆
         * */
-        login:_getFullUrlFromRelative("UserServer","login"),
+        // login:_getFullUrlFromRelative("heartjoyiou/UserServer","login"),
+
+        login:`http://${__SERVER_URL__}/heartjoyiou/services/UserServer/login`,
 
         /*
         * 获取活动群二维码
@@ -97,7 +99,9 @@ var Config =  {
         /*
         * 自动登录
         * */
-        autoLogin:_getFullUrlFromRelative("UserServer","autoLogin"),
+        //autoLogin:_getFullUrlFromRelative("heartjoyiou/UserServer","autoLogin"),
+
+        autoLogin:`http://${__SERVER_URL__}/heartjoyiou/services/UserServer/autoLogin`,
 
         /*
         * 配置微信
