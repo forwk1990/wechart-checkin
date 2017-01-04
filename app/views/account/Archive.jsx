@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import DataStore from 'DataStore';
 import QRCodeModal from 'QRCodeModal'
 import ActionTypes from 'constants/ActionTypes';
-import QRCodeModal from 'QRCodeModal'
 import {MessageBox, WxManager} from 'Utils';
 import {Vip} from 'Utils';
 import './Archive.scss';

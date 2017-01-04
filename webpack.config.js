@@ -108,6 +108,7 @@ module.exports = {
 
         //new webpack.HotModuleReplacementPlugin(),
         // 提取公共部分资源
+
         new webpack.optimize.CommonsChunkPlugin({
             // 与 entry 中的 vendors 对应
             name: ['react', 'libs'],

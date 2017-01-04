@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {MessageBox, Validator, WxManager} from 'Utils';
 import LoginModal from 'LoginModal';
 import QRCodeModal from 'QRCodeModal'
+import 'audio.js'
 
 
 class Clock extends React.Component {
@@ -13,14 +14,15 @@ class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeInterval: props.time * 60 * 1000,
-            // timeInterval: 0.5 * 60 * 1000,
+            // timeInterval: props.time * 60 * 1000,
+            timeInterval: 0.2 * 60 * 1000,
             isStart: false,
             isShowMessage: false
         };
         this.isTimerStart = false;
         this.isNotify = false;
         this.interval = null;
+        this.mp3 = null;
     }
 
     componentDidMount() {
@@ -34,24 +36,22 @@ class Clock extends React.Component {
      * 配置网易音乐
      * */
     configNejAudio() {
-        if (this.props.audios.length < 1)return;
+        if (this.props.audios.length < 1)return
+        const self = this
         var f = function () {
             var _ = NEJ.P,
                 _u = _('nej.ui'),
-                __playList = [this.props.audios[0]];
-            var page = {
-                _$init: function () {
-                    var _mp3 = _u._$$MP3Player._$allocate({
-                        parent: 'box',
-                        mode: 0,
-                        autostart: 0,
-                        list: __playList
-                    });
-                }
-            }
-            page._$init();
+                __playList = [self.props.audios[0]];
+            var _mp3 = _u._$$MP3Player._$allocate({
+                parent: 'box',
+                mode: 0,
+                autostart: 0,
+                list: __playList,
+                connectedPlayElement: 'play-or-pause'
+            });
+            this.mp3 = _mp3;
         };
-        define(['{lib}ui/audio/mp3.js'], f);
+        NEJ.define(['{joy}ui/audio/mp3.js'], f);
     }
 
     /*
@@ -90,11 +90,11 @@ class Clock extends React.Component {
             }
             if (musicDegTotal >= 360) {
                 clearInterval(self.interval);
-                // self.playMusicToggle(true);
-                //self.playAlarm();
+                // NEJ.P('nej.v')._$dispatchEvent('play-or-pause','click');
             }
         }, funcInterval);
     }
+
 
     /*
      * 将给定选择器对应的DOM元素转动指定角度
@@ -141,7 +141,6 @@ class Clock extends React.Component {
             this.startRotate(15);
             this.isTimerStart = true;
         }
-        this.playMusicToggle(isStart);
     }
 
     playMusicToggle(isStart) {
@@ -212,20 +211,16 @@ class Clock extends React.Component {
                     <div className="life-clock-pie-container-progress-right"></div>
                     <div className="life-clock-pie-container-progress-left"></div>
                 </div>
-                {do{
-                    if(!this.state.isShowMessage){
-                    (<div className="life-clock-start-pause" onClick={ () => this.handleClick()}>
-                    {
-                        this.state.isStart ? (<div className="pause"></div>)
-                            : (<div className="start"></div>)
-                    }
-                    </div>)
-                }else{
-                    (<div className="life-clock-message">本次正念活动结束</div>)
+                {
+                    this.state.isShowMessage ? (<div className="life-clock-message">本次正念活动结束</div>) : (
+                        <div className="life-clock-start-pause" id='play-or-pause' onClick={ () => this.handleClick()}>
+                            {
+                                this.state.isStart ? (<div className="pause"></div>)
+                                    : (<div className="start"></div>)
+                            }
+                            <div id="box"></div>
+                        </div>)
                 }
-                }
-                }
-                <div id="box"></div>
             </div>
         );
     }
@@ -264,7 +259,7 @@ class Life extends React.Component {
             annouce: "",
             text: "",
             visible: false,
-            qrVisible:false,
+            qrVisible: false,
             stop: 0,
             integral: '--'
         };

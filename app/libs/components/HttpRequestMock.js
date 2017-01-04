@@ -4204,8 +4204,7 @@ Mock.mock(AppConfig.ApiConfig.getLife, {
         token: 'xx76458854h',
         isOpen: 0,
         audios: [
-            "http://xyhd.oss-cn-shenzhen.aliyuncs.com/mp3/%EC%8B%AC%EC%BF%B5%20(%E5%BF%83%E5%8A%A8)%20-%20%EB%B0%95%EB%B3%B4%EB%9E%8C%20(%E6%9C%B4%E5%AE%9D%E8%93%9D).mp3",
-            "http://xyhd.oss-cn-shenzhen.aliyuncs.com/mp3/%E9%97%B9%E9%92%9F%E9%9F%B3%E6%95%88.mp3"
+            'http://joyiou.oss-cn-shanghai.aliyuncs.com/mp3/%E5%9D%90-%E6%89%8B%E6%9C%BA%E7%89%88.mp3'
         ]
     }
 });

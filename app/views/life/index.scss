@@ -70,6 +70,10 @@ $musicFlag:78px;
   box-sizing: border-box;
   background-color: #0d0d0d;
 
+  #box{
+    display:none;
+  }
+
   &-audio {
     //display:none;
   }
