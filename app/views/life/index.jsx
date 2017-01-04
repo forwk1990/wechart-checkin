@@ -25,6 +25,32 @@ class Clock extends React.Component {
     componentDidMount() {
         const height = $(document).height();
         $(".life-clock").height(height);
+        // 配置网易云音乐
+        this.configNejAudio()
+    }
+
+    /*
+     * 配置网易音乐
+     * */
+    configNejAudio() {
+        if (this.props.audios.length < 1)return;
+        var f = function () {
+            var _ = NEJ.P,
+                _u = _('nej.ui'),
+                __playList = [this.props.audios[0]];
+            var page = {
+                _$init: function () {
+                    var _mp3 = _u._$$MP3Player._$allocate({
+                        parent: 'box',
+                        mode: 0,
+                        autostart: 0,
+                        list: __playList
+                    });
+                }
+            }
+            page._$init();
+        };
+        define(['{lib}ui/audio/mp3.js'], f);
     }
 
     /*
@@ -198,19 +224,7 @@ class Clock extends React.Component {
                 }
                 }
                 }
-                {
-                    !this.state.isShowMessage && this.props.audios.map(function (audio, index) {
-                        return (
-                            <div className="life-clock-audio" key={index}>
-                                <audio id={`life-audio-${index}`} ref={`life-audio-${index}`}
-                                       loop={index == self.props.audios.length - 1 ? false : true}>
-                                    Your browser does not support the <code>audio</code> element.
-                                    <source src={audio}/>
-                                </audio>
-                            </div>
-                        )
-                    })
-                }
+                <div id="box"></div>
             </div>
         );
     }
