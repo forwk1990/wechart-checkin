@@ -5,6 +5,7 @@ import DataStore from 'DataStore'
 import {connect} from 'react-redux';
 import {MessageBox, Validator, WxManager} from 'Utils';
 import LoginModal from 'LoginModal';
+import QRCodeModal from 'QRCodeModal'
 
 
 class Clock extends React.Component {
@@ -263,6 +264,7 @@ class Life extends React.Component {
             annouce: "",
             text: "",
             visible: false,
+            qrVisible:false,
             stop: 0,
             integral: '--'
         };
@@ -286,7 +288,7 @@ class Life extends React.Component {
         }, function (error) {
             MessageBox.show(error.message);
         });
-        if (!this.props.openId) this.setState({visible: true})
+        if (!this.props.openId) this.setState({qrVisible: true})
     }
 
     componentWillMount() {
@@ -313,6 +315,12 @@ class Life extends React.Component {
     onClose() {
         this.setState({
             visible: false,
+        });
+    }
+
+    onQrClose() {
+        this.setState({
+            qrVisible: false,
         });
     }
 
@@ -349,6 +357,7 @@ class Life extends React.Component {
                     </Carousel>
                 </div>
                 {this.state.visible && (<LoginModal onClose={() => this.onClose()}/>)}
+                {this.state.qrVisible && (<QRCodeModal onClose={() => this.onQrClose()}/>)}
             </div>
         );
     }
