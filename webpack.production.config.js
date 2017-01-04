@@ -126,7 +126,6 @@ module.exports = {
             showErrors: false
         }),
 
-
         // 代码压缩
         new webpack.optimize.UglifyJsPlugin({
             test: /(\.jsx|\.js)$/,
@@ -144,6 +143,7 @@ module.exports = {
         new webpack.DefinePlugin({
             __DEV__: 'false',
             __SERVER_URL__: JSON.stringify(host),
+            __IS_SERVER_MODE:'true', //是否服务号模式。
             __SERVER_RELATIVE_FOLDER: JSON.stringify(serverRelativeFolder),
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
         })

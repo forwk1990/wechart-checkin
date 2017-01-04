@@ -71,11 +71,11 @@ class Login extends React.Component {
             if (isStop) self.setState({isStop: true});
             self.setState({isLanding: false});
             self.props.dispatch({type: ActionTypes.login, responseObject});
-            if (self.props.params.returnPage) {
+ /*           if (self.props.params.returnPage) {
                 self.context.router.replace(`mine/${self.props.params.returnPage}`);
             } else {
                 self.context.router.replace('mine/archive');
-            }
+            }*/
         }, function (error) {
             self.setState({isLanding: false});
             MessageBox.show(error.message);

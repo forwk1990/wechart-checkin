@@ -4,7 +4,7 @@ import LoadingButton from 'loadingButton';
 import {MessageBox, Validator} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
-import './modifyId.scss'
+import './ModifyId.scss'
 
 class ModifyId extends React.Component {
 

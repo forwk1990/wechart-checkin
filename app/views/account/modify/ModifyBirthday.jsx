@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import {Picker} from 'antd-mobile';
-import './modifyBirthday.scss'
+import './ModifyBirthday.scss'
 import {MessageBox} from 'Utils';
 import LoadingButton from 'loadingButton';
 import DataStore from 'DataStore';
@@ -97,7 +97,7 @@ class ModifyBirthday extends React.Component {
                             !this.state.hasInitialValue ? (<div className="extra"></div>) : (<div
                                 className="extra">{`${this.state.monthDate[0]}-${this.formatValueWithZero(this.state.monthDate[1])}-${this.formatValueWithZero(this.state.monthDate[2])}`}</div>)
                         }
-                        <img src={require("../../assets/images/arrow_right.png")}/>
+                        <img src={require("arrow_right")}/>
                     </div>
                 </Picker>
                 <LoadingButton text="保存" loadingText="正在为您保存..." status={this.state.isSaving}

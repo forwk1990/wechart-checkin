@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux';
 import LoadingButton from 'loadingButton';
 import CountDown from 'countDown';
-import './modifyPhoneConfirm.scss'
+import './ModifyPhoneConfirm.scss'
 import {hashHistory} from 'react-router';
 import {MessageBox, Validator} from 'Utils';
 import DataStore from 'DataStore';

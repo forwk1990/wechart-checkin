@@ -2,9 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
+import QRCodeModal from 'QRCodeModal'
 import {MessageBox, WxManager} from 'Utils';
 import {Vip} from 'Utils';
-import './archive.scss';
+import './Archive.scss';
 import TableCell from 'tableCell';
 
 
@@ -16,16 +17,11 @@ class Archive extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.id) {
-            this.context.router.push(`login/${"archive"}`);
-        } else {
-            document.setTitle("我的喜悦");
-            if (!this.props.openId) this.setState({visible: true})
-            wx && wx.ready(function () {
-                WxManager.shareAllWithOption(WxManager.archiveShareOptions())
-            })
-            return;
-        }
+        document.setTitle("我的喜悦");
+        if (!this.props.openId) this.setState({visible: true})
+        wx && wx.ready(function () {
+            WxManager.shareAllWithOption(WxManager.archiveShareOptions())
+        })
     }
 
     onClose() {
@@ -105,7 +101,7 @@ class Archive extends React.Component {
                 </div>
                 <div className="profile-banner"></div>
                 <div className="profile-list">
-                    <TableCell imageUrl={require("我的资料")} title="我的资料" m
+                    <TableCell imageUrl={require("我的资料")} title="我的资料"
                                extra="" onClick={() => this.handleNavigate("mine/profile")}/>
                     <TableCell imageUrl={require("我的活动")} title="我的活动"
                                extra="" onClick={() => this.handleNavigate("mine/activity")}/>

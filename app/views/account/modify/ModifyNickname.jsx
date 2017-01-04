@@ -1,5 +1,5 @@
 import React from 'react'
-import './modifyNickname.scss'
+import './ModifyNickname.scss'
 import {connect} from 'react-redux';
 import LoadingButton from 'loadingButton';
 import {MessageBox} from 'Utils';

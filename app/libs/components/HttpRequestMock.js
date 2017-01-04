@@ -4118,9 +4118,11 @@ Mock.mock(AppConfig.ApiConfig.getProvince, {
 
 /*
  * 获取喜悦活动
+ * @param id:String 用户ID
+ * @param type:Int 类型 1:参与中 -1:历史活动
  * */
 Mock.mock(AppConfig.ApiConfig.getMyActivity, {
-    'status': 0,
+    'status': -1,
     'data': [
         {
             id: '1',

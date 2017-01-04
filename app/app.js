@@ -37,7 +37,6 @@ class App extends React.Component {
      * */
     componentDidMount() {
 
-        //WxManager.shareAll("这是测试的东西",'不知道可不可以',window.location.href,require('喜宝100'));
         const self = this;
         // if (!WxManager.isWx()) {
         //     this.context.router.push(`wxOnly`);

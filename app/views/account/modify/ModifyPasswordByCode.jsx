@@ -2,12 +2,13 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import LoadingButton from 'loadingButton';
-import './modifyPasswordConfirm.scss'
+import './ModifyPasswordByCode.scss'
 import {MessageBox, Validator} from 'Utils';
 import DataStore from 'DataStore';
+import {hashHistory} from 'react-router';
 import ActionTypes from 'constants/ActionTypes';
 
-class ModifyPasswordConfirm extends React.Component{
+class ModifyPasswordByCode extends React.Component{
 
     constructor(props){
         super(props);
@@ -18,14 +19,14 @@ class ModifyPasswordConfirm extends React.Component{
 
     handleSave(){
         const self = this;
-        let password = this.refs["password"].value;
+        let password = this.refs["newPassword"].value;
         let confirmPassword = this.refs["confirmPassword"].value;
         if (!password) {
             MessageBox.show("请输入登陆密码");
             return;
         }
         if (!confirmPassword) {
-            MessageBox.show("请确认登陆密码");
+            MessageBox.show("请确认支付密码");
             return;
         }
         if (password != confirmPassword) {
@@ -36,9 +37,10 @@ class ModifyPasswordConfirm extends React.Component{
         DataStore.modifyPassword({password: md5(confirmPassword),id:self.props.id}).then(function () {
             self.setState({isSaving: false});
             self.props.dispatch({type: ActionTypes.modifyPassword,password:md5(confirmPassword)});
-            self.context.router.goBack();
-        }, function () {
+            hashHistory.go(-2);
+        }, function (error) {
             self.setState({isSaving: false});
+            MessageBox.show(error.message);
         });
     }
 
@@ -52,8 +54,8 @@ class ModifyPasswordConfirm extends React.Component{
                     <div className="title">登陆密码</div>
                 </div>
                 <div className="modify-password-code-input-base">
-                    <div className="label">登陆密码</div>
-                    <input type="password" ref="password" />
+                    <div className="label">新密码</div>
+                    <input type="password" ref="newPassword" />
                 </div>
                 <div className="modify-password-code-input-base">
                     <div className="label">再次输入</div>
@@ -66,7 +68,7 @@ class ModifyPasswordConfirm extends React.Component{
     }
 }
 
-ModifyPasswordConfirm.contextTypes = {
+ModifyPasswordByCode.contextTypes = {
     router: React.PropTypes.object
 }
 
@@ -76,4 +78,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ModifyPasswordConfirm);
+export default connect(mapStateToProps)(ModifyPasswordByCode);

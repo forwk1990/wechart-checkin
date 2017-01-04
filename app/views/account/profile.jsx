@@ -37,12 +37,7 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.id) {
-            this.context.router.push(`login/${"profile"}`);
-        } else {
-            document.setTitle("我的资料");
-            return;
-        }
+        document.setTitle("我的资料");
     }
 
 

@@ -2,7 +2,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import LoadingButton from 'loadingButton';
-import './modifyPhone.scss'
+import './ModifyPhone.scss'
 
 class ModifyPhone extends React.Component{
 

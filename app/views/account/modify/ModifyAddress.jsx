@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux';
 import {Picker} from 'antd-mobile';
 import LoadingButton from 'loadingButton';
-import './modifyAddress.scss'
+import './ModifyAddress.scss'
 import {MessageBox, Validator} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
@@ -3852,8 +3852,9 @@ class ModifyAddress extends React.Component {
                 provinceLabel: provinceLabel
             });
             self.context.router.goBack();
-        }, function () {
-            self.setState({isSaving: false});
+        }, function (error) {
+            self.setState({isSaving: false})
+            MessageBox.show(error.message)
         });
     }
 
@@ -3874,7 +3875,7 @@ class ModifyAddress extends React.Component {
                             !this.state.initialValue ? (<div className="extra"></div>) : (
                                 <div className="extra">{this.state.initialValue}</div>)
                         }
-                        <img src={require("../../assets/images/arrow_right.png")}/>
+                        <img src={require("arrow_right")}/>
                     </div>
                 </Picker>
                 <div className="modify-address-input-base">

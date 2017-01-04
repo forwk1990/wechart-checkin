@@ -300,22 +300,17 @@ class MyIntegralInner extends React.Component {
     }
 
     componentDidMount() {
-        console.log("this:",this);
         const self = this;
-        if (!this.props.id) {
-            this.context.router.push(`login/${"archive"}`);
-        } else {
-            document.setTitle("我的能量");
-            this.setState({isRequest: true});
-            DataStore.getIntegralOrder({pageIndex: 0, pageSize: 5}).then(function (responseObject) {
-                self.setState({integrals: responseObject, isRequest: false});
-                //WxManager.shareAllWithOption(WxManager.integralOrderShareOptions())
-                self.drawPie();
-            },function(error){
-                MessageBox.show(error.message)
-                this.setState({isRequest: false});
-            });
-        }
+        document.setTitle("我的能量");
+        this.setState({isRequest: true});
+        DataStore.getIntegralOrder({pageIndex: 0, pageSize: 5}).then(function (responseObject) {
+            self.setState({integrals: responseObject, isRequest: false});
+            //WxManager.shareAllWithOption(WxManager.integralOrderShareOptions())
+            self.drawPie();
+        },function(error){
+            MessageBox.show(error.message)
+            this.setState({isRequest: false});
+        });
     }
 
     drawPie() {

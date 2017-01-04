@@ -2,7 +2,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import LoadingButton from 'loadingButton';
-import './modifyWechart.scss'
+import './ModifyWechart.scss'
 import {MessageBox} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';

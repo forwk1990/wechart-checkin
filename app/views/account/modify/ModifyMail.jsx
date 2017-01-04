@@ -2,7 +2,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import LoadingButton from 'loadingButton';
-import './modifyMail.scss'
+import './ModifyMail.scss'
 import {MessageBox,Validator} from 'Utils';
 import DataStore from 'DataStore';
 import ActionTypes from 'constants/ActionTypes';
